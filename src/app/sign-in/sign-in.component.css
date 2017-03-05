@@ -1,0 +1,33 @@
+#username {
+  margin: 0 auto;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+#password {
+  margin: 0 auto;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+#login {
+  background: yellow;
+  margin: 0 auto;
+  min-width: 400px;
+  max-width: 400px;
+}
+
+#container {
+  position: absolute;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%,50%);
+}
+
+#alert, #success {
+  position: absolute;
+  right:5%;
+  bottom:5%;
+  width: 90%;
+  margin: 0 auto;
+}
