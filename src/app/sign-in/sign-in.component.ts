@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
+import {UserService} from "../user.service";
 
 @Component({
   selector: 'sign-in',
@@ -17,10 +18,10 @@ export class SignInComponent implements OnInit {
     password: 'password'
   };
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   logIn(form: NgForm) {
-
+    this.userService.signIn('','');
   }
 
   displayRedAlert() {

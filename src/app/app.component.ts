@@ -1,16 +1,25 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
+import { UserService } from "./user.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'es-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  private tabs = ['Tab1', 'Tab2', 'Tab3'];
+export class AppComponent implements OnDestroy {
+  private tabs = ['Events', 'Login'];
   private currentIndex = 0;
+  private subscription: Subscription;
 
-  constructor() {
-
+  constructor(private userService: UserService) {
+    this.subscription = userService.events.subscribe((value) => {
+      if (value) {
+        this.tabs = ['Home', 'Events', 'User'];
+      } else {
+        this.tabs = ['Events', 'Login'];
+      }
+    });
   }
 
   isActive(index: number) {
@@ -19,6 +28,10 @@ export class AppComponent {
 
   onTabChange(newIndex: number) {
     this.currentIndex = newIndex;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 
