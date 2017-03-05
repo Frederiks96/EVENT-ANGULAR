@@ -1,3 +1,9 @@
-<h1>
-  {{title}}
-</h1>
+<div style="padding: 20px;">
+  <ul class="nav nav-pills">
+    <li *ngFor="let title of tabs; let i = index" role="presentation" [ngClass]="{'active': isActive(i)}" (click)="onTabChange(i)">
+      <a href="#">{{title}}</a>
+    </li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>
