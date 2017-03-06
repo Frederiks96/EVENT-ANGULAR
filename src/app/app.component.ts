@@ -9,15 +9,17 @@ import { Subscription } from "rxjs";
 })
 export class AppComponent implements OnDestroy {
   private tabs = ['Events', 'Login'];
-  private currentIndex = 0;
+  private currentIndex = 1;
   private subscription: Subscription;
 
   constructor(private userService: UserService) {
     this.subscription = userService.events.subscribe((value) => {
       if (value) {
         this.tabs = ['Home', 'Events', 'User'];
+        this.currentIndex = 2;
       } else {
         this.tabs = ['Events', 'Login'];
+        this.currentIndex = 1;
       }
     });
   }
