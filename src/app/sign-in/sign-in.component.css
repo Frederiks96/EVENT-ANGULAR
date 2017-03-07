@@ -1,20 +1,16 @@
-#username {
+#username, #password, #login, #signup {
   margin: 0 auto;
-  min-width: 400px;
-  max-width: 400px;
-}
-
-#password {
-  margin: 0 auto;
-  min-width: 400px;
-  max-width: 400px;
+  min-width: 500px;
+  max-width: 500px;
 }
 
 #login {
   background: yellow;
-  margin: 0 auto;
-  min-width: 400px;
-  max-width: 400px;
+}
+
+#signup {
+  height: 46px;
+  font-size: 18px;
 }
 
 #container {
@@ -30,4 +26,32 @@
   bottom:5%;
   width: 90%;
   margin: 0 auto;
+}
+
+.fancy {
+  line-height: 0.5;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.fancy span {
+  display: inline-block;
+  position: relative;
+}
+.fancy span:before,
+.fancy span:after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  border: 1px solid black;
+  top: 0;
+  width: 200px;
+}
+.fancy span:before {
+  right: 100%;
+  margin-right: 10px;
+}
+.fancy span:after {
+  left: 100%;
+  margin-left: 10px;
 }
