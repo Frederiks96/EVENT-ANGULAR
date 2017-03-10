@@ -27,6 +27,7 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
+    "@angular/cli": "^1.0.0-rc.1",
     "@angular/compiler-cli": "^2.3.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
@@ -43,5 +44,16 @@
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
     "typescript": "~2.0.3"
-  }
+  },
+  "description": "This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.26.",
+  "main": "karma.conf.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Frederiks96/EVENT-ANGULAR.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Frederiks96/EVENT-ANGULAR/issues"
+  },
+  "homepage": "https://github.com/Frederiks96/EVENT-ANGULAR#readme"
 }
