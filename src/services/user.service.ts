@@ -1,6 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
 import {Response} from "@angular/http";
-import {APIService} from "../../services/api.service";
+import {APIService} from "./api.service";
 
 @Injectable()
 export class UserService {

@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { routes } from "./app.routing";
 import {SignInComponent} from "./sign-in/sign-in.component";
-import {UserService} from "./services/user.service";
+import {UserService} from "../services/user.service";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
