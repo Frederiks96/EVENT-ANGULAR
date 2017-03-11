@@ -10,20 +10,22 @@ export class UserService {
 
   constructor(private api : APIService) { }
 
-  signIn(user : any) {
-    this.state = !this.state;
-    this.stateChange.emit(this.state);
+    signIn(user: any)
+    {
+        this.state = !this.state;
+        this.stateChange.emit(this.state);
 
-    this.api.authorize(user,
-      (response : Response) => {
-        console.log('You are now logged in' + response.status);
-      },
-      () =>
-      {
-       console.log('Invalid credentials');
-      }
-    )
-  }
+        this.api.authorize(user,
+            () =>
+            {
+                console.log('You are now logged in');
+            },
+            () =>
+            {
+                console.log('Invalid credentials');
+            }
+        )
+    }
 
   isAuthenticated() {
     return this.state;

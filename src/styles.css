@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+header {
+    width: 100%;
+    background: #EFEFEF;
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+header:after {
+    clear: both;
+    content: '';
+    display: table;
+}
+
+
+#logo {
+    height: 100%;
+    font-size: 28px;
+    font-weight: bold;
+}

@@ -1,15 +1,17 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from "@angular/http";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {forEach} from "@angular/router/src/utils/collection";
+import {Event} from "../app/events/event/event";
 
 @Injectable()
 export class APIService
 {
-    private url: string = 'http://localhost:8080/api/';
+    private TOKEN_STORAGE_KEY = "api-token";
 
-    private tokenKey    : string = "api-auth-token";
-    private tokenValue  : string = null;
-    private tokenExpire : number = 3 * 60; // 3 mins
+    private url   : string = 'http://localhost:8080/api/';
+    private token : string = null;
 
     constructor(private http: Http, private router : Router)
     {
@@ -40,7 +42,7 @@ export class APIService
         );
     }
 
-    public getEvents()
+    public getEvents(callback : (events : Event[]) => void, failure : () => void) : void
     {
         if(!this.validate())
         {
@@ -51,20 +53,66 @@ export class APIService
 
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'X-Auth-Token': this.tokenValue
+                'X-Auth-Token': this.token
             })
 
         });
 
-        observable.subscribe(response => console.log(JSON.parse(response.text())), error => console.error(error));
+        let map = function(response : Response) : void
+        {
+            let events : Event[] = [];
+            let parsed : any = JSON.parse(response.text());
+
+            for(let index : number = 0; index < parsed.count; index++)
+            {
+                let payload = parsed.data[index];
+
+                events[index] = new Event(payload.name, payload.description, new Date(payload.start), new Date(payload.end), payload.place);
+            }
+
+            callback(events);
+        };
+
+        this.execute(observable, map, failure, null);
+    }
+
+    private execute(observable : Observable<Response>, success : (response : Response) => void, failure : (error : Response | any) => void, done? : () => void) : void
+    {
+        let status : number = 0;
+
+        let response = function(response : Response) : void
+        {
+            status = response.status;
+
+            success(response);
+        };
+
+        observable.subscribe(success => response(success), error => failure(error), () =>
+        {
+            /*
+             * Check if the request returned 403 (Forbidden) and remove any saved API token.
+             */
+            if(status == 403)
+            {
+                console.debug('[DEBUG] API call returned 403 (Forbidden). Current API token is invalid.');
+
+                this.destroy();
+            }
+
+            if(done == null)
+            {
+                return;
+            }
+
+            done();
+        });
     }
 
     private validate() : boolean
     {
-        if(this.tokenValue == null)
+        if(this.token == null)
         {
-            this.router.navigate(['/signIn']);
-
+            this.redirect();
             return false;
         }
 
@@ -73,49 +121,37 @@ export class APIService
 
     private setup(response: Response): void
     {
-        this.tokenValue = JSON.parse(response.text()).token;
+        this.token = JSON.parse(response.text()).token;
 
-        let auth = {
-            token:  this.tokenValue,
-            expire: Date.now() + this.tokenExpire * 1000
-        };
-
-        localStorage.setItem(this.tokenKey, JSON.stringify(auth));
+        localStorage.setItem(this.TOKEN_STORAGE_KEY, this.token);
     }
 
     private resume() : void
     {
-        let value = localStorage.getItem(this.tokenKey);
+        let value = localStorage.getItem(this.TOKEN_STORAGE_KEY);
 
         if(value == null)
         {
-            console.debug("[DEBUG] No API session available");
+            console.debug('[DEBUG] No API token available');
             return;
         }
 
-        let auth = JSON.parse(value);
+        this.token = value;
 
-        if(auth.expire < Date.now())
-        {
-            localStorage.removeItem(this.tokenKey);
-
-            console.debug("[DEBUG] API session has expired");
-            return;
-        }
-
-        this.tokenValue = auth.token;
-
-        console.debug("[DEBUG] Resumed API session. Token expires: " + new Date(auth.expire).toLocaleString());
-    }
-
-    private refresh() : void
-    {
-
+        console.debug('[DEBUG] Resumed API token');
     }
 
     private destroy() : void
     {
+        console.debug('[DEBUG] Deleted saved API token.');
 
+        localStorage.removeItem(this.TOKEN_STORAGE_KEY);
+
+        this.redirect();
     }
 
+    private redirect() : void
+    {
+        this.router.navigate(['/signIn']);
+    }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from "./event/event";
+import {APIService} from "../../services/api.service";
 
 @Component({
   selector: 'es-events',
@@ -8,18 +9,25 @@ import { Event } from "./event/event";
 })
 export class EventsComponent implements OnInit {
 
-  events: Event[] = [
+  /*events: Event[] = [
     new Event('My event', 'This is a description', new Date(), new Date(), 'My secret place'),
     new Event('My event 2', 'This is also a description', new Date(), new Date(), 'My other secret place'),
     new Event('My event', 'This is a description', new Date(), new Date(), 'My secret place'),
     new Event('My event 2', 'This is also a description', new Date(), new Date(), 'My other secret place'),
     new Event('My event', 'This is a description', new Date(), new Date(), 'My secret place'),
     new Event('My event 2', 'This is also a description', new Date(), new Date(), 'My other secret place')
-  ];
+  ];*/
 
-  constructor() { }
+  public events : Event[];
 
-  ngOnInit() {
+  constructor(private api : APIService) { }
+
+  ngOnInit()
+  {
+      this.api.getEvents((events : Event[]) =>
+      {
+          this.events = events;
+      }, null);
   }
 
 }
