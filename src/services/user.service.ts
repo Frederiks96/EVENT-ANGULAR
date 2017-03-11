@@ -1,6 +1,6 @@
 import {Injectable, EventEmitter} from '@angular/core';
-import {APIService} from "../services/api.service";
 import {Response} from "@angular/http";
+import {APIService} from "./api.service";
 
 @Injectable()
 export class UserService {
@@ -23,6 +23,10 @@ export class UserService {
        console.log('Invalid credentials');
       }
     )
+  }
+
+  isAuthenticated() {
+    return this.state;
   }
 
   public events: EventEmitter<boolean>  = this.stateChange;

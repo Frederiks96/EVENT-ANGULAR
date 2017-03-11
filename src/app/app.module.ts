@@ -6,13 +6,21 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { routes } from "./app.routing";
 import {SignInComponent} from "./sign-in/sign-in.component";
-import {UserService} from "./user.service";
+import {UserService} from "../services/user.service";
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { EventsComponent } from './events/events.component';
+import { EventComponent } from './events/event/event.component';
 import {APIService} from "../services/api.service";
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent
+    SignInComponent,
+    HeaderComponent,
+    HomeComponent,
+    EventsComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,2 @@
-<div style="padding-top: 10px; padding-right: 120px;">
-  <ul class="nav nav-pills pull-right">
-    <li *ngFor="let title of tabs; let i = index" role="presentation" [ngClass]="{'active': isActive(i)}" (click)="onTabChange(i)">
-      <a href="#" style="padding: 10px 30px 10px 30px;">{{title}}</a>
-    </li>
-  </ul>
-</div>
-
+<es-header></es-header>
 <router-outlet></router-outlet>
