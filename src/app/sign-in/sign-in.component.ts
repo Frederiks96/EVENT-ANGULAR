@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import {UserService} from "../user.service";
+import { UserService } from "../user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'sign-in',
@@ -18,10 +19,16 @@ export class SignInComponent implements OnInit {
     password: 'password'
   };
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) {
+    if (this.userService.isAuthenticated()) {
+      console.log("User is already authenticated, navigating to home");
+      this.router.navigate(['/home']);
+    }
+  }
 
   logIn(form: NgForm) {
     this.userService.signIn('','');
+    this.router.navigate(['/home'])
   }
 
   displayRedAlert() {

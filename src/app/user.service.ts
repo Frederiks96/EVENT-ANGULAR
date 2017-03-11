@@ -13,6 +13,10 @@ export class UserService {
     this.stateChange.emit(this.state);
   }
 
+  isAuthenticated() {
+    return this.state;
+  }
+
   public events: EventEmitter<boolean>  = this.stateChange;
 
 }

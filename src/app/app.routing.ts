@@ -4,7 +4,8 @@ import {ModuleWithProviders} from "@angular/core";
 
 
 const APP_ROUTES: Routes = [
-  { path: '', component: SignInComponent }
+  { path: 'signin', component: SignInComponent },
+  { path: 'home', component: SignInComponent }
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

@@ -1,7 +1,21 @@
 <div style="padding-top: 10px; padding-right: 120px;">
-  <ul class="nav nav-pills pull-right">
-    <li *ngFor="let title of tabs; let i = index" role="presentation" [ngClass]="{'active': isActive(i)}" (click)="onTabChange(i)">
-      <a href="#" style="padding: 10px 30px 10px 30px;">{{title}}</a>
+  <ul class="nav nav-pills pull-right" *ngIf="isAuthenticated()">
+    <li role="presentation" routerLinkActive="active">
+      <a [routerLink]="['/home']" style="padding: 10px 30px 10px 30px;">Home</a>
+    </li>
+    <li role="presentation" routerLinkActive="active">
+      <a [routerLink]="['/events']" style="padding: 10px 30px 10px 30px;">Events</a>
+    </li>
+    <li role="presentation" routerLinkActive="active">
+      <a [routerLink]="['user']" style="padding: 10px 30px 10px 30px;">User</a>
+    </li>
+  </ul>
+  <ul class="nav nav-pills pull-right" *ngIf="!isAuthenticated()">
+    <li role="presentation" routerLinkActive="active">
+      <a [routerLink]="['/events']" style="padding: 10px 30px 10px 30px;">Events</a>
+    </li>
+    <li role="presentation" routerLinkActive="active">
+      <a [routerLink]="['/signin']" style="padding: 10px 30px 10px 30px;">Login</a>
     </li>
   </ul>
 </div>

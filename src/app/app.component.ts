@@ -1,6 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import { UserService } from "./user.service";
 import { Subscription } from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'es-root',
@@ -8,28 +9,23 @@ import { Subscription } from "rxjs";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy {
-  private tabs = ['Events', 'Login'];
-  private currentIndex = 1;
   private subscription: Subscription;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
+    this.router.navigate(['/signin']);
     this.subscription = userService.events.subscribe((value) => {
-      if (value) {
-        this.tabs = ['Home', 'Events', 'User'];
-        this.currentIndex = 2;
+      console.log("Emitted event with value: " + value);
+      if (value == true) {
+        console.log("Value was true");
       } else {
-        this.tabs = ['Events', 'Login'];
-        this.currentIndex = 1;
+        console.log("Value was false, navigating to signin");
+        this.router.navigate(['/']);
       }
     });
   }
 
-  isActive(index: number) {
-    return this.currentIndex == index;
-  }
-
-  onTabChange(newIndex: number) {
-    this.currentIndex = newIndex;
+  isAuthenticated() {
+    return this.userService.isAuthenticated();
   }
 
   ngOnDestroy() {
