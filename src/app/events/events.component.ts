@@ -10,6 +10,10 @@ export class EventsComponent implements OnInit {
 
   events: Event[] = [
     new Event('My event', 'This is a description', new Date(), new Date(), 'My secret place'),
+    new Event('My event 2', 'This is also a description', new Date(), new Date(), 'My other secret place'),
+    new Event('My event', 'This is a description', new Date(), new Date(), 'My secret place'),
+    new Event('My event 2', 'This is also a description', new Date(), new Date(), 'My other secret place'),
+    new Event('My event', 'This is a description', new Date(), new Date(), 'My secret place'),
     new Event('My event 2', 'This is also a description', new Date(), new Date(), 'My other secret place')
   ];
 

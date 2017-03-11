@@ -1,7 +1,4 @@
 #container {
+  width: 100%;
   margin: auto 0px;
-}
-
-es-event {
-  margin-bottom: 2px;
 }
