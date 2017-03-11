@@ -11,7 +11,6 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
 import { EventComponent } from './events/event/event.component';
-import {UserService} from "./user.service";
 import {APIService} from "../services/api.service";
 
 @NgModule({
