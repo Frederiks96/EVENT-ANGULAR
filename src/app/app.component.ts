@@ -13,12 +13,9 @@ export class AppComponent implements OnDestroy {
 
   constructor(private userService: UserService, private router: Router) {
     this.subscription = userService.events.subscribe((value) => {
-      console.log("Emitted event with value: " + value);
       if (value == true) {
-        console.log("Value was true");
         this.router.navigate(['/home']);
       } else {
-        console.log("Value was false, navigating to signin");
         this.router.navigate(['/signin']);
       }
     });

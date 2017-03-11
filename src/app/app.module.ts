@@ -8,12 +8,18 @@ import { routes } from "./app.routing";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {UserService} from "./services/user.service";
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { EventsComponent } from './events/events.component';
+import { EventComponent } from './events/event/event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent,
+    EventsComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule,
