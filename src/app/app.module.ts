@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
 import { EventComponent } from './events/event/event.component';
+import {UserService} from "./user.service";
+import {APIService} from "../services/api.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { EventComponent } from './events/event/event.component';
     HttpModule,
     routes
   ],
-  providers: [UserService],
+  providers: [UserService, APIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
