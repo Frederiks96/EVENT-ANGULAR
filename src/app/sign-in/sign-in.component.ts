@@ -14,14 +14,14 @@ export class SignInComponent implements OnInit {
   private alertMessage = '';
 
   user = {
-    username: 's123456',
-    password: 'password'
+    username: 's153028',
+    password: 'dissys'
   };
 
   constructor(private userService: UserService) { }
 
   logIn(form: NgForm) {
-    this.userService.signIn('','');
+    this.userService.signIn(this.user);
   }
 
   displayRedAlert() {
