@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
-import { UserService } from "../user.service";
+import { UserService } from "../services/user.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -28,7 +28,6 @@ export class SignInComponent implements OnInit {
 
   logIn(form: NgForm) {
     this.userService.signIn('','');
-    this.router.navigate(['/home'])
   }
 
   displayRedAlert() {

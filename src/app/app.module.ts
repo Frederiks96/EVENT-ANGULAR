@@ -6,12 +6,14 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { routes } from "./app.routing";
 import {SignInComponent} from "./sign-in/sign-in.component";
-import {UserService} from "./user.service";
+import {UserService} from "./services/user.service";
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent
+    SignInComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
