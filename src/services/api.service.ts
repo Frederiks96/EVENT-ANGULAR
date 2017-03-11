@@ -7,17 +7,13 @@ export class APIService
 {
     private url: string = 'http://localhost:8080/api/';
 
-    private tokenKey   : string = "api-auth-token";
-    private tokenValue : string = null;
+    private tokenKey    : string = "api-auth-token";
+    private tokenValue  : string = null;
+    private tokenExpire : number = 3 * 60; // 3 mins
 
     constructor(private http: Http, private router : Router)
     {
-        let token = sessionStorage.getItem(this.tokenKey);
-
-        if (token != null)
-        {
-            this.tokenValue = token;
-        }
+        this.resume();
     }
 
     public authorize(user: any, success: (response: Response) => void, failure: (error: Response) => void): void
@@ -79,7 +75,47 @@ export class APIService
     {
         this.tokenValue = JSON.parse(response.text()).token;
 
-        sessionStorage.setItem(this.tokenKey, this.tokenValue);
+        let auth = {
+            token:  this.tokenValue,
+            expire: Date.now() + this.tokenExpire * 1000
+        };
+
+        localStorage.setItem(this.tokenKey, JSON.stringify(auth));
+    }
+
+    private resume() : void
+    {
+        let value = localStorage.getItem(this.tokenKey);
+
+        if(value == null)
+        {
+            console.debug("[DEBUG] No API session available");
+            return;
+        }
+
+        let auth = JSON.parse(value);
+
+        if(auth.expire < Date.now())
+        {
+            localStorage.removeItem(this.tokenKey);
+
+            console.debug("[DEBUG] API session has expired");
+            return;
+        }
+
+        this.tokenValue = auth.token;
+
+        console.debug("[DEBUG] Resumed API session. Token expires: " + new Date(auth.expire).toLocaleString());
+    }
+
+    private refresh() : void
+    {
+
+    }
+
+    private destroy() : void
+    {
+
     }
 
 }
