@@ -4,6 +4,7 @@ export class Event {
               public description: string,
               public start: Date,
               public end: Date,
-              public place: string) {}
+              public address: string,
+              public isPublic: boolean) {}
 
 }
