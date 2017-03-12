@@ -15,6 +15,11 @@
             User
         </a>
     </li>
+    <li role="presentation" routerLinkActive="active">
+        <a [routerLink]="['/eventAdd']" style="padding: 10px 30px 10px 30px;">
+            Add Event
+        </a>
+    </li>
 </ul>
 
 <ul class="nav nav-pills pull-right" *ngIf="!isAuthenticated()">
