@@ -20,7 +20,7 @@ export class APIService
     public authorize(user: any, success: (response: Response) => void, failure: (error: Response) => void): void
     {
         let body = JSON.stringify(user);
-        let observable = this.http.post(this.url + 'users/authorize', body, {
+        let observable = this.http.post(this.url + 'users/authenticate', body, {
 
             headers: new Headers({
                 'Content-Type': 'application/json'
