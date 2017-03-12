@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from "@angular/http";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {forEach} from "@angular/router/src/utils/collection";
 import {Event} from "../app/events/event/event";
 
 @Injectable()
@@ -53,7 +52,7 @@ export class APIService
 
             headers: new Headers({
                 'Content-Type': 'application/json',
-                'X-Auth-Token': this.token
+                'Authorization': 'Bearer ' + this.token
             })
 
         });
@@ -86,6 +85,15 @@ export class APIService
 
             success(response);
         };
+
+        /*
+         * Check if the failure callback is undefined and created
+         * an empty function instead.
+         */
+        if(failure == null)
+        {
+            failure = () => {};
+        }
 
         observable.subscribe(success => response(success), error => failure(error), () =>
         {
@@ -152,6 +160,6 @@ export class APIService
 
     private redirect() : void
     {
-        this.router.navigate(['/signIn']);
+        this.router.navigate(['/signin']);
     }
 }
