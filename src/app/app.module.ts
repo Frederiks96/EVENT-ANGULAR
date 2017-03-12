@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { EventsComponent } from './events/events.component';
 import { EventComponent } from './events/event/event.component';
 import {APIService} from "../services/api.service";
+import { EventAddComponent } from './events/event-add/event-add.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {APIService} from "../services/api.service";
     HeaderComponent,
     HomeComponent,
     EventsComponent,
-    EventComponent
+    EventComponent,
+    EventAddComponent
   ],
   imports: [
     BrowserModule,
