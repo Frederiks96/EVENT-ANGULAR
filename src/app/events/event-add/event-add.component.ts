@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from "@angular/forms";
+import {APIService} from "../../../services/api.service";
 
 @Component({
   selector: 'es-event-add',
@@ -7,13 +8,10 @@ import {NgForm} from "@angular/forms";
 })
 export class EventAddComponent {
 
-    event = {
-        eventName: '',
-        placering: '',
-        start: '',
-        slut: '',
-        isPublic: 'Offentlig'
-    };
+
+    constructor(private api: APIService){}
+
+    private event: Event;
 
     isPublic = [
         'Offentlig',
@@ -22,5 +20,16 @@ export class EventAddComponent {
 
     onSubmit(form: NgForm) {
         console.log(form.value);
+
+        this.api.addEvent(this.event,() =>
+            {
+                console.log('Successfully created event');
+            },
+            () =>
+            {
+                console.log('Failed creation of event');
+            });
+
+
     }
 }

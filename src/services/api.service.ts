@@ -75,6 +75,43 @@ export class APIService
         this.execute(observable, map, failure, null);
     }
 
+
+    public addEvent(event: any,  success: (response: Response) => void, failure: (error: Response) => void): void {
+
+        if(!this.validate())
+        {
+            return;
+        }
+
+        let body = JSON.stringify(event);
+        let observable = this.http.post(this.url + "events", body, {
+
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token
+            })
+
+        });
+
+
+        observable.subscribe(
+            response =>
+            {
+                success(response);
+            },
+            error =>
+            {
+                failure(error);
+            }
+        );
+
+
+
+
+    }
+
+
+
     private execute(observable : Observable<Response>, success : (response : Response) => void, failure : (error : Response | any) => void, done? : () => void) : void
     {
         let status : number = 0;

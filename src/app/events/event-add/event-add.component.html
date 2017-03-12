@@ -1,25 +1,34 @@
 <h1>Opret Event</h1>
 <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
-            <label for="eventName">Event Navn</label>
+            <label for="eventName">Name of event</label>
             <input type="text"
                    class="form-control"
                    id="eventName"
-                   [(ngModel)]="event.eventName"
+                   [(ngModel)]="event.name"
                    name="eventName"
                    required>
         </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text"
+               class="form-control"
+               id="description"
+               [(ngModel)]="event.description"
+               name="description"
+               required>
+    </div>
         <div class="form-group">
-            <label for="placering">Placering</label>
+            <label for="place">Place</label>
             <input type="text"
                    class="form-control"
-                   id="placering"
-                   [(ngModel)]="event.placering"
-                   name="placering"
+                   id="place"
+                   [(ngModel)]="event.place"
+                   name="place"
                    required>
         </div>
     <div class="form-group">
-        <label for="start">start</label>
+        <label for="start">Start</label>
         <input type="date"
                class="form-control"
                id="start"
@@ -28,12 +37,12 @@
                required>
     </div>
     <div class="form-group">
-        <label for="slut">slut</label>
+        <label for="end">End</label>
         <input type="date"
                class="form-control"
-               id="slut"
-               [(ngModel)]="event.slut"
-               name="slut"
+               id="end"
+               [(ngModel)]="event.end"
+               name="end"
                required>
     </div>
     <div class="radio" *ngFor="let g of isPublic">
