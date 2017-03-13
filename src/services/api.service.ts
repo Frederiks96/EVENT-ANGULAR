@@ -9,7 +9,7 @@ export class APIService
 {
     private TOKEN_STORAGE_KEY = "api-token";
 
-    private url   : string = 'http://ubuntu4.javabog.dk:3028/api/';
+    private url   : string = 'http://ubuntu4.javabog.dk:3028/rest/api/';
     private token : string = null;
 
     constructor(private http: Http, private router : Router)
