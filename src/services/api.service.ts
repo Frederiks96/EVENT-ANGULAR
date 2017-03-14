@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers} from "@angular/http";
-import {Router} from "@angular/router";
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from "@angular/http";
+import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
 import { Event } from "../app/events";

@@ -10,7 +10,7 @@ import {APIService} from "../../../services/api.service";
 export class EventEditComponent {
 
 
-    constructor(private api: APIService){}
+    constructor(private api: APIService) {}
 
     event = {
         name: "",
@@ -35,7 +35,6 @@ export class EventEditComponent {
 
         console.log(this.event);
 
-
         this.api.addEvent(this.event,() =>
             {
                 console.log('Successfully created event');
@@ -44,7 +43,6 @@ export class EventEditComponent {
             {
                 console.log('Failed creation of event');
             });
-
 
     }
 
