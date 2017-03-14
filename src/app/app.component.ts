@@ -1,29 +1,13 @@
-import {Component, OnDestroy} from '@angular/core';
-import { UserService } from "../services/user.service";
-import { Subscription } from "rxjs";
-import {Router} from "@angular/router";
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'es-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy {
-  private subscription: Subscription;
+export class AppComponent {
 
-  constructor(private userService: UserService, private router: Router) {
-    this.subscription = userService.events.subscribe((value) => {
-      if (value == true) {
-        this.router.navigate(['/home']);
-      } else {
-        this.router.navigate(['/signin']);
-      }
-    });
+  constructor() {
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
 
 }

@@ -3,6 +3,7 @@ import {Http, Response, Headers} from "@angular/http";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {Event} from "../app/events/event/event";
+import {UserService} from "./user.service";
 
 @Injectable()
 export class APIService
@@ -12,7 +13,9 @@ export class APIService
     private url   : string = 'http://ubuntu4.javabog.dk:3028/rest/api/';
     private token : string = null;
 
-    constructor(private http: Http, private router : Router)
+    private isSignedIn = false;
+
+    constructor(private http: Http, private router : Router, private userService: UserService)
     {
         this.resume();
     }
@@ -36,6 +39,7 @@ export class APIService
             },
             error =>
             {
+                this.isSignedIn = false;
                 failure(error);
             }
         );
@@ -158,10 +162,12 @@ export class APIService
         if(this.token == null)
         {
             this.redirect();
-            return false;
+            return this.isSignedIn;
         }
 
-        return true;
+        this.isSignedIn = true;
+
+        return this.isSignedIn;
     }
 
     private setup(response: Response): void
@@ -169,6 +175,8 @@ export class APIService
         this.token = JSON.parse(response.text()).token;
 
         localStorage.setItem(this.TOKEN_STORAGE_KEY, this.token);
+
+        this.isSignedIn = true;
     }
 
     private resume() : void
@@ -182,6 +190,8 @@ export class APIService
         }
 
         this.token = value;
+
+        this.isSignedIn = true;
 
         console.debug('[DEBUG] Resumed API token');
     }
@@ -197,6 +207,11 @@ export class APIService
 
     private redirect() : void
     {
+        this.isSignedIn = false;
         this.router.navigate(['/signin']);
+    }
+
+    public isAuthenticated() {
+        return this.isSignedIn;
     }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UserService} from "../../services/user.service";
+import { APIService } from "../../services/api.service";
 
 @Component({
   selector: 'es-header',
@@ -8,10 +8,10 @@ import {UserService} from "../../services/user.service";
 })
 export class HeaderComponent {
 
-  constructor(private userService: UserService) { }
+  constructor(private apiService: APIService) { }
 
   isAuthenticated() {
-    return this.userService.isAuthenticated();
+    return this.apiService.isAuthenticated();
   }
 
 }

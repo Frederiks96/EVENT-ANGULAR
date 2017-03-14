@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { UserService } from "../../services/user.service";
 import { Router } from "@angular/router";
+import {APIService} from "../../services/api.service";
 
 @Component({
   selector: 'sign-in',
@@ -19,15 +20,19 @@ export class SignInComponent implements OnInit {
     password: 'dissys'
   };
 
-  constructor(private userService: UserService, private router: Router) {
-    if (this.userService.isAuthenticated()) {
+  constructor(private userService: UserService, private router: Router, private apiService: APIService) {
+    if (this.apiService.isAuthenticated()) {
       console.log("User is already authenticated, navigating to home");
       this.router.navigate(['/home']);
     }
   }
 
   logIn(form: NgForm) {
-    this.userService.signIn(this.user);
+    this.apiService.authorize(this.user, () => {
+        this.router.navigate(['/home']);
+    }, () => {
+        this.displayRedAlert();
+    });
   }
 
   displayRedAlert() {
