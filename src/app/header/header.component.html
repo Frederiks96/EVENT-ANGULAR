@@ -5,8 +5,8 @@
             Home
         </a>
     </li>
-    <li role="presentation" routerLinkActive="active">
-        <a [routerLink]="['/events']" style="padding: 10px 30px 10px 30px;">
+    <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <a [routerLink]="['/events/overview']" style="padding: 10px 30px 10px 30px;">
             Events
         </a>
     </li>
@@ -16,7 +16,7 @@
         </a>
     </li>
     <li role="presentation" routerLinkActive="active">
-        <a [routerLink]="['/eventAdd']" style="padding: 10px 30px 10px 30px;">
+        <a [routerLink]="['/events','add']" style="padding: 10px 30px 10px 30px;">
             Add Event
         </a>
     </li>

@@ -13,6 +13,8 @@ import { EventsComponent } from './events/events.component';
 import { EventComponent } from './events/event/event.component';
 import {APIService} from "../services/api.service";
 import { EventAddComponent } from './events/event-add/event-add.component';
+import { EventsContainerComponent } from './events/eventscontainer/eventscontainer.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { EventAddComponent } from './events/event-add/event-add.component';
     HomeComponent,
     EventsComponent,
     EventComponent,
-    EventAddComponent
+    EventAddComponent,
+    EventsContainerComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
