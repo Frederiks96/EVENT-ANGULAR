@@ -35,7 +35,6 @@
                name="start"
                ngModel
                required>
-        <!-- [(ngModel)]="event.start" -->
     </div>
     <div class="form-group">
         <label for="end">End</label>
@@ -45,14 +44,14 @@
                name="end"
                ngModel
                required>
-        <!-- [(ngModel)]="event.end" -->
     </div>
     <div class="radio" *ngFor="let g of isPublic">
         <label>
             <input type="radio"
                    name="isPublic"
-                   [(ngModel)]="event.isPublic"
-                   [value]="g">
+                   [ngModel]="isPublic[0]"
+                   [value]="g"
+                    required>
             {{g}}
         </label>
     </div>

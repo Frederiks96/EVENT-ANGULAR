@@ -29,8 +29,8 @@ export class EventEditComponent {
     onSubmit(form: NgForm) {
         console.log(form.value);
 
-        this.event.start = new Date(form.value.start).getTime();
-        this.event.end = new Date(form.value.end).getTime();
+        this.event.start    = new Date(form.value.start).getTime();
+        this.event.end      = new Date(form.value.end).getTime();
         this.event.isPublic = form.value.isPublic == this.isPublic[0];
 
         console.log(this.event);
