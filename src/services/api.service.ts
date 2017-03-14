@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from "@angular/http";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {Event} from "../app/events/event/event";
-import {UserService} from "./user.service";
+import { Observable } from "rxjs";
+
+import { Event } from "../app/events";
+import { UserService } from "./user.service";
 
 @Injectable()
 export class APIService

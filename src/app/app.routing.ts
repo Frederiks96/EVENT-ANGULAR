@@ -1,13 +1,11 @@
-import {Routes, RouterModule} from "@angular/router";
-import {SignInComponent} from "./sign-in/sign-in.component";
-import {ModuleWithProviders} from "@angular/core";
-import {HomeComponent} from "./home/home.component";
-import {EventsOverviewComponent} from "./events/events-overview/eventsoverview.component";
-import {EventEditComponent} from "./events/event-edit/event-edit.component";
-import {UserComponent} from "./user/user.component";
-import {ContainerComponent} from "./container/container.component";
-import {ShowEventComponent} from "./events/show-event/show-event.component";
+import { Routes, RouterModule } from "@angular/router";
+import { ModuleWithProviders } from "@angular/core";
 
+import { SignInComponent } from "./sign-in/sign-in.component";
+import { HomeComponent } from "./home/home.component";
+import { UserComponent } from "./user/user.component";
+import { ContainerComponent } from "./container/container.component";
+import { EventsOverviewComponent, ShowEventComponent, EventEditComponent } from "./events";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
