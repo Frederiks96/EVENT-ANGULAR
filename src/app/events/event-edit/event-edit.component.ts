@@ -5,9 +5,9 @@ import {APIService} from "../../../services/api.service";
 
 @Component({
   selector: 'es-event-add',
-  templateUrl: './event-add.component.html'
+  templateUrl: 'event-edit.component.html'
 })
-export class EventAddComponent {
+export class EventEditComponent {
 
 
     constructor(private api: APIService){}

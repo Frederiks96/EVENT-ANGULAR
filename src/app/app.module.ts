@@ -9,12 +9,13 @@ import {SignInComponent} from "./sign-in/sign-in.component";
 import {UserService} from "../services/user.service";
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { EventsComponent } from './events/events.component';
-import { EventComponent } from './events/event/event.component';
+import { EventsOverviewComponent } from './events/events-overview/eventsoverview.component';
+import { EventThumbnailComponent } from './events/event/event-thumbnail.component';
 import {APIService} from "../services/api.service";
-import { EventAddComponent } from './events/event-add/event-add.component';
-import { EventsContainerComponent } from './events/eventscontainer/eventscontainer.component';
+import { EventEditComponent } from './events/event-edit/event-edit.component';
 import { UserComponent } from './user/user.component';
+import { ContainerComponent } from './container/container.component';
+import { ShowEventComponent } from './events/show-event/show-event.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +23,12 @@ import { UserComponent } from './user/user.component';
     SignInComponent,
     HeaderComponent,
     HomeComponent,
-    EventsComponent,
-    EventComponent,
-    EventAddComponent,
-    EventsContainerComponent,
-    UserComponent
+    EventsOverviewComponent,
+    EventThumbnailComponent,
+    EventEditComponent,
+    UserComponent,
+    ContainerComponent,
+    ShowEventComponent
   ],
   imports: [
     BrowserModule,
