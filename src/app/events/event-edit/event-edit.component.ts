@@ -5,12 +5,12 @@ import {APIService} from "../../../services/api.service";
 
 @Component({
   selector: 'es-event-add',
-  templateUrl: './event-add.component.html'
+  templateUrl: 'event-edit.component.html'
 })
-export class EventAddComponent {
+export class EventEditComponent {
 
 
-    constructor(private api: APIService){}
+    constructor(private api: APIService) {}
 
     event = {
         name: "",
@@ -35,7 +35,6 @@ export class EventAddComponent {
 
         console.log(this.event);
 
-
         this.api.addEvent(this.event,() =>
             {
                 console.log('Successfully created event');
@@ -44,7 +43,6 @@ export class EventAddComponent {
             {
                 console.log('Failed creation of event');
             });
-
 
     }
 

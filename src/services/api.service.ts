@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, Headers} from "@angular/http";
-import {Router} from "@angular/router";
-import {Observable} from "rxjs";
-import {Event} from "../app/events/event/event";
-import {UserService} from "./user.service";
+import { Injectable } from '@angular/core';
+import { Http, Response, Headers } from "@angular/http";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs";
+
+import { Event } from "../app/events/event/event";
 
 @Injectable()
 export class APIService
@@ -15,7 +15,7 @@ export class APIService
 
     private isSignedIn = false;
 
-    constructor(private http: Http, private router : Router, private userService: UserService)
+    constructor(private http: Http, private router : Router)
     {
         this.resume();
     }
