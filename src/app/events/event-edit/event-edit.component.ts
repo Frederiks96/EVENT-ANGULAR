@@ -8,8 +8,7 @@ import {APIService} from "../../../services/api.service";
   templateUrl: 'event-edit.component.html'
 })
 export class EventEditComponent {
-
-
+    
     constructor(private api: APIService) {}
 
     event = {
@@ -43,9 +42,6 @@ export class EventEditComponent {
             {
                 console.log('Failed creation of event');
             });
-
     }
-
-
 
 }
