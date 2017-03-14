@@ -70,7 +70,7 @@ export class APIService
             {
                 let payload = parsed.data[index];
 
-                events[index] = new Event(payload.name, payload.description, new Date(payload.start), new Date(payload.end), payload.address, payload.isPublic);
+                events[index] = new Event(payload.id, payload.name, payload.description, new Date(payload.start), new Date(payload.end), payload.address, payload.isPublic);
             }
 
             callback(events);
