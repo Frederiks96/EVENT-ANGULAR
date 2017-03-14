@@ -3,7 +3,7 @@ import { Http, Response, Headers } from "@angular/http";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 
-import { Event } from "../app/events";
+import { Event } from "../app/events/event/event";
 import { UserService } from "./user.service";
 
 @Injectable()
