@@ -141,7 +141,7 @@ export class APIService
             /*
              * Check if the request returned 403 (Forbidden) and remove any saved API token.
              */
-            if(status == 403)
+            if(status == 401 || status == 403)
             {
                 console.debug('[DEBUG] API call returned 403 (Forbidden). Current API token is invalid.');
 
