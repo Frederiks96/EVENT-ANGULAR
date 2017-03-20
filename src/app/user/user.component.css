@@ -1,0 +1,45 @@
+#left-box {
+    position: absolute;
+    height: 70%;
+    padding-top: 1%;
+    width: 20%;
+    top: 20%;
+    left: 10%;
+    background: #293d3d;
+}
+
+#profile-image {
+    position: absolute;
+    width: 70%;
+    padding-top: 70%;
+    top: 15%;
+    left: 15%;
+    background: #ffffff;
+    border-radius: 50%;
+}
+
+#info {
+    width: 90%;
+    padding-top: 105%;
+    padding-left: 5%;
+    height: auto;
+}
+
+.left {
+    float: left;
+    color: white;
+}
+
+.right {
+    float: right;
+    color: white;
+}
+
+.field {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+td {
+    padding-top: .4em;
+    padding-bottom: .4em;
+}
