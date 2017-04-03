@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'es-container',
   template: `
-    <router-outlet></router-outlet>
+      <div id="container"><router-outlet></router-outlet></div>
+    
   `,
-  styles: []
+  styleUrls: ['container.component.css']
 })
 export class ContainerComponent {
 

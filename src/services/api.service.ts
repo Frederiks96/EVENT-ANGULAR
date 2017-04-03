@@ -5,22 +5,27 @@ import { Observable } from "rxjs";
 
 import { Event } from "../app/events/event/event";
 
+type SuccesBlock = (response: Response) => void;
+type FailureBlock = (error: Response) => void;
+
 @Injectable()
 export class APIService
 {
+
     private TOKEN_STORAGE_KEY = "api-token";
 
-    private url   : string = 'http://ubuntu4.javabog.dk:3028/rest/api/';
+    private url   : string = 'http://localhost:8080/api/';//'http://ubuntu4.javabog.dk:3028/rest/api/';
     private token : string = null;
 
     private isSignedIn = false;
+    private username: string;
 
     constructor(private http: Http, private router : Router)
     {
         this.resume();
     }
 
-    public authorize(user: any, success: (response: Response) => void, failure: (error: Response) => void): void
+    public authorize(user: any, success: SuccesBlock, failure: FailureBlock): void
     {
         let body = JSON.stringify(user);
         let observable = this.http.post(this.url + 'users/authenticate', body, {
@@ -35,6 +40,7 @@ export class APIService
             response =>
             {
                 this.setup(response);
+                this.username = user.username;
                 success(response);
             },
             error =>
@@ -80,7 +86,7 @@ export class APIService
     }
 
 
-    public addEvent(event: any,  success: (response: Response) => void, failure: (error: Response) => void): void {
+    public addEvent(event: any,  success: SuccesBlock, failure: FailureBlock): void {
 
         if(!this.validate())
         {
@@ -112,6 +118,31 @@ export class APIService
 
 
 
+    }
+
+    public getUser(success: SuccesBlock, failure: FailureBlock)
+    {
+        if(!this.validate())
+        {
+            return;
+        }
+
+        let observable = this.http.get(this.url + 'users/' + this.username, {
+
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token
+            })
+
+        });
+
+        let map = function(response : Response) : void
+        {
+            let user : any;
+            let parsed : any = JSON.parse(response.text());
+        };
+
+        this.execute(observable, map, failure, null);
     }
 
 

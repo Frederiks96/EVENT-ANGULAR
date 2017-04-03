@@ -5,15 +5,15 @@
         <span class="input-group-addon" id="sizing-addon1">
           <i class="glyphicon glyphicon-user"></i>
         </span>
-        <input #username="ngModel" type="text" class="form-control" placeholder="Username" [(ngModel)]="user.username" name="username" aria-describedby="sizing-addon1" required pattern="^[sS]{1}[0-9]{6}$">
+        <input #username="ngModel" type="text" class="form-control" placeholder="Username" [(ngModel)]="user.username" name="username" aria-describedby="sizing-addon1" required ><!--pattern="^[sS]{1}[0-9]{6}$"-->
       </div>
       <div *ngIf="username.errors">
         <div *ngIf="username.errors.required && username.touched" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
           <strong>Required</strong> - username is required
         </div>
-        <div *ngIf="!username.errors.required && !username.valid && username.touched" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
+        <!--<div *ngIf="!username.errors.required && !username.valid && username.touched" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
           <strong>Invalid username</strong> - username should be of the type 'sXXXXXX'
-        </div>
+        </div>-->
       </div>
 
 
