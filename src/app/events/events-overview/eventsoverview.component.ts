@@ -15,7 +15,7 @@ export class EventsOverviewComponent implements OnInit {
 
   ngOnInit()
   {
-      this.api.getEvents((events : Event[]) =>
+      this.api.fetchEvents((events : Event[]) =>
       {
           this.events = events;
       }, null);

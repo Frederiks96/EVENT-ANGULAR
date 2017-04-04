@@ -12,6 +12,7 @@ const APP_ROUTES: Routes = [
     { path: 'signin', component: SignInComponent },
     { path: 'home', component: HomeComponent },
 
+
     { path: 'events', component: ContainerComponent, children: [
         { path: '', component: EventsOverviewComponent },
         { path: 'add', component: EventEditComponent },

@@ -14,6 +14,7 @@ import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, S
 
 import { APIService } from "../services/api.service";
 import { UserService } from "../services/user.service";
+import {EventService} from "../services/event.service";
 
 
 @NgModule({
@@ -35,7 +36,7 @@ import { UserService } from "../services/user.service";
     HttpModule,
     routes
   ],
-  providers: [UserService, APIService],
+  providers: [UserService, APIService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
