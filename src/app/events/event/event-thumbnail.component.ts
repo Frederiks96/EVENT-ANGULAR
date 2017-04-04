@@ -13,10 +13,4 @@ export class EventThumbnailComponent {
 
   constructor(private router: Router) { }
 
-  onClick(){
-
-      this.router.navigate([this.event.getId()]);
-
-  }
-
 }
