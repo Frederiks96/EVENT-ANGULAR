@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { routes } from "./app.routing";
-import { SignInComponent } from "./sign-in/sign-in.component";
+import { routes } from './app.routing';
+import { SignInComponent } from './sign-in/sign-in.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, ShowEventComponent } from './events';
 
-import { APIService } from "../services/api.service";
-import { UserService } from "../services/user.service";
-import {EventService} from "../services/event.service";
+import { APIService } from '../services/api.service';
+import { UserService } from '../services/user.service';
+import {EventService} from '../services/event.service';
 
 
 @NgModule({

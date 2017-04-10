@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Event } from "./event";
-import {Router} from "@angular/router";
+import { Event } from './event';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'es-event-thumbnail',

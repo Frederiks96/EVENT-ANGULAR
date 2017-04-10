@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from "@angular/forms";
-import {APIService} from "../../../services/api.service";
+import {NgForm} from '@angular/forms';
+import {APIService} from '../../../services/api.service';
 
 
 @Component({
@@ -8,9 +8,7 @@ import {APIService} from "../../../services/api.service";
   templateUrl: 'event-edit.component.html'
 })
 export class EventEditComponent {
-    
     constructor(private api: APIService) {}
-
     event = {
         name: "",
         description: "",
