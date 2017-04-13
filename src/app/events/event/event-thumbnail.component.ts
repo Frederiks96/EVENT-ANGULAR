@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Event } from "./event";
+import { Event } from './event';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'es-event-thumbnail',
@@ -10,6 +11,6 @@ export class EventThumbnailComponent {
 
   @Input() event: Event;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
 }

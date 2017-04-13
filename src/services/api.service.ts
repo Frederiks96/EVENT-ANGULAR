@@ -5,27 +5,25 @@ import { Observable } from "rxjs";
 
 import { Event } from "../app/events/event/event";
 
-type SuccesBlock = (response: Response) => void;
-type FailureBlock = (error: Response) => void;
-
 @Injectable()
 export class APIService
 {
-
     private TOKEN_STORAGE_KEY = "api-token";
 
-    private url   : string = 'http://localhost:8080/api/';//'http://ubuntu4.javabog.dk:3028/rest/api/';
+    //private url   : string = 'http://ubuntu4.javabog.dk:3028/rest/api/';
+    private url : string = 'http://localhost:8080/api/';
     private token : string = null;
 
     private isSignedIn = false;
-    private username: string;
 
-    constructor(private http: Http, private router : Router)
+    private events: Event[] = [];
+
+    constructor(private http: Http, private router: Router)
     {
         this.resume();
     }
 
-    public authorize(user: any, success: SuccesBlock, failure: FailureBlock): void
+    public authorize(user: any, success: (response: Response) => void, failure: (error: Response) => void): void
     {
         let body = JSON.stringify(user);
         let observable = this.http.post(this.url + 'users/authenticate', body, {
@@ -33,14 +31,12 @@ export class APIService
             headers: new Headers({
                 'Content-Type': 'application/json'
             })
-
         });
 
         observable.subscribe(
             response =>
             {
                 this.setup(response);
-                this.username = user.username;
                 success(response);
             },
             error =>
@@ -51,7 +47,35 @@ export class APIService
         );
     }
 
-    public getEvents(callback : (events : Event[]) => void, failure : () => void) : void
+
+
+    public fetchEvent(id: number, callback: (event: Event) => void, failure: () => void)
+    {
+        if(!this.validate())
+        {
+            return;
+        }
+
+        let observable = this.http.get(this.url + "events/" + id, {
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + this.token
+            })
+        });
+
+        let map = function (response: Response)
+        {
+            let event: Event;
+
+            let payload: any = JSON.parse(response.text());
+            event = new Event(payload.id, payload.name, payload.description, new Date(payload.start), new Date(payload.end), payload.address, payload.isPublic);
+            callback(event);
+        };
+
+        this.execute(observable, map, failure, null);
+    }
+
+    public fetchEvents(callback : (events : Event[]) => void, failure : () => void)
     {
         if(!this.validate())
         {
@@ -76,7 +100,7 @@ export class APIService
             {
                 let payload = parsed.data[index];
 
-                events[index] = new Event(payload.id, payload.name, payload.description, new Date(payload.start), new Date(payload.end), payload.address, payload.isPublic);
+                events.push(new Event(payload.id, payload.name, payload.description, new Date(payload.start), new Date(payload.end), payload.address, payload.isPublic));
             }
 
             callback(events);
@@ -86,7 +110,7 @@ export class APIService
     }
 
 
-    public addEvent(event: any,  success: SuccesBlock, failure: FailureBlock): void {
+    public addEvent(event: any,  success: (response: Response) => void, failure: (error: Response) => void): void {
 
         if(!this.validate())
         {
@@ -120,31 +144,6 @@ export class APIService
 
     }
 
-    public getUser(success: SuccesBlock, failure: FailureBlock)
-    {
-        if(!this.validate())
-        {
-            return;
-        }
-
-        let observable = this.http.get(this.url + 'users/' + this.username, {
-
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + this.token
-            })
-
-        });
-
-        let map = function(response : Response) : void
-        {
-            let user : any;
-            let parsed : any = JSON.parse(response.text());
-        };
-
-        this.execute(observable, map, failure, null);
-    }
-
 
 
     private execute(observable : Observable<Response>, success : (response : Response) => void, failure : (error : Response | any) => void, done? : () => void) : void
@@ -164,7 +163,9 @@ export class APIService
          */
         if(failure == null)
         {
-            failure = () => {};
+            failure = () => {
+
+            };
         }
 
         observable.subscribe(success => response(success), error => failure(error), () =>
@@ -193,6 +194,7 @@ export class APIService
         if(this.token == null)
         {
             this.redirect();
+            this.isSignedIn = false;
             return this.isSignedIn;
         }
 

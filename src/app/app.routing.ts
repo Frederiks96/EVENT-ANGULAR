@@ -1,16 +1,17 @@
-import { Routes, RouterModule } from "@angular/router";
-import { ModuleWithProviders } from "@angular/core";
+import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 
-import { SignInComponent } from "./sign-in/sign-in.component";
-import { HomeComponent } from "./home/home.component";
-import { UserComponent } from "./user/user.component";
-import { ContainerComponent } from "./container/container.component";
-import { EventsOverviewComponent, ShowEventComponent, EventEditComponent } from "./events";
+import { SignInComponent } from './sign-in/sign-in.component';
+import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
+import { ContainerComponent } from './container/container.component';
+import { EventsOverviewComponent, ShowEventComponent, EventEditComponent } from './events';
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
     { path: 'signin', component: SignInComponent },
     { path: 'home', component: HomeComponent },
+
 
     { path: 'events', component: ContainerComponent, children: [
         { path: '', component: EventsOverviewComponent },

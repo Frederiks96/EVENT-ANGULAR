@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Event } from "../event/event";
-import { APIService } from "../../../services/api.service";
+import { Event } from '../event/event';
+import { APIService } from '../../../services/api.service';
 
 @Component({
   selector: 'es-events',
@@ -15,7 +15,7 @@ export class EventsOverviewComponent implements OnInit {
 
   ngOnInit()
   {
-      this.api.getEvents((events : Event[]) =>
+      this.api.fetchEvents((events : Event[]) =>
       {
           this.events = events;
       }, null);
