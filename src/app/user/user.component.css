@@ -1,0 +1,73 @@
+.user {
+    width: 100%;
+    display: flex;
+}
+
+.user > div {
+    flex-grow: 1;
+}
+
+#left-box {
+    max-width: 400px;
+    background: #293d3d;
+    margin-right: 20px;
+    box-sizing: border-box;
+    padding: 15px;
+}
+
+#centerform {
+    top: -6px;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+#centerform input {
+    max-width: 700px;
+}
+
+h1 {
+    margin-bottom: 40px;
+    margin-top: 0;
+}
+
+#centerform input[type="submit"] {
+    padding: 10px 300px;
+    font-size: 31px;
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+#profile-image {
+    width: 70%;
+    margin: 0 auto 15px auto;
+    display: block;
+    border-radius: 50%;
+}
+
+.left {
+    float: left;
+    color: white;
+}
+
+.right {
+    float: right;
+    color: white;
+}
+
+.field {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#infotable {
+    color: white;
+    width: 100%;
+    word-wrap: break-word;
+}
