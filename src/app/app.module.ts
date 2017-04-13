@@ -15,6 +15,7 @@ import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, S
 import { APIService } from '../services/api.service';
 import { UserService } from '../services/user.service';
 import {EventService} from '../services/event.service';
+import { InvitesComponent } from './invites/invites.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {EventService} from '../services/event.service';
     EventEditComponent,
     UserComponent,
     ContainerComponent,
-    ShowEventComponent
+    ShowEventComponent,
+    InvitesComponent
   ],
   imports: [
     BrowserModule,

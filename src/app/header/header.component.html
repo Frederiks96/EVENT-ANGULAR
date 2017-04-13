@@ -20,6 +20,11 @@
             Add Event
         </a>
     </li>
+    <li role="presentation" routerLinkActive="active">
+        <a [routerLink]="['/invites']" style="padding: 10px 30px 10px 30px;">
+            Invites
+        </a>
+    </li>
 </ul>
 
 <ul class="nav nav-pills pull-right" *ngIf="!isAuthenticated()">
