@@ -39,15 +39,9 @@ export class APIService
                 this.setup(response);
                 success(response);
             },
-            error =>
-            {
-                this.isSignedIn = false;
-                failure(error);
-            }
+            error => failure(error)
         );
     }
-
-
 
     public fetchEvent(id: number, callback: (event: Event) => void, failure: () => void)
     {
@@ -127,7 +121,6 @@ export class APIService
 
         });
 
-
         observable.subscribe(
             response =>
             {
@@ -138,67 +131,59 @@ export class APIService
                 failure(error);
             }
         );
-
-
-
-
     }
-
-
 
     private execute(observable : Observable<Response>, success : (response : Response) => void, failure : (error : Response | any) => void, done? : () => void) : void
     {
-        let status : number = 0;
-
-        let response = function(response : Response) : void
+        let validator = (status : number) =>
         {
-            status = response.status;
-
-            success(response);
-        };
-
-        /*
-         * Check if the failure callback is undefined and created
-         * an empty function instead.
-         */
-        if(failure == null)
-        {
-            failure = () => {
-
-            };
-        }
-
-        observable.subscribe(success => response(success), error => failure(error), () =>
-        {
-            /*
-             * Check if the request returned 403 (Forbidden) and remove any saved API token.
-             */
             if(status == 401 || status == 403)
             {
-                console.debug('[DEBUG] API call returned 403 (Forbidden). Current API token is invalid.');
-
                 this.destroy();
             }
+        };
 
-            if(done == null)
+        let wrappedSuccess = (response : Response) =>
+        {
+            validator(response.status);
+
+            success(response);
+
+            if(done != null)
             {
-                return;
+                done();
+            }
+        };
+
+        let wrappedFailure = (response : Response | any) =>
+        {
+            if(response instanceof Response)
+            {
+                validator(response.status);
             }
 
-            done();
-        });
+            if(failure != null)
+            {
+                failure(response);
+            }
+
+            if(done != null)
+            {
+                done();
+            }
+        };
+
+        observable.subscribe(success => wrappedSuccess(success), error => wrappedFailure(error));
     }
 
     private validate() : boolean
     {
         if(this.token == null)
         {
-            this.redirect();
             this.isSignedIn = false;
-            return this.isSignedIn;
-        }
 
-        this.isSignedIn = true;
+            this.destroy();
+        }
 
         return this.isSignedIn;
     }
@@ -233,6 +218,7 @@ export class APIService
     {
         console.debug('[DEBUG] Deleted saved API token.');
 
+        this.token = null;
         localStorage.removeItem(this.TOKEN_STORAGE_KEY);
 
         this.redirect();
