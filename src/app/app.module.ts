@@ -12,9 +12,9 @@ import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, ShowEventComponent } from './events';
 
-import { APIService } from '../services/api.service';
-import { UserService } from '../services/user.service';
-import {EventService} from '../services/event.service';
+import { APIService } from './services/api.service';
+import { UserService } from './services/user.service';
+import {EventService} from './services/event.service';
 
 
 @NgModule({

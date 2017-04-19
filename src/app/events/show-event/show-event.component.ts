@@ -1,8 +1,9 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { Event } from '../event/event';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params} from '@angular/router';
+
+import {EventService} from '../../services/event.service';
 import {Subscription} from "rxjs";
-import {EventService} from "../../../services/event.service";
 
 
 @Component({
@@ -12,25 +13,31 @@ import {EventService} from "../../../services/event.service";
 })
 export class ShowEventComponent implements OnInit, OnDestroy {
 
-    event: Event;
+    private event: Event = null;
     private id: number;
     private subscription: Subscription;
 
     constructor(private route: ActivatedRoute, private eventService: EventService) {
-
     }
 
     ngOnInit() {
-        this.subscription = this.route.params.subscribe(
-            (params: any) => { this.id = params['id'];}
-        )
+        this.id = this.route.snapshot.params['id'];
+        this.eventService.getEvent(this.id, (event: Event) => {
+            this.event = event;
+        }, null);
 
-        this.eventService.getEvent(this.id, (event: Event) => {this.event = event;}, null);
-        console.log(this.event);
+        this.subscription = this.route.params.subscribe(
+            (params: Params) => {
+                this.id = params['id'];
+                this.eventService.getEvent(this.id, (event: Event) => {
+                    this.event = event;
+                }, null);
+            }
+        );
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe()
+        this.subscription.unsubscribe();
     }
 
 }

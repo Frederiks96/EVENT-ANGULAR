@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from "../../services/api.service";
+import { APIService } from "../services/api.service";
 
 @Component({
     selector: 'es-user',

@@ -1,7 +1,7 @@
 export class Event {
 
     constructor(private id: number,
-                public name: string,
+                public title: string,
                 public description: string,
                 public start: Date,
                 public end: Date,
@@ -9,7 +9,7 @@ export class Event {
                 public isPublic: boolean) {
     }
 
-    public getId() : number {
+    public getId(): number {
         return this.id;
     }
 

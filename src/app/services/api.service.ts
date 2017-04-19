@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from "@angular/http";
-import { Router } from "@angular/router";
-import { Observable } from "rxjs";
-
-import { Event } from "../app/events/event/event";
+import { Http, Response, Headers } from '@angular/http';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Event } from '../events/event/event';
 
 @Injectable()
 export class APIService
 {
-    private TOKEN_STORAGE_KEY = "api-token";
+    private TOKEN_STORAGE_KEY = 'api-token';
 
-    private url   : string = 'http://ubuntu4.javabog.dk:3028/rest/api/';
-    //private url : string = 'http://localhost:8080/api/';
-    private token : string = null;
+    private url = 'http://ubuntu4.javabog.dk:3028/rest/api/';
+    // private url = 'http://localhost:8080/api/';
+    private token: string = null;
 
     private isSignedIn = false;
 
@@ -50,7 +49,7 @@ export class APIService
             return;
         }
 
-        let observable = this.http.get(this.url + "events/" + id, {
+        let observable = this.http.get(this.url + 'events/'+ id, {
             headers: new Headers({
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + this.token
@@ -76,7 +75,7 @@ export class APIService
             return;
         }
 
-        let observable = this.http.get(this.url + "events", {
+        let observable = this.http.get(this.url + 'events', {
 
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -214,7 +213,7 @@ export class APIService
         console.debug('[DEBUG] Resumed API token');
     }
 
-    private destroy() : void
+    private destroy(): void
     {
         console.debug('[DEBUG] Deleted saved API token.');
 
