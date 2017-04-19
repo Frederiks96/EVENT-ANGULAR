@@ -1,0 +1,24 @@
+<div class="row" *ngIf="invites.length > 0">
+    <div>
+        <ul class="list-group" >
+            <li class="list-group-item" *ngFor="let invite of invites">
+
+                <div style="overflow: hidden">
+
+                    <div class="btn-group-m pull-right">
+                        <button class="btn btn-primary">Going</button>
+                        <button class="btn btn-primary">Not going</button>
+                    </div>
+
+                    <div style="line-height: 30px">
+                        {{invite.getEventId()}}
+                    </div>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- *ngIf="invites.length == 0"
+            Billede          -->
