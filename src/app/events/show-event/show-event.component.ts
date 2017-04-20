@@ -22,6 +22,8 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
+        console.log("params" + JSON.stringify(this.route.snapshot.params))
+
         this.eventService.getEvent(this.id, (event: Event) => {
             this.event = event;
         }, null);

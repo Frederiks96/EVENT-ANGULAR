@@ -20,8 +20,13 @@
             Add Event
         </a>
     </li>
+    <li role="presentation" routerLinkActive="active">
+        <a [routerLink]="['/events', 30, 'edit']" style="padding: 10px 30px 10px 30px;">
+            Edit event
+        </a>
+    </li>
 </ul>
-
+<!--
 <ul class="nav nav-pills pull-right" *ngIf="!isAuthenticated()">
     <li role="presentation" routerLinkActive="active">
         <a [routerLink]="['/events']" style="padding: 10px 30px 10px 30px;">
@@ -34,3 +39,4 @@
         </a>
     </li>
 </ul>
+-->

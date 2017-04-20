@@ -46,12 +46,15 @@ export class EventService {
     }
 
     public getEvent(id: number,  callback: (event: Event) => void, failure: () => void) : void {
+
         if(this.events.size < 1) {
+
             failure();
             return;
         }
 
-        callback(this.events[id]);
+        callback(this.events.get(id));
+
     }
 
     public createEvent(model : Event, success : (model : Event) => void, failure : () => void)
