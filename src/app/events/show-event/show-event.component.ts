@@ -4,8 +4,10 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {EventService} from '../../services/event.service';
 import {Subscription} from "rxjs";
-import {User} from "../../models/User";
+import {User} from "../../user/user";
 import {APIService} from "../../services/api.service";
+import {Invitation} from "../event-invitations/Invitation";
+import {InvitationService} from "../../services/invitation.service";
 
 
 @Component({
@@ -20,8 +22,11 @@ export class ShowEventComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
 
     public isCurrentUserOrganizer : boolean = false;
+    public hasCurrentUserInvitePending : boolean = false;
 
-    constructor(private route: ActivatedRoute, private eventService: EventService, private api : APIService, private router : Router) {
+    private pendingInvitationID : number = 0;
+
+    constructor(private route: ActivatedRoute, private eventService: EventService, private api : APIService, private invitations : InvitationService, private router : Router) {
     }
 
     ngOnInit() {
@@ -49,6 +54,28 @@ export class ShowEventComponent implements OnInit, OnDestroy {
         this.subscription.unsubscribe();
     }
 
+    public onAcceptInvitation()
+    {
+        this.invitations.accept(this.event.id, this.pendingInvitationID, () => {
+           console.info('Accepted invitation: ' + this.pendingInvitationID);
+        }, () => {
+            console.error('Couldn\'t accept invitation: ' + this.pendingInvitationID);
+        });
+
+        this.hasCurrentUserInvitePending = false;
+    }
+
+    public onDeclineInvitation()
+    {
+        this.invitations.decline(this.event.id, this.pendingInvitationID, () => {
+            console.info('Declined invitation: ' + this.pendingInvitationID);
+        }, () => {
+            console.error('Couldn\'t decline invitation: ' + this.pendingInvitationID);
+        });
+
+        this.hasCurrentUserInvitePending = false;
+    }
+
     public deleteEvent()
     {
         this.eventService.deleteEvent(this.event.id, () => {
@@ -60,12 +87,36 @@ export class ShowEventComponent implements OnInit, OnDestroy {
     {
         let user : User = this.api.getCurrentUser();
 
+        console.debug(user);
+        console.debug(this.event.organizers);
+
         /*
          * Check if the currently signed in user is an organizer of the event.
          */
-        this.isCurrentUserOrganizer = true; // TODO: Make this automatic
+        for(let index : number = 0; index < this.event.organizers.length; index++)
+        {
+            if(this.event.organizers[index].getID() == user.getID())
+            {
+                this.isCurrentUserOrganizer = true;
+            }
+        }
 
+        /*
+         * Check if the currently signed in user has an invitation pending on the event.
+         */
+        if(!this.isCurrentUserOrganizer)
+        {
+            for(let index : number = 0; index < this.event.invitations.length; index++)
+            {
+                let invitation : Invitation = this.event.invitations[index];
 
+                if(invitation.getUser().getID() == user.getID() && !invitation.isAccepted())
+                {
+                    this.hasCurrentUserInvitePending = true;
+                    this.pendingInvitationID = invitation.getInvitationID();
+                }
+            }
+        }
     }
 
 }

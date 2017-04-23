@@ -1,0 +1,34 @@
+li {
+    width: 450px;
+    display: flex;
+    background: #FFFFFF;
+    border: 1px solid #BBB;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+li > div {
+    height: 40px;
+    line-height: 30px;
+    flex-grow: 1;
+    padding: 5px;
+}
+
+li > div:first-child {
+    font-weight: bold;
+    font-style: italic;
+    padding-left: 10px;
+}
+
+li > div:last-child {
+    max-width: 80px;
+}
+
+li > div:last-child .btn {
+    float: right;
+    padding: 4px 12px;
+}
+
+li > div > span {
+    vertical-align: middle;
+}

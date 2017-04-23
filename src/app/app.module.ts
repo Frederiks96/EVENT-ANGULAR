@@ -18,7 +18,7 @@ import {EventService} from './services/event.service';
 import { EventInvitationsComponent } from './events/event-invitations/event-invitations.component';
 import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
-import {InvitationService} from "./services/invitation-service.service";
+import {InvitationService} from "./services/invitation.service";
 
 
 @NgModule({

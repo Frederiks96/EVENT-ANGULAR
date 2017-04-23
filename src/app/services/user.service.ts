@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { APIService } from "./api.service";
-import { User } from "../models/User";
+import { User } from "../user/user";
 
 @Injectable()
 export class UserService {

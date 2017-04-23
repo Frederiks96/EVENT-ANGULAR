@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {User} from "../../../models/User";
-import {InvitationService} from "../../../services/invitation-service.service";
-import {Invitation} from "../../../models/Invitation";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
+import {InvitationService} from "../../../services/invitation.service";
+import {Invitation} from "../Invitation";
 import {Event} from "../../event/event";
+import {User} from "../../../user/user";
 
 @Component({
   selector: 'es-event-invitation-search-result',
@@ -14,11 +15,20 @@ export class EventInvitationSearchResultComponent {
     @Input() public event : Event;
     @Input() public user  : User;
 
+    @Output() public created : EventEmitter<any> = new EventEmitter<any>();
+
+    public added : boolean = false;
+
     constructor(private invitations : InvitationService) { }
 
     public invite()
     {
         this.invitations.create(this.event.id, this.user, (invitation : Invitation) => {
+
+            this.event.invitations.push(invitation);
+
+            this.added = true;
+            this.created.emit();
 
             console.info('Created invitation');
 
