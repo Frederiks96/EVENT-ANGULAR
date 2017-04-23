@@ -1,4 +1,24 @@
-<h1>{{event.title}}</h1>
-<p>{{event.start}} to {{event.end}}</p>
-<p>{{event.address}}</p>
-<p>{{event.description}}</p>
+<section>
+    <img id="event-cover-image" *ngIf="event.imageURL.length > 1" src="{{event.imageURL}}">
+    <h2>{{event.title}}</h2>
+    <div class="event-details">
+
+        <div class="detail-section">
+            <div class="detail-header">Date</div>
+            <div class="detail-content"><span>From</span> {{event.start}} <span> To</span> {{event.end}}</div>
+        </div>
+
+        <div class="detail-section">
+            <div class="detail-header">Address</div>
+            <div class="detail-content">{{event.address}}</div>
+        </div>
+
+        <div class="detail-section">
+            <div class="detail-header">Description:</div>
+            <div *ngIf="event.description.length > 1; else noDesc" class="detail-content">{{event.description}}</div>
+        </div>
+
+        <ng-template #noDesc><i>The event has no description</i></ng-template>
+
+    </div>
+</section>

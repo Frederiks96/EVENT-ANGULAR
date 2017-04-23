@@ -22,9 +22,18 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.id = this.route.snapshot.params['id'];
+
         this.eventService.getEvent(this.id, (event: Event) => {
             this.event = event;
-        }, null);
+
+
+            if(this.event.imageURL.trim().length > 1) {
+                this.hasCoverImage = true;
+            }
+
+        }, () => {
+            console.error('Couldn\'t fetch event with ID: ' + this.id);
+        });
 
         this.subscription = this.route.params.subscribe(
             (params: Params) => {

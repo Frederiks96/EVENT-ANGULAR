@@ -8,50 +8,58 @@ import { Event }      from '../events/event/event';
 @Injectable()
 export class EventService {
 
-    private events : Map<number, Event> = new Map<number, Event>();
+    private events : Event[] = [];
 
     constructor(private api: APIService) {}
 
-    public getEvents(callback: (events: Event[]) => void, failure: () => void) {
+    public getEvents(callback: (events: Event[]) => void, failure: () => void)
+    {
+        if(this.events.length > 0)
+        {
+            this.events = [];
+        }
 
         let observable : Observable<Response> = this.api.get("/events");
 
-        let map = (response : Response) => {
+        let map = (response : Response) =>
+        {
+            let payload : any = response.json().results;
 
-            let events  : Event[] = [];
-            let payload : any     = JSON.parse(response.text()).results;
+            for(let index : number = 0; index < payload.length; index++)
+            {
+                let current : any = payload[index];
 
-            for(let index : number = 0; index < payload.length; index++) {
-                events[index] = new Event(
-                    payload[index].id,
-                    payload[index].details.title,
-                    payload[index].details.description,
-                    payload[index].details.address,
-                    payload[index].details.imageURL,
+                this.events.push(new Event(
+                    current.id,
+                    current.details.title,
+                    current.details.description,
+                    current.details.address,
+                    current.details.imageURL,
 
-                    new Date(payload[index].details.start),
-                    new Date(payload[index].details.end),
+                    new Date(current.details.start),
+                    new Date(current.details.end),
 
-                    payload[index].details.isPublic
-                );
-
-                this.events.set(events[index].getId(), events[index]);
+                    current.details.isPublic
+                ));
             }
 
-
-            callback(events);
+            callback(this.events);
         };
 
         this.api.execute(observable, map, failure);
     }
 
-    public getEvent(id: number,  callback: (event: Event) => void, failure: () => void) : void {
-        if(this.events.size < 1) {
+    public getEvent(id: number,  callback: (event: Event) => void, failure: () => void) : void
+    {
+        let model : Event = this.fetch(id);
+
+        if(model == null)
+        {
             failure();
             return;
         }
 
-        callback(this.events[id]);
+        callback(model);
     }
 
     public createEvent(model : Event, success : (model : Event) => void, failure : () => void)
@@ -62,9 +70,9 @@ export class EventService {
 
             let payload : any = response.json();
 
-            model.setID(payload.id);
+            model.id = payload.id;
 
-            this.events.set(payload.id, model);
+            this.events.push(model);
 
             success(model);
 
@@ -73,15 +81,20 @@ export class EventService {
 
     public updateEvent (model : Event, success : () => void, failure : () => void)
     {
-        let body : string = JSON.stringify(model);
+        let body     : string = JSON.stringify(model);
+        let existing : Event  = this.fetch(model.id);
 
-        this.api.execute(this.api.put("/events/" + model.getId(), body), () => {
+        if(existing == null)
+        {
+            console.error("Cannot update non-existing events!");
+            return;
+        }
 
-            this.events.set(model.getId(), model);
+        this.api.execute(this.api.put("/events/" + model.getId(), body), () =>
+        {
+            this.events[this.events.indexOf(existing)] = model;
             success();
-
         }, failure);
-
     }
 
     public deleteEvent(id : number, success : () => void, failure : () => void) : void {
@@ -90,14 +103,30 @@ export class EventService {
 
         this.api.execute(observable, () => {
 
-            if(this.events.delete(id)) {
-                success();
+            let existing = this.fetch(id);
 
+            if(existing == null)
+            {
+                failure();
                 return;
             }
 
-            failure();
+            this.events.splice(this.events.indexOf(existing), 1);
+            success();
 
         }, failure);
+    }
+
+    private fetch(key : number) : Event
+    {
+        for(let index : number = 0; index < this.events.length; index++)
+        {
+            if(this.events[index].id == key)
+            {
+                return this.events[index];
+            }
+        }
+
+        return null;
     }
 }
