@@ -17,6 +17,7 @@ export class EventEditComponent implements OnInit {
     id: number;
     editMode: boolean = false;
     eventForm: FormGroup;
+    event : Event;
 
     isPublic = [
         'Offentlig',
@@ -57,9 +58,20 @@ export class EventEditComponent implements OnInit {
 
         let event : Event = this.eventForm.value;
 
+        let event2 = new Event(
+            0,
+            this.eventForm.value['title'],
+            this.eventForm.value['description'],
+            this.eventForm.value['address'],
+            this.eventForm.value['imageURL'],
+            this.eventForm.value['start'],
+            this.eventForm.value['end'],
+            true);
+
+        console.log(event);
 
 
-        this.eventService.createEvent(this.eventForm.value, (callback: Event) => {
+        this.eventService.createEvent(event2, (callback: Event) => {
             // success
             this.router.navigate(["/events", callback.getId()])
 
@@ -88,13 +100,13 @@ export class EventEditComponent implements OnInit {
 
     private initForm() {
 
-        let title       = "";
-        let description = "";
-        let address     = "";
-        let imageURL    = "";
-        let start       = new Date();
-        let end         = new Date();
-        let isPublic    = true;
+        let title        = "";
+        let description  = "";
+        let address      = "";
+        let imageURL     = "";
+        let start        = 0;
+        let end          = 0;
+        let isPublic     = true;
 
         if (this.editMode) {
 
@@ -107,6 +119,9 @@ export class EventEditComponent implements OnInit {
                 start       = event.start;
                 end         = event.end;
                 isPublic    = event.isPublic;
+
+                console.log(start);
+                console.log(end);
 
             }, null);
         }

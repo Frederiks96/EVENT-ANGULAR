@@ -4,6 +4,7 @@ import {Response} from "@angular/http";
 
 import { APIService } from './api.service';
 import { Event }      from '../events/event/event';
+import {ApiEvent} from "../events/event/api-event";
 
 @Injectable()
 export class EventService {
@@ -28,9 +29,11 @@ export class EventService {
                     payload[index].details.description,
                     payload[index].details.address,
                     payload[index].details.imageURL,
+                    payload[index].details.start,
+                    payload[index].details.end,
 
-                    new Date(payload[index].details.start),
-                    new Date(payload[index].details.end),
+                //    new Date(payload[index].details.start),
+                //    new Date(payload[index].details.end),
 
                     payload[index].details.isPublic
                 );
@@ -66,6 +69,8 @@ export class EventService {
             let payload : any = response.json();
 
             model.setID(payload.id);
+
+         //   let event = this.parseApiToEvent(model);
 
             this.events.set(payload.id, model);
 
@@ -103,4 +108,33 @@ export class EventService {
 
         }, failure);
     }
+
+/*
+    public parseEventToApi(event : Event) : ApiEvent {
+
+        return new ApiEvent(
+            event.getId(),
+            event.title,
+            event.description,
+            event.address,
+            event.imageURL,
+            event.start.getMilliseconds(),
+            event.end.getMilliseconds(),
+            event.isPublic);
+    }
+
+    public parseApiToEvent(event : ApiEvent) : Event {
+
+        return new Event(
+            event.getId(),
+            event.title,
+            event.description,
+            event.address,
+            event.imageURL,
+            new Date(event.start),
+            new Date (event.end),
+            event.isPublic);
+    }*/
+
+
 }

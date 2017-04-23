@@ -1,4 +1,4 @@
-export class Event {
+export class ApiEvent {
 
     constructor(private id: number = 0,
                 public title: string,
