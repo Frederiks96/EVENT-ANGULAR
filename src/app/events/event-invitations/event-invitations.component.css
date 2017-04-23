@@ -1,0 +1,59 @@
+.back-link {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.invitation-section {
+    width: 750px;
+    background: #EEE;
+    border: 1px solid #BBB;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.invitation-section > div {
+    padding: 10px 15px;
+}
+
+.invitation-section .section-header {
+    display: block;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 15px;
+}
+
+.invitation-section .section-header label {
+    margin: 0;
+}
+
+.invitation-section .section-content {
+    border-top: 1px solid #BBB;
+}
+
+.invitation-section .section-content .explanation-text {
+    display: block;
+    font-style: italic;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.invitation-section .section-content input[type="text"] {
+    width: 100%;
+    padding: 4px 8px;
+    border: 1px solid #BBB;
+    border-radius: 3px;
+}
+
+.invitation-section .section-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.invitation-section .section-content ul li {
+    background: #000;
+    border: 1px solid #BBB;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}

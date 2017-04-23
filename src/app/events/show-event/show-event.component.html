@@ -7,10 +7,10 @@
     <div *ngIf="isCurrentUserOrganizer">
         <ul id="event-admin-panel">
             <li>
-                <a href="/events/{{event.id}}/edit" class="btn btn-primary">Edit</a>
+                <a [routerLink]="['/events', event.id, 'edit']" class="btn btn-primary">Edit</a>
             </li>
             <li>
-                <a class="btn btn-primary">Invite people</a>
+                <a [routerLink]="['/events', event.id, 'invitations']" class="btn btn-primary">Invite people</a>
             </li>
             <li role="separator"></li>
             <li>

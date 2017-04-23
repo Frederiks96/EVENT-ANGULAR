@@ -10,8 +10,8 @@ export class APIService
     private STORAGE_KEY_API_TOKEN     = 'api-token';
     private STORAGE_KEY_USER_USERNAME = "current-user";
 
-    private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
-    //private url = 'http://localhost:8080/api';
+    //private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
+    private url = 'http://localhost:8080/api';
 
     private token : string = null;
     private user  : User   = null;
