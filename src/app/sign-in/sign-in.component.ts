@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
     constructor(private router: Router, private apiService: APIService) {
         if (this.apiService.isAuthenticated()) {
             console.log("User is already authenticated, navigating to home");
-            this.router.navigate(['/home']);
+            this.router.navigate(['/events']);
         }
     }
 
@@ -32,7 +32,7 @@ export class SignInComponent implements OnInit {
         this.isBusy = true;
         this.apiService.authorize(this.user.username, this.user.password, () => {
             this.isBusy = false;
-            this.router.navigate(['/home']);
+            this.router.navigate(['/events']);
         }, () => {
             this.isBusy = false;
             this.displayRedAlert();
