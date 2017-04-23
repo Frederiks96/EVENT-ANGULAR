@@ -40,25 +40,7 @@ export class EventEditComponent implements OnInit {
 
     onSubmit(){
 
-        if(this.editMode) {
-            this.updateEvent();
-        }
-        else {
-            this.addEvent();
-
-        }
-
-    }
-
-    onCancel() {
-        this.router.navigate(['../'], {relativeTo: this.route});
-    }
-
-    addEvent() {
-
-        let event : Event = this.eventForm.value;
-
-        let event2 = new Event(
+        let event = new Event(
             0,
             this.eventForm.value['title'],
             this.eventForm.value['description'],
@@ -68,10 +50,24 @@ export class EventEditComponent implements OnInit {
             this.eventForm.value['end'],
             true);
 
-        console.log(event);
 
+        if(this.editMode) {
+            event.setID(this.id);
+            this.updateEvent(event);
+        }
+        else {
+            this.addEvent(event);
+        }
 
-        this.eventService.createEvent(event2, (callback: Event) => {
+    }
+
+    onCancel() {
+        this.router.navigate(['../'], {relativeTo: this.route});
+    }
+
+    addEvent(event: Event) {
+
+        this.eventService.createEvent(event, (callback: Event) => {
             // success
             this.router.navigate(["/events", callback.getId()])
 
@@ -83,9 +79,9 @@ export class EventEditComponent implements OnInit {
         });
     }
 
-    updateEvent() {
+    updateEvent(event: Event) {
 
-        this.eventService.updateEvent(this.eventForm.value, () => {
+        this.eventService.updateEvent(event, () => {
             // success
             this.router.navigate(["/events", this.id])
 

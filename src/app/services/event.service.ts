@@ -52,7 +52,7 @@ export class EventService {
 
         if(this.events.size < 1) {
 
-            failure();
+           // failure();
             return;
         }
 
@@ -90,7 +90,7 @@ export class EventService {
 
         }, failure);
 
-    }
+    }ß
 
     public deleteEvent(id : number, success : () => void, failure : () => void) : void {
 
