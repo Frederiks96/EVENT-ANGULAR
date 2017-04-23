@@ -1,4 +1,6 @@
-<h1>{{event.title}}</h1>
-<p>{{event.start}} to {{event.end}}</p>
-<p>{{event.address}}</p>
-<p>{{event.description}}</p>
+<div *ngIf="event">
+    <h1>{{event.title | async }}</h1>
+    <p>{{event.start | async }} to {{event.end | async}}</p>
+    <p>{{event.address | async }}</p>
+    <p>{{event.description | async}}</p>
+</div>

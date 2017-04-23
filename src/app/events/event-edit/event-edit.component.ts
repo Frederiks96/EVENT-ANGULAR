@@ -20,8 +20,8 @@ export class EventEditComponent implements OnInit {
     event : Event;
 
     isPublic = [
-        'Offentlig',
-        'Ikke offentlig'
+        'Public event',
+        'Private event'
     ];
 
     constructor(private eventService: EventService, private route: ActivatedRoute, private router: Router) {
@@ -107,7 +107,7 @@ export class EventEditComponent implements OnInit {
         if (this.editMode) {
 
             this.eventService.getEvent(this.id, (event: Event) => {
-
+                console.log(event);
                 title       = event.title;
                 description = event.description;
                 address     = event.address;

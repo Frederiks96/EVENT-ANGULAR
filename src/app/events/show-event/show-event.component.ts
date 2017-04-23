@@ -13,7 +13,7 @@ import {Subscription} from "rxjs";
 })
 export class ShowEventComponent implements OnInit, OnDestroy {
 
-    private event: Event = null;
+    private event: Event;
     private id: number;
     private subscription: Subscription;
 
@@ -21,25 +21,31 @@ export class ShowEventComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.id = this.route.snapshot.params['id'];
-        console.log("params" + JSON.stringify(this.route.snapshot.params))
+/*        this.id = this.route.snapshot.params['id'];
+        console.log(this.id);
 
         this.eventService.getEvent(this.id, (event: Event) => {
             this.event = event;
-        }, null);
+            console.log(event)
+        }, () => {
+            console.log("err")
+        });*/
 
-        this.subscription = this.route.params.subscribe(
+
+        this.route.params.subscribe(
             (params: Params) => {
                 this.id = params['id'];
+                console.log(this.id);
                 this.eventService.getEvent(this.id, (event: Event) => {
                     this.event = event;
+                    console.log(this.event);
                 }, null);
             }
         );
     }
 
     ngOnDestroy() {
-        this.subscription.unsubscribe();
+        //this.subscription.unsubscribe();
     }
 
 }
