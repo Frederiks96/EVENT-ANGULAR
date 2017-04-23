@@ -2,27 +2,32 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Event } from '../events/event/event';
+import { User } from "../models/User";
 
 @Injectable()
 export class APIService
 {
-    private TOKEN_STORAGE_KEY = 'api-token';
+    private STORAGE_KEY_API_TOKEN     = 'api-token';
+    private STORAGE_KEY_USER_USERNAME = "current-user";
 
-    //private url = 'http://ubuntu4.javabog.dk:3028/rest/api/';
-     private url = 'http://localhost:8080/api';
-    private token: string = null;
+    private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
+    //private url = 'http://localhost:8080/api';
 
-    private isSignedIn = false;
+    private token : string = null;
+    private user  : User   = null;
 
     constructor(private http: Http, private router: Router)
     {
         this.resume();
     }
 
-    public authorize(user: any, success: (response: Response) => void, failure: (error: Response) => void): void
+    public authorize(username : string, password : string, success: (response: Response) => void, failure: (error: Response) => void): void
     {
-        let body = JSON.stringify(user);
+        let body = JSON.stringify({
+            username: username,
+            password: password
+        });
+
         let observable = this.http.post(this.url + '/authentication', body, {
 
             headers: new Headers({
@@ -33,11 +38,16 @@ export class APIService
         observable.subscribe(
             response =>
             {
-                this.setup(response);
+                this.setup(response, username);
                 success(response);
             },
             error => failure(error)
         );
+    }
+
+    public logout() : void
+    {
+        this.destroy();
     }
 
     public get(url : string) : Observable<Response>
@@ -110,6 +120,11 @@ export class APIService
         observable.subscribe(success => wrappedSuccess(success), error => wrappedFailure(error));
     }
 
+    public getCurrentUser() : User
+    {
+        return this.user;
+    }
+
     private makeHeaders() : Headers
     {
         return new Headers({
@@ -118,61 +133,87 @@ export class APIService
         });
     }
 
-    private validate() : boolean
+    private setup(response: Response, username : string): void
     {
-        if(this.token == null)
-        {
-            this.isSignedIn = false;
+        this.token = response.json().token;
 
-            this.destroy();
-        }
+        localStorage.setItem(this.STORAGE_KEY_API_TOKEN, this.token);
 
-        return this.isSignedIn;
-    }
-
-    private setup(response: Response): void
-    {
-        this.token = JSON.parse(response.text()).token;
-
-        localStorage.setItem(this.TOKEN_STORAGE_KEY, this.token);
-
-        this.isSignedIn = true;
+        /*
+         * Load the currently signed in user.
+         */
+        this.loadCurrentUser(username);
     }
 
     private resume() : void
     {
-        let value = localStorage.getItem(this.TOKEN_STORAGE_KEY);
+        let token    = localStorage.getItem(this.STORAGE_KEY_API_TOKEN);
+        let username = localStorage.getItem(this.STORAGE_KEY_USER_USERNAME);
 
-        if(value == null)
+        if(token == null)
         {
             console.debug('[DEBUG] No API token available');
             return;
         }
 
-        this.token = value;
+        if(username == null)
+        {
+            console.error('[ERROR] Cannot resume session. Current user could not be fetched.');
+            return;
+        }
 
-        this.isSignedIn = true;
+        this.token = token;
+        this.loadCurrentUser(username);
 
         console.debug('[DEBUG] Resumed API token');
+    }
+
+    private loadCurrentUser(username : string) : void
+    {
+        let failure = () => {
+            console.error('Cannot load currently signed in user!');
+        };
+
+        this.execute(this.get('/users/search/' + username), (response : Response) =>
+        {
+            let payload : any[] = response.json().results;
+
+            if(payload.length < 1)
+            {
+                failure();
+                return;
+            }
+
+            this.user = new User(
+                payload[0].id,
+                payload[0].username
+            );
+
+            localStorage.setItem(this.STORAGE_KEY_USER_USERNAME, username);
+
+        }, failure);
     }
 
     private destroy(): void
     {
         console.debug('[DEBUG] Deleted saved API token.');
 
+        this.user  = null;
         this.token = null;
-        localStorage.removeItem(this.TOKEN_STORAGE_KEY);
+
+        localStorage.removeItem(this.STORAGE_KEY_API_TOKEN);
+        localStorage.removeItem(this.STORAGE_KEY_USER_USERNAME);
 
         this.redirect();
     }
 
     private redirect() : void
     {
-        this.isSignedIn = false;
+        this.user = null;
         this.router.navigate(['/signin']);
     }
 
     public isAuthenticated() {
-        return this.isSignedIn;
+        return this.user != null;
     }
 }

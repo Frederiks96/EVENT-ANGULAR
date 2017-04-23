@@ -14,4 +14,9 @@ export class HeaderComponent {
     return this.apiService.isAuthenticated();
   }
 
+  public logout()
+  {
+      this.apiService.logout();
+  }
+
 }

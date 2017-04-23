@@ -20,6 +20,9 @@
             Add Event
         </a>
     </li>
+    <li role="presentation" routerLinkActive="active">
+        <a (click)="logout()" style="cursor: pointer">Logout</a>
+    </li>
 </ul>
 
 <ul class="nav nav-pills pull-right" *ngIf="!isAuthenticated()">

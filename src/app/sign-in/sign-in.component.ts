@@ -30,7 +30,7 @@ export class SignInComponent implements OnInit {
 
     logIn(form: NgForm) {
         this.isBusy = true;
-        this.apiService.authorize(this.user, () => {
+        this.apiService.authorize(this.user.username, this.user.password, () => {
             this.isBusy = false;
             this.router.navigate(['/home']);
         }, () => {
