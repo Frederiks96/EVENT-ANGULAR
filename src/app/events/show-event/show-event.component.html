@@ -1,11 +1,29 @@
 <section>
-    <img id="event-cover-image" *ngIf="event.imageURL.length > 1" src="{{event.imageURL}}">
+
     <h2>{{event.title}}</h2>
+
+    <img id="event-cover-image" *ngIf="event.imageURL.length > 1" src="{{event.imageURL}}">
+
+    <div *ngIf="isCurrentUserOrganizer">
+        <ul id="event-admin-panel">
+            <li>
+                <a href="/events/{{event.id}}/edit" class="btn btn-primary">Edit</a>
+            </li>
+            <li>
+                <a class="btn btn-primary">Invite people</a>
+            </li>
+            <li role="separator"></li>
+            <li>
+                <a (click)="deleteEvent()" class="btn btn-danger">Delete</a>
+            </li>
+        </ul>
+    </div>
+
     <div class="event-details">
 
         <div class="detail-section">
             <div class="detail-header">Date</div>
-            <div class="detail-content"><span>From</span> {{event.start}} <span> To</span> {{event.end}}</div>
+            <div class="detail-content"><b>From</b> {{event.start}} <br/><b> To</b> {{event.end}}</div>
         </div>
 
         <div class="detail-section">

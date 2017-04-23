@@ -1,9 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import { Event } from '../event/event';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {EventService} from '../../services/event.service';
 import {Subscription} from "rxjs";
+import {User} from "../../models/User";
+import {APIService} from "../../services/api.service";
 
 
 @Component({
@@ -17,7 +19,9 @@ export class ShowEventComponent implements OnInit, OnDestroy {
     private id: number;
     private subscription: Subscription;
 
-    constructor(private route: ActivatedRoute, private eventService: EventService) {
+    public isCurrentUserOrganizer : boolean = false;
+
+    constructor(private route: ActivatedRoute, private eventService: EventService, private api : APIService, private router : Router) {
     }
 
     ngOnInit() {
@@ -26,11 +30,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
         this.eventService.getEvent(this.id, (event: Event) => {
             this.event = event;
 
-
-            if(this.event.imageURL.trim().length > 1) {
-                this.hasCoverImage = true;
-            }
-
+            this.updateState();
         }, () => {
             console.error('Couldn\'t fetch event with ID: ' + this.id);
         });
@@ -47,6 +47,25 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    public deleteEvent()
+    {
+        this.eventService.deleteEvent(this.event.id, () => {
+            this.router.navigate(['/events']);
+        }, null);
+    }
+
+    private updateState() : void
+    {
+        let user : User = this.api.getCurrentUser();
+
+        /*
+         * Check if the currently signed in user is an organizer of the event.
+         */
+        this.isCurrentUserOrganizer = true; // TODO: Make this automatic
+
+
     }
 
 }
