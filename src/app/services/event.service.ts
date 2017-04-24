@@ -65,8 +65,6 @@ export class EventService {
                     ));
                 }
 
-                console.debug(model);
-
                 this.events.push(model);
             }
 
