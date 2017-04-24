@@ -6,12 +6,14 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, ShowEventComponent, EventEditComponent } from './events';
+import {InvitesComponent} from "./invites/invites.component";
 import {EventInvitationsComponent} from "./events/event-invitations/event-invitations.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
     { path: 'signin', component: SignInComponent },
     { path: 'home', component: HomeComponent },
+    { path: 'invites', component: InvitesComponent },
 
 
     { path: 'events',  component: ContainerComponent, children: [
