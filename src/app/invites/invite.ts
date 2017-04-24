@@ -1,8 +1,7 @@
-import { Response } from './response';
 
 export class Invite {
 
-    constructor(private id: number, private eventId: number, private response: Response) {
+    constructor(private id: number, private eventId: number, private going: boolean) {
 
     }
 
@@ -14,21 +13,12 @@ export class Invite {
         return this.eventId;
     }
 
-    public getResponse() : string {
-        let description: string;
-
-        if (this.response == -1) {
-            description = 'Not going';
-        } else if (this.response == 0) {
-            description = 'Not answered';
-        } else {
-            description = 'Going';
-        }
-        return description;
+    public isGoing() : boolean {
+        return this.going;
     }
 
-    public setResponse(response: Response) {
-        this.response = response;
+    public setGoing(going: boolean) {
+        this.going = going;
     }
 
 }

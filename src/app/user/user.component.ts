@@ -9,7 +9,7 @@ import { APIService } from "../services/api.service";
 export class UserComponent implements OnInit {
 
     private fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDYNUMBER','ROLE'];
-    private user = ['Jacob', 'Nordfalk','jacno@dtu.dk','-','Teacher'];
+    private user = ['John', 'Doe','johndoe@dtu.dk','-','N/A'];
 
     constructor(private apiService: APIService) {
 

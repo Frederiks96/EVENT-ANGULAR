@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Invite } from "./invite";
-import { Response } from './response';
+import {InvitationService} from "../services/invitation-service.service";
+import {Invite} from "./invite";
+import {EventService} from "../services/event.service";
 
 @Component({
     selector: 'es-invites',
@@ -9,17 +10,23 @@ import { Response } from './response';
 })
 export class InvitesComponent implements OnInit {
 
-    private invites: Invite[];
+    private invites: Invite[] = [];
+    private titles: string[] = [];
 
-    constructor() {
-        this.invites = [
-            new Invite(0, 12, Response.Going),
-            new Invite(1, 10, Response.NotAnswered),
-            new Invite(2, 15, Response.Going)
-        ]
+    constructor(private invitationService: InvitationService, private eventService: EventService) {
     }
 
     ngOnInit() {
+        this.invitationService.fetchInvitations((invitations: Invite[], titles: string[]) => {
+            this.invites = invitations;
+            this.titles = titles;
+        });
+    }
+
+    setGoing(index: number, going: boolean) {
+        // Set going
+        //this.invites[index].setGoing(going);
+        going ? console.debug('Going') : console.debug('Not going');
     }
 
 }

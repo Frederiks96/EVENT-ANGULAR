@@ -1,17 +1,17 @@
 <div class="row" *ngIf="invites.length > 0">
     <div>
         <ul class="list-group" >
-            <li class="list-group-item" *ngFor="let invite of invites">
+            <li class="list-group-item" *ngFor="let invite of invites; let i = index">
 
                 <div style="overflow: hidden">
 
                     <div class="btn-group-m pull-right">
-                        <button class="btn btn-primary">Going</button>
-                        <button class="btn btn-primary">Not going</button>
+                        <button class="btn btn-default" [ngClass]="{'btn-primary': invite.isGoing()}" (click)="setGoing(i, true)">Going</button>
+                        <button class="btn btn-default" (click)="setGoing(i, false)">Not going</button>
                     </div>
 
                     <div style="line-height: 30px">
-                        {{invite.getEventId()}}
+                        {{ titles[i] }}
                     </div>
 
                 </div>
