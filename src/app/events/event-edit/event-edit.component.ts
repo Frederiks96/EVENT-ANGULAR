@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import {NgForm} from '@angular/forms';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 import {EventService} from "../../services/event.service";
@@ -15,14 +15,9 @@ import {Event} from "../event/event";
 export class EventEditComponent implements OnInit {
 
     id: number;
+    isPublic = true;
     editMode: boolean = false;
-    eventForm: FormGroup;
     event : Event;
-
-    isPublic = [
-        'Public event',
-        'Private event'
-    ];
 
     constructor(private eventService: EventService, private route: ActivatedRoute, private router: Router) {
     }
@@ -31,32 +26,40 @@ export class EventEditComponent implements OnInit {
 
         this.route.parent.params.subscribe(
             (params: Params) => {
+                this.editMode = params['id'] != null; // if no id in params = false
                 this.id = +(params['id']);
-                this.editMode = params['id'] != null;  // if no id in params = false
-                this.initForm();
-            });
 
+                if(this.editMode) {
+                    this.eventService.getEvent(this.id, (event: Event) => {
+                        this.event = event;
+                        console.log(event);
+                    }, null);
+                }
+            });
     };
 
-    onSubmit(){
+    onSubmit(form: NgForm){
 
-        let event = new Event(
+        this.event = new Event(
             0,
-            this.eventForm.value['title'],
-            this.eventForm.value['description'],
-            this.eventForm.value['address'],
-            this.eventForm.value['imageURL'],
-            this.eventForm.value['start'],
-            this.eventForm.value['end'],
-            true);
+            form.value.title,
+            form.value.description,
+            form.value.address,
+            form.value.imageURL,
+            Date.parse(form.value.start),
+            Date.parse(form.value.end),
+            this.isPublic
+            );
 
 
         if(this.editMode) {
-            event.setID(this.id);
-            this.updateEvent(event);
+            this.event.setID(this.id);
+            console.log(this.event);
+            this.updateEvent(this.event);
         }
         else {
-            this.addEvent(event);
+            console.log(this.event);
+            this.addEvent(this.event);
         }
 
     }
@@ -94,7 +97,11 @@ export class EventEditComponent implements OnInit {
 
     }
 
-    private initForm() {
+    private togglePublic() {
+        this.isPublic = !this.isPublic;
+    }
+
+   /* private initForm() {
 
         let title        = "";
         let description  = "";
@@ -134,5 +141,5 @@ export class EventEditComponent implements OnInit {
 
         });
 
-    }
+    }*/
 }

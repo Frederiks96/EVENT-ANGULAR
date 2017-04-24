@@ -4,7 +4,6 @@ import {Response} from "@angular/http";
 
 import { APIService } from './api.service';
 import { Event }      from '../events/event/event';
-import {ApiEvent} from "../events/event/api-event";
 
 @Injectable()
 export class EventService {
@@ -52,7 +51,7 @@ export class EventService {
 
         if(this.events.size < 1) {
 
-            failure();
+           // failure();
             return;
         }
 
