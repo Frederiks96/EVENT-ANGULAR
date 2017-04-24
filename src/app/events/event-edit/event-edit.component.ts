@@ -7,17 +7,16 @@ import {Event} from "../event/event";
 
 
 @Component({
-  selector: 'es-event-add',
-  templateUrl: 'event-edit.component.html',
+    selector: 'eseventadd',
+    templateUrl: 'event-edit.component.html',
     styleUrls: ['event-edit.component.css']
-
 })
 export class EventEditComponent implements OnInit {
 
     id: number;
     isPublic = true;
     editMode: boolean = false;
-    event : Event;
+    event: Event;
 
     constructor(private eventService: EventService, private route: ActivatedRoute, private router: Router) {
     }
@@ -35,10 +34,11 @@ export class EventEditComponent implements OnInit {
                         console.log(event);
                     }, null);
                 }
-            });
-    };
+            }
+        );
+    }
 
-    onSubmit(form: NgForm){
+    onSubmit(form: NgForm) {
 
         this.event = new Event(
             0,
@@ -49,9 +49,9 @@ export class EventEditComponent implements OnInit {
             Date.parse(form.value.start),
             Date.parse(form.value.end),
             this.isPublic
-            );
+        );
 
-        if(this.editMode) {
+        if (this.editMode) {
             this.event.setID(this.id);
             console.log(this.event);
             this.updateEvent(this.event);
@@ -100,45 +100,46 @@ export class EventEditComponent implements OnInit {
         this.isPublic = !this.isPublic;
     }
 
-   /* private initForm() {
+    /* private initForm() {
 
-        let title        = "";
-        let description  = "";
-        let address      = "";
-        let imageURL     = "";
-        let start        = 0;
-        let end          = 0;
-        let isPublic     = true;
+             let title        = "";
+             let description  = "";
+             let address      = "";
+             let imageURL     = "";
+             let start        = 0;
+             let end          = 0;
+             let isPublic     = true;
 
-        if (this.editMode) {
+             if (this.editMode) {
 
-            this.eventService.getEvent(this.id, (event: Event) => {
-                console.log(event);
-                title       = event.title;
-                description = event.description;
-                address     = event.address;
-                imageURL    = event.imageURL;
-                start       = event.start;
-                end         = event.end;
-                isPublic    = event.isPublic;
+                 this.eventService.getEvent(this.id, (event: Event) => {
+                     console.log(event);
+                     title       = event.title;
+                     description = event.description;
+                     address     = event.address;
+                     imageURL    = event.imageURL;
+                     start       = event.start;
+                     end         = event.end;
+                     isPublic    = event.isPublic;
 
-                console.log(start);
-                console.log(end);
+                     console.log(start);
+                     console.log(end);
 
-            }, null);
-        }
+                 }, null);
+             }
 
-        this.eventForm = new FormGroup({
+             this.eventForm = new FormGroup({
 
-            'title':        new FormControl(title, Validators.required),
-            'description':  new FormControl(description, Validators.required),
-            'address':      new FormControl(address, Validators.required),
-            'imageURL':     new FormControl(imageURL),
-            'start':        new FormControl(start, Validators.required),
-            'end':          new FormControl(end, Validators.required),
-            'isPublic':     new FormControl(isPublic)
+                 'title':        new FormControl(title, Validators.required),
+                 'description':  new FormControl(description, Validators.required),
+                 'address':      new FormControl(address, Validators.required),
+                 'imageURL':     new FormControl(imageURL),
+                 'start':        new FormControl(start, Validators.required),
+                 'end':          new FormControl(end, Validators.required),
+                 'isPublic':     new FormControl(isPublic)
 
-        });
+             });
 
-    }*/
+         }*/
+
 }

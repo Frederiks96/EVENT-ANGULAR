@@ -19,33 +19,35 @@ import { EventInvitationsComponent } from './events/event-invitations/event-invi
 import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
 import {InvitationService} from "./services/invitation.service";
+import {InvitesComponent} from "./invites/invites.component";
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignInComponent,
-    HeaderComponent,
-    HomeComponent,
-    EventsOverviewComponent,
-    EventThumbnailComponent,
-    EventEditComponent,
-    UserComponent,
-    ContainerComponent,
-    ShowEventComponent,
-    EventInvitationsComponent,
-    EventInvitationSearchResultComponent,
-    EventInvitationItemComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    routes
-  ],
-  providers: [UserService, APIService, EventService, InvitationService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SignInComponent,
+        HeaderComponent,
+        HomeComponent,
+        EventsOverviewComponent,
+        EventThumbnailComponent,
+        EventEditComponent,
+        UserComponent,
+        ContainerComponent,
+        ShowEventComponent,
+        EventInvitationsComponent,
+        EventInvitationSearchResultComponent,
+        EventInvitationItemComponent,
+        InvitesComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        routes
+    ],
+    providers: [UserService, APIService, EventService, InvitationService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

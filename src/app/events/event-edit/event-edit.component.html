@@ -12,7 +12,7 @@
                        class="form-control"
                        [ngModel]="event?.title"
                        required
-                       >
+                >
             </div>
             <div>
                 <label for="imageURL">Image URL</label>
@@ -32,8 +32,8 @@
                     class="form-control"
                     [ngModel]="event?.description"
                     required
-                    >
-                </textarea>
+                >
+                 </textarea>
             </div>
             <div>
                 <label for="address">Address</label>
@@ -43,7 +43,7 @@
                        class="form-control"
                        [ngModel]="event?.address"
                        required
-                       >
+                >
             </div>
 
             <div>
@@ -54,7 +54,7 @@
                        class="form-control"
                        [ngModel]="event?.start | date:'short'"
                        required
-                       >
+                >
             </div>
             <div>
                 <label for="end">End</label>
@@ -64,18 +64,18 @@
                        class="form-control"
                        [ngModel]="event?.end | date:'short'"
                        required
-                       >
+                >
             </div>
             <div class="checkbox">
                 <label for="isPublic">
-                <input type="checkbox"
-                       id="isPublic"
-                       name="isPublic"
-                       ngModel
-                       [checked]="!event?.isPublic"
-                       (change)="togglePublic()"
-                       >
-                Private event </label>
+                    <input type="checkbox"
+                           id="isPublic"
+                           name="isPublic"
+                           ngModel
+                           [checked]="!event?.isPublic"
+                           (change)="togglePublic()"
+                    >
+                    Private event </label>
             </div>
             <br>
             <div>
