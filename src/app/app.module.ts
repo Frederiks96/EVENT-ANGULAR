@@ -15,6 +15,10 @@ import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, S
 import { APIService } from './services/api.service';
 import { UserService } from './services/user.service';
 import {EventService} from './services/event.service';
+import { EventInvitationsComponent } from './events/event-invitations/event-invitations.component';
+import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
+import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
+import {InvitationService} from "./services/invitation.service";
 
 
 
@@ -29,7 +33,10 @@ import {EventService} from './services/event.service';
     EventEditComponent,
     UserComponent,
     ContainerComponent,
-    ShowEventComponent
+    ShowEventComponent,
+    EventInvitationsComponent,
+    EventInvitationSearchResultComponent,
+    EventInvitationItemComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,7 @@ import {EventService} from './services/event.service';
     HttpModule,
     routes
   ],
-  providers: [UserService, APIService, EventService],
+  providers: [UserService, APIService, EventService, InvitationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, ShowEventComponent, EventEditComponent } from './events';
+import {EventInvitationsComponent} from "./events/event-invitations/event-invitations.component";
 
 const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
@@ -13,13 +14,14 @@ const APP_ROUTES: Routes = [
     { path: 'home', component: HomeComponent },
 
 
-    { path: 'events', component: ContainerComponent, children: [
-        { path: '', component: EventsOverviewComponent },
+    { path: 'events',  component: ContainerComponent, children: [
+        { path: '',    component: EventsOverviewComponent },
         { path: 'add', component: EventEditComponent },
         { path: ':id', component: ContainerComponent, children: [
-            { path: '', component: ShowEventComponent },
-            { path: 'edit', component: EventEditComponent }
-        ] }
+            { path: '',            component: ShowEventComponent },
+            { path: 'edit',        component: EventEditComponent },
+            { path: 'invitations', component: EventInvitationsComponent }
+        ]}
     ]},
 
     { path: 'user', component: ContainerComponent, children: [

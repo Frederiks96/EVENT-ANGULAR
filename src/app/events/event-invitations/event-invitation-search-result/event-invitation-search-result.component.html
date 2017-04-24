@@ -1,0 +1,8 @@
+<li *ngIf="!added" >
+    <div>
+        <span>{{user.getUsername()}}</span>
+    </div>
+    <div>
+        <a (click)="invite(user.getID())" class="btn btn-success">Invite</a>
+    </div>
+</li>

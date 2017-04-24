@@ -4,60 +4,88 @@ import {Response} from "@angular/http";
 
 import { APIService } from './api.service';
 import { Event }      from '../events/event/event';
+import {Invitation} from "../events/event-invitations/Invitation";
+import {User} from "../user/user";
 
 @Injectable()
 export class EventService {
 
-    private events : Map<number, Event> = new Map<number, Event>();
+    private events : Event[] = [];
 
     constructor(private api: APIService) {}
 
-    public getEvents(callback: (events: Event[]) => void, failure: () => void) {
+    public getEvents(callback: (events: Event[]) => void, failure: () => void)
+    {
+        if(this.events.length > 0)
+        {
+            this.events = [];
+        }
 
         let observable : Observable<Response> = this.api.get("/events");
 
-        let map = (response : Response) => {
+        let map = (response : Response) =>
+        {
+            let payload : any = response.json().results;
 
-            let events  : Event[] = [];
-            let payload : any     = JSON.parse(response.text()).results;
+            for(let index : number = 0; index < payload.length; index++)
+            {
+                let current : any = payload[index];
+                let model   : Event = new Event(
+                    current.id,
+                    current.details.title,
+                    current.details.description,
+                    current.details.address,
+                    current.details.imageURL,
 
-            for(let index : number = 0; index < payload.length; index++) {
-                events[index] = new Event(
-                    payload[index].id,
-                    payload[index].details.title,
-                    payload[index].details.description,
-                    payload[index].details.address,
-                    payload[index].details.imageURL,
-                    payload[index].details.start,
-                    payload[index].details.end,
+                    new Date(current.details.start),
+                    new Date(current.details.end),
 
-                //    new Date(payload[index].details.start),
-                //    new Date(payload[index].details.end),
-
-                    payload[index].details.isPublic
+                    current.details.isPublic
                 );
 
-                this.events.set(events[index].getId(), events[index]);
+                for(let i : number = 0; i < current.organizers.length; i++)
+                {
+                    model.organizers.push(new User(
+                        current.organizers[i].user.id,
+                        current.organizers[i].user.username
+                    ));
+                }
+
+                for(let i : number = 0; i < current.invitations.length; i++)
+                {
+                    model.invitations.push(new Invitation(
+                        current.invitations[i].id,
+                        new User(
+                            current.invitations[i].user.id,
+                            current.invitations[i].user.username,
+                        ),
+                        current.invitations[i].event,
+                        current.invitations[i].accepted,
+                    ));
+                }
+
+                console.debug(model);
+
+                this.events.push(model);
             }
 
-
-            callback(events);
+            callback(this.events);
         };
 
         this.api.execute(observable, map, failure);
     }
 
-    public getEvent(id: number,  callback: (event: Event) => void, failure: () => void) : void {
+    public getEvent(id: number,  callback: (event: Event) => void, failure: () => void) : void
+    {
+        let model : Event = this.fetch(id);
 
-        if(this.events.size < 1) {
-
-           // failure();
+        if(model == null)
+        {
+            failure();
             return;
         }
 
-        console.log(this.events.get(id));
-        callback(this.events.get(id));
-
+        callback(model);
     }
 
     public createEvent(model : Event, success : (model : Event) => void, failure : () => void)
@@ -68,11 +96,9 @@ export class EventService {
 
             let payload : any = response.json();
 
-            model.setID(payload.id);
+            model.id = payload.id;
 
-         //   let event = this.parseApiToEvent(model);
-
-            this.events.set(payload.id, model);
+            this.events.push(model);
 
             success(model);
 
@@ -81,15 +107,20 @@ export class EventService {
 
     public updateEvent (model : Event, success : () => void, failure : () => void)
     {
-        let body : string = JSON.stringify(model);
+        let body     : string = JSON.stringify(model);
+        let existing : Event  = this.fetch(model.id);
 
-        this.api.execute(this.api.put("/events/" + model.getId(), body), () => {
+        if(existing == null)
+        {
+            console.error("Cannot update non-existing events!");
+            return;
+        }
 
-            this.events.set(model.getId(), model);
+        this.api.execute(this.api.put("/events/" + model.getId(), body), () =>
+        {
+            this.events[this.events.indexOf(existing)] = model;
             success();
-
         }, failure);
-
     }
 
     public deleteEvent(id : number, success : () => void, failure : () => void) : void {
@@ -98,43 +129,30 @@ export class EventService {
 
         this.api.execute(observable, () => {
 
-            if(this.events.delete(id)) {
-                success();
+            let existing = this.fetch(id);
 
+            if(existing == null)
+            {
+                failure();
                 return;
             }
 
-            failure();
+            this.events.splice(this.events.indexOf(existing), 1);
+            success();
 
         }, failure);
     }
 
-/*
-    public parseEventToApi(event : Event) : ApiEvent {
+    private fetch(key : number) : Event
+    {
+        for(let index : number = 0; index < this.events.length; index++)
+        {
+            if(this.events[index].id == key)
+            {
+                return this.events[index];
+            }
+        }
 
-        return new ApiEvent(
-            event.getId(),
-            event.title,
-            event.description,
-            event.address,
-            event.imageURL,
-            event.start.getMilliseconds(),
-            event.end.getMilliseconds(),
-            event.isPublic);
+        return null;
     }
-
-    public parseApiToEvent(event : ApiEvent) : Event {
-
-        return new Event(
-            event.getId(),
-            event.title,
-            event.description,
-            event.address,
-            event.imageURL,
-            new Date(event.start),
-            new Date (event.end),
-            event.isPublic);
-    }*/
-
-
 }

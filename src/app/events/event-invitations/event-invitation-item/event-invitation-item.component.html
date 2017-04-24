@@ -1,0 +1,8 @@
+<li *ngIf="!removed">
+    <div>
+        <span>{{invitation.getUser().getUsername()}}</span>
+    </div>
+    <div>
+        <a (click)="remove(invitation.getEventID(), invitation.getInvitationID())" class="btn btn-danger">Remove</a>
+    </div>
+</li>

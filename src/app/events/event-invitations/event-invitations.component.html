@@ -1,0 +1,41 @@
+<section>
+    <h2>Invitations for: {{event.title}} </h2>
+
+    <div class="invitation-section">
+        <div class="section-header">
+            <label for="search-criteria">Invite more people</label>
+        </div>
+        <div class="section-content">
+            <span class="explanation-text">Type the name (student number) of a user to invite the person.</span>
+            <input type="text" name="search-criteria" id="search-criteria" (keyup)="search($event)" placeholder="Search users here..." />
+        </div>
+        <div class="section-content">
+            <ul *ngIf="results.length > 0; else noResults">
+                <es-event-invitation-search-result *ngFor="let result of results" [user]="result" [event]="event" (created)="update()"></es-event-invitation-search-result>
+            </ul>
+        </div>
+        <ng-template #noResults>There are no search results</ng-template>
+    </div>
+    <div class="invitation-section">
+        <div class="section-header">
+            <span>Pending invitations</span>
+        </div>
+        <div class="section-content">
+            <ul *ngIf="pending.length > 0; else noPendingInvitations">
+                <es-event-invitation-item *ngFor="let invitation of pending" [invitation]="invitation" [(event)]="event" (deleted)="update()"></es-event-invitation-item>
+            </ul>
+        </div>
+        <ng-template #noPendingInvitations>There are no pending invitations</ng-template>
+    </div>
+    <div class="invitation-section">
+        <div class="section-header">
+            <span>Accepted invitations</span>
+        </div>
+        <div class="section-content">
+            <ul *ngIf="accepted.length > 0; else noAcceptedInvitations">
+                <es-event-invitation-item *ngFor="let invitation of accepted" [invitation]="invitation" [(event)]="event" (deleted)="update()"></es-event-invitation-item>
+            </ul>
+        </div>
+        <ng-template #noAcceptedInvitations>There are no accepted invitations</ng-template>
+    </div>
+</section>

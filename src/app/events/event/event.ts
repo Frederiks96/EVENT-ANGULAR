@@ -1,12 +1,17 @@
+import {Invitation} from "../event-invitations/Invitation";
+import {User} from "../../user/user";
 export class Event {
 
-    constructor(private id: number = 0,
+    public organizers  : User[] = [];
+    public invitations : Invitation[] = [];
+
+    constructor(public id: number,
                 public title: string,
                 public description: string,
                 public address: string,
                 public imageURL: string,
-                public start: number,
-                public end: number,
+                public start: Date,
+                public end: Date,
                 public isPublic: boolean) {
     }
 
