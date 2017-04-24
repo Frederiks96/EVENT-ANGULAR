@@ -19,6 +19,7 @@ import { EventInvitationsComponent } from './events/event-invitations/event-invi
 import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
 import {InvitationService} from "./services/invitation.service";
+import {InvitesComponent} from "./invites/invites.component";
 
 
 
@@ -36,7 +37,8 @@ import {InvitationService} from "./services/invitation.service";
         ShowEventComponent,
         EventInvitationsComponent,
         EventInvitationSearchResultComponent,
-        EventInvitationItemComponent
+        EventInvitationItemComponent,
+        InvitesComponent
     ],
     imports: [
         BrowserModule,
