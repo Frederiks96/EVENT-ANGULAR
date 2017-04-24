@@ -51,7 +51,6 @@ export class EventEditComponent implements OnInit {
             this.isPublic
             );
 
-
         if(this.editMode) {
             this.event.setID(this.id);
             console.log(this.event);

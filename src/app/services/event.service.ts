@@ -36,9 +36,10 @@ export class EventService {
                     current.details.description,
                     current.details.address,
                     current.details.imageURL,
-
-                    new Date(current.details.start),
-                    new Date(current.details.end),
+                    current.details.start,
+                    current.details.end,
+                   // new Date(current.details.start),
+                    // new Date(current.details.end),
 
                     current.details.isPublic
                 );
