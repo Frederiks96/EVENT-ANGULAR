@@ -1,0 +1,58 @@
+/*
+ * The section is styled because the master layout is weird for some reason!
+ */
+section {
+    max-width: 750px;
+    height: auto;
+    box-sizing: border-box;
+}
+
+#event-cover-image {
+    width: 100%;
+    height: 150px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+#event-admin-panel {
+    padding: 0;
+    list-style: none;
+    margin: 0 0 20px;
+}
+
+#event-admin-panel li {
+    display: inline-block;
+    margin-right: 5px;
+    height: 20px;
+}
+
+#event-admin-panel li[role="separator"] {
+    border-right: 1px solid #AAA;
+    position: relative;
+    height: 15px;
+    top: 4px;
+}
+
+#event-admin-panel li a.btn {
+    padding: 5px 11px;
+    font-size: 13px;
+}
+
+.detail-section .detail-header {
+    font-size: 15px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 3px;
+    margin-bottom: 10px;
+}
+
+.detail-section .detail-content {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+

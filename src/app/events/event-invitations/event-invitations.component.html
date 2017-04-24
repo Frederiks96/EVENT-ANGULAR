@@ -1,0 +1,32 @@
+<section>
+    <h2>Invitations for: {{event.title}} </h2>
+
+    <a class="back-link" [routerLink]="['/events', event.id]">Back</a>
+
+    <div class="invitation-section">
+        <div class="section-header">
+            <label for="search-criteria">Invite more people</label>
+        </div>
+        <div class="section-content">
+            <span class="explanation-text">Type the name (student number) of a user to invite the person.</span>
+            <input type="text" name="search-criteria" id="search-criteria" (keyup)="search($event)" />
+        </div>
+        <div class="section-content">
+            <ul *ngIf="results.length > 0; else noResults">
+                <es-event-invitation-search-result *ngFor="let result of results" [user]="result" [event]="event" ></es-event-invitation-search-result>
+            </ul>
+        </div>
+        <template #noResults>There are no search results</template>
+    </div>
+    <div class="invitation-section">
+        <div class="section-header">
+            <span>Current invitations</span>
+        </div>
+        <div class="section-content">
+            <ul *ngIf="invitations.length > 0; else noInvitations">
+                <es-event-invitation-item *ngFor="let invitation of invitations" [invitation]="invitation"></es-event-invitation-item>
+            </ul>
+        </div>
+        <template #noInvitations>There are currently no invitations</template>
+    </div>
+</section>

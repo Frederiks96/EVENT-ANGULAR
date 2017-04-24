@@ -12,10 +12,14 @@ import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, ShowEventComponent } from './events';
 
-import { APIService } from '../services/api.service';
-import { UserService } from '../services/user.service';
-import {EventService} from '../services/event.service';
+import { EventInvitationsComponent } from './events/event-invitations/event-invitations.component';
+import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
+import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
+import {InvitationService} from "./services/invitation-service.service";
 import { InvitesComponent } from './invites/invites.component';
+import {UserService} from "./services/user.service";
+import {APIService} from "./services/api.service";
+import {EventService} from "./services/event.service";
 
 
 @NgModule({
@@ -30,7 +34,10 @@ import { InvitesComponent } from './invites/invites.component';
     UserComponent,
     ContainerComponent,
     ShowEventComponent,
-    InvitesComponent
+    InvitesComponent,
+    EventInvitationsComponent,
+    EventInvitationSearchResultComponent,
+    EventInvitationItemComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,7 @@ import { InvitesComponent } from './invites/invites.component';
     HttpModule,
     routes
   ],
-  providers: [UserService, APIService, EventService],
+  providers: [UserService, APIService, EventService, InvitationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

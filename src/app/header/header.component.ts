@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { APIService } from '../../services/api.service';
+import { APIService } from '../services/api.service';
 
 @Component({
   selector: 'es-header',
@@ -12,6 +12,11 @@ export class HeaderComponent {
 
   isAuthenticated() {
     return this.apiService.isAuthenticated();
+  }
+
+  public logout()
+  {
+      this.apiService.logout();
   }
 
 }

@@ -1,15 +1,20 @@
 export class Event {
 
-    constructor(private id: number,
-                public name: string,
+    constructor(public id: number,
+                public title: string,
                 public description: string,
+                public address: string,
+                public imageURL: string,
                 public start: Date,
                 public end: Date,
-                public address: string,
                 public isPublic: boolean) {
     }
 
-    public getId() : number {
+    public setID(id : number) : void {
+        this.id = id;
+    }
+
+    public getId(): number {
         return this.id;
     }
 

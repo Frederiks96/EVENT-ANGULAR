@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {APIService} from '../../../services/api.service';
+import {APIService} from '../../services/api.service';
 
 
 @Component({
@@ -23,7 +23,7 @@ export class EventEditComponent {
         'Ikke offentlig'
     ];
 
-    onSubmit(form: NgForm) {
+   /* onSubmit(form: NgForm) {
         console.log(form.value);
 
         this.event.start    = new Date(form.value.start).getTime();
@@ -41,5 +41,5 @@ export class EventEditComponent {
                 console.log('Failed creation of event');
             });
     }
-
+*/
 }

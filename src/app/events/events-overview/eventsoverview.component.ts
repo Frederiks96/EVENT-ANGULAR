@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Event } from '../event/event';
-import { APIService } from '../../../services/api.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'es-events',
@@ -9,14 +9,12 @@ import { APIService } from '../../../services/api.service';
 })
 export class EventsOverviewComponent implements OnInit {
 
-  public events : Event[];
+  public events: Event[];
 
-  constructor(private api : APIService) { }
+  constructor(private eventService: EventService) { }
 
-  ngOnInit()
-  {
-      this.api.fetchEvents((events : Event[]) =>
-      {
+  ngOnInit() {
+      this.eventService.getEvents((events: Event[]) => {
           this.events = events;
       }, null);
   }
