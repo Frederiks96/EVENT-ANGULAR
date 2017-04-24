@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -19,6 +19,7 @@ import { EventInvitationsComponent } from './events/event-invitations/event-invi
 import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
 import {InvitationService} from "./services/invitation.service";
+
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {InvitationService} from "./services/invitation.service";
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     routes
   ],

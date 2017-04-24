@@ -1,45 +1,145 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {APIService} from '../../services/api.service';
+import {ActivatedRoute, Params, Router} from "@angular/router";
+
+import {EventService} from "../../services/event.service";
+import {Event} from "../event/event";
 
 
 @Component({
   selector: 'es-event-add',
-  templateUrl: 'event-edit.component.html'
+  templateUrl: 'event-edit.component.html',
+    styleUrls: ['event-edit.component.css']
+
 })
-export class EventEditComponent {
-    constructor(private api: APIService) {}
-    event = {
-        name: "",
-        description: "",
-        start: 0,
-        end: 0,
-        address: "",
-        isPublic: true
+export class EventEditComponent implements OnInit {
+
+    id: number;
+    isPublic = true;
+    editMode: boolean = false;
+    event : Event;
+
+    constructor(private eventService: EventService, private route: ActivatedRoute, private router: Router) {
+    }
+
+    ngOnInit() {
+
+        this.route.parent.params.subscribe(
+            (params: Params) => {
+                this.editMode = params['id'] != null; // if no id in params = false
+                this.id = +(params['id']);
+
+                if(this.editMode) {
+                    this.eventService.getEvent(this.id, (event: Event) => {
+                        this.event = event;
+                        console.log(event);
+                    }, null);
+                }
+            });
     };
 
-    isPublic = [
-        'Offentlig',
-        'Ikke offentlig'
-    ];
+    onSubmit(form: NgForm){
 
-   /* onSubmit(form: NgForm) {
-        console.log(form.value);
+        this.event = new Event(
+            0,
+            form.value.title,
+            form.value.description,
+            form.value.address,
+            form.value.imageURL,
+            Date.parse(form.value.start),
+            Date.parse(form.value.end),
+            this.isPublic
+            );
 
-        this.event.start    = new Date(form.value.start).getTime();
-        this.event.end      = new Date(form.value.end).getTime();
-        this.event.isPublic = form.value.isPublic == this.isPublic[0];
 
-        console.log(this.event);
+        if(this.editMode) {
+            this.event.setID(this.id);
+            console.log(this.event);
+            this.updateEvent(this.event);
+        }
+        else {
+            console.log(this.event);
+            this.addEvent(this.event);
+        }
 
-        this.api.addEvent(this.event,() =>
-            {
-                console.log('Successfully created event');
-            },
-            () =>
-            {
-                console.log('Failed creation of event');
-            });
     }
-*/
+
+    onCancel() {
+        this.router.navigate(['../'], {relativeTo: this.route});
+    }
+
+    addEvent(event: Event) {
+
+        this.eventService.createEvent(event, (callback: Event) => {
+            // success
+            this.router.navigate(["/events", callback.getId()])
+
+        }, () => {
+
+            // fail
+            // display error message
+
+        });
+    }
+
+    updateEvent(event: Event) {
+
+        this.eventService.updateEvent(event, () => {
+            // success
+            this.router.navigate(["/events", this.id])
+
+        }, () => {
+
+            // fail
+            // display error message
+
+        });
+
+    }
+
+    private togglePublic() {
+        this.isPublic = !this.isPublic;
+    }
+
+   /* private initForm() {
+
+        let title        = "";
+        let description  = "";
+        let address      = "";
+        let imageURL     = "";
+        let start        = 0;
+        let end          = 0;
+        let isPublic     = true;
+
+        if (this.editMode) {
+
+            this.eventService.getEvent(this.id, (event: Event) => {
+                console.log(event);
+                title       = event.title;
+                description = event.description;
+                address     = event.address;
+                imageURL    = event.imageURL;
+                start       = event.start;
+                end         = event.end;
+                isPublic    = event.isPublic;
+
+                console.log(start);
+                console.log(end);
+
+            }, null);
+        }
+
+        this.eventForm = new FormGroup({
+
+            'title':        new FormControl(title, Validators.required),
+            'description':  new FormControl(description, Validators.required),
+            'address':      new FormControl(address, Validators.required),
+            'imageURL':     new FormControl(imageURL),
+            'start':        new FormControl(start, Validators.required),
+            'end':          new FormControl(end, Validators.required),
+            'isPublic':     new FormControl(isPublic)
+
+        });
+
+    }*/
 }
