@@ -19,11 +19,21 @@
         </ul>
     </div>
 
+    <div *ngIf="hasCurrentUserInvitePending" id="event-invitation-pending">
+        <div>
+            <span>You have an invitation pending!</span>
+        </div>
+        <div>
+            <a (click)="onAcceptInvitation()" class="btn btn-success">Accept</a>
+            <a (click)="onDeclineInvitation()" class="btn btn-danger">Decline</a>
+        </div>
+    </div>
+
     <div class="event-details">
 
         <div class="detail-section">
             <div class="detail-header">Date</div>
-            <div class="detail-content"><b>From</b> {{event.start}} <br/><b> To</b> {{event.end}}</div>
+            <div class="detail-content"><b>From</b> {{event.start | date:'short'}} <br/><b> To</b> {{event.end | date:'short'}}</div>
         </div>
 
         <div class="detail-section">

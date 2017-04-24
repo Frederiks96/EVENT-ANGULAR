@@ -4,6 +4,8 @@ import {Response} from "@angular/http";
 
 import { APIService } from './api.service';
 import { Event }      from '../events/event/event';
+import {Invitation} from "../events/event-invitations/Invitation";
+import {User} from "../user/user";
 
 @Injectable()
 export class EventService {
@@ -28,19 +30,44 @@ export class EventService {
             for(let index : number = 0; index < payload.length; index++)
             {
                 let current : any = payload[index];
-
-                this.events.push(new Event(
+                let model   : Event = new Event(
                     current.id,
                     current.details.title,
                     current.details.description,
                     current.details.address,
                     current.details.imageURL,
-
-                    new Date(current.details.start),
-                    new Date(current.details.end),
+                    current.details.start,
+                    current.details.end,
+                   // new Date(current.details.start),
+                    // new Date(current.details.end),
 
                     current.details.isPublic
-                ));
+                );
+
+                for(let i : number = 0; i < current.organizers.length; i++)
+                {
+                    model.organizers.push(new User(
+                        current.organizers[i].user.id,
+                        current.organizers[i].user.username
+                    ));
+                }
+
+                for(let i : number = 0; i < current.invitations.length; i++)
+                {
+                    model.invitations.push(new Invitation(
+                        current.invitations[i].id,
+                        new User(
+                            current.invitations[i].user.id,
+                            current.invitations[i].user.username,
+                        ),
+                        current.invitations[i].event,
+                        current.invitations[i].accepted,
+                    ));
+                }
+
+                console.debug(model);
+
+                this.events.push(model);
             }
 
             callback(this.events);

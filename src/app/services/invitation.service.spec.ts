@@ -1,6 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { InvitationService } from './invitation-service.service';
+import { InvitationService } from './invitation.service';
 
 describe('InvitationService', () => {
   beforeEach(() => {

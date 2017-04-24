@@ -56,3 +56,26 @@ h2 {
     margin-bottom: 10px;
 }
 
+#event-invitation-pending {
+    background: #EEE;
+    border: 1px solid #CCC;
+    padding: 10px;
+    display: flex;
+    margin-bottom: 15px;
+}
+
+#event-invitation-pending > div {
+    height: 35px;
+    flex-grow: 1;
+}
+
+#event-invitation-pending > div:last-child {
+    max-width: 150px;
+}
+
+#event-invitation-pending > div:first-child {
+    line-height: 35px;
+    font-size: 15px;
+    font-style: italic;
+    vertical-align: middle;
+}

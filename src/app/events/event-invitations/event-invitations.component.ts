@@ -2,10 +2,12 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params}    from "@angular/router";
 
 import { Event } from '../event/event';
-import { User }  from "../../models/User";
+import { User }  from "../../user/user";
 import { UserService } from "../../services/user.service";
-import {Invitation} from "../../models/Invitation";
+import {Invitation} from "./Invitation";
 import {EventService} from "../../services/event.service";
+import {APIService} from "../../services/api.service";
+import {isNumber} from "util";
 
 @Component({
   selector: 'es-event-invitations',
@@ -19,17 +21,21 @@ export class EventInvitationsComponent implements OnInit {
     public results : User[] = [];
     public invitations : Invitation[] = [];
 
-    private previousSearchCriteria : string = '';
+    public pending  : Invitation[] = [];
+    public accepted : Invitation[] = [];
 
-    constructor(private route: ActivatedRoute, private events : EventService, private users : UserService) { }
+    constructor(private route: ActivatedRoute, private events : EventService, private users : UserService, private api : APIService) { }
 
     ngOnInit()
     {
-        let id : number = this.route.snapshot.params['id'];
+        let id : number = this.route.parent.snapshot.params['id'];
 
         this.events.getEvent(id, (model : Event) => {
 
             this.event = model;
+
+            this.setPendingInvitations();
+            this.setAcceptedInvitations();
 
         }, () => {
 
@@ -39,11 +45,49 @@ export class EventInvitationsComponent implements OnInit {
 
     }
 
+    private setPendingInvitations() : void
+    {
+        this.pending = [];
+
+        let results : Invitation[] = [];
+
+        for(let index : number = 0; index < this.event.invitations.length; index++)
+        {
+            let current : Invitation = this.event.invitations[index];
+
+            if(!current.isAccepted())
+            {
+                results.push(current);
+            }
+        }
+
+        this.pending = results;
+    }
+
+    private setAcceptedInvitations() : void
+    {
+        this.accepted = [];
+
+        let results : Invitation[] = [];
+
+        for(let index : number = 0; index < this.event.invitations.length; index++)
+        {
+            let current : Invitation = this.event.invitations[index];
+
+            if(current.isAccepted())
+            {
+                results.push(current);
+            }
+        }
+
+        this.accepted = results;
+    }
+
     public search(event : any) : void
     {
         let criteria : string = event.target.value.trim();
 
-        if(criteria.length < 1 || this.previousSearchCriteria == criteria)
+        if(criteria.length < 1)
         {
             if(criteria.length < 1)
             {
@@ -53,19 +97,35 @@ export class EventInvitationsComponent implements OnInit {
             return;
         }
 
-        /*
-         * This is stored (and checked against) to ensure no duplicate search requests are
-         * made, when the user typed fast.
-         */
-        this.previousSearchCriteria = criteria;
+        this.results = [];
 
         this.users.search(criteria, (results : User[]) => {
-            this.results = results;
 
-            console.debug(results);
+            let user : User = this.api.getCurrentUser();
+            let invitedUserIDs : number[] = [];
+
+            for(let index : number = 0; index < this.event.invitations.length; index++)
+            {
+                invitedUserIDs.push(this.event.invitations[index].getUser().getID());
+            }
+
+            for(let index : number = 0; index < results.length; index++)
+            {
+                if(results[index].getID() != user.getID() && invitedUserIDs.indexOf(results[index].getID()) < 0)
+                {
+                    this.results.push(results[index]);
+                }
+            }
+
         }, () => {
             console.error('Cannot search for users with criteria: ' + criteria);
         });
+    }
+
+    public update() : void
+    {
+        this.setPendingInvitations();
+        this.setAcceptedInvitations();
     }
 
 }

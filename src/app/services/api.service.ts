@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from "../models/User";
+import { User } from "../user/user";
 
 @Injectable()
 export class APIService
