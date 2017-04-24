@@ -10,8 +10,8 @@ export class Event {
                 public description: string,
                 public address: string,
                 public imageURL: string,
-                public start: Date,
-                public end: Date,
+                public start: number,
+                public end: number,
                 public isPublic: boolean) {
     }
 
