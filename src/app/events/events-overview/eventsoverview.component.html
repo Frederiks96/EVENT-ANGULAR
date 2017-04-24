@@ -1,3 +1,12 @@
-<div id="container" class="row">
-  <es-event-thumbnail *ngFor="let event of events" [event]="event" ></es-event-thumbnail>
+<div id="hosted" class="row">
+  <es-event-thumbnail *ngFor="let event of hostedEvents" [event]="event" ></es-event-thumbnail>
 </div>
+<br>
+<div id="attending" class="row">
+    <es-event-thumbnail *ngFor="let event of invitedEvents" [event]="event" ></es-event-thumbnail>
+</div>
+<br>
+<div id="public" class="row">
+    <es-event-thumbnail *ngFor="let event of publicEvents" [event]="event" ></es-event-thumbnail>
+</div>
+

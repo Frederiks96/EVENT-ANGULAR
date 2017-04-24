@@ -8,10 +8,10 @@ import { User } from "../user/user";
 export class APIService
 {
     private STORAGE_KEY_API_TOKEN     = 'api-token';
-    private STORAGE_KEY_USER_USERNAME = "current-user";
+    private STORAGE_KEY_USER_OBJECT = "current-user";
 
-    private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
-    //private url = 'http://localhost:8080/api';
+    //private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
+    private url = 'http://localhost:8080/api';
 
     private token : string = null;
     private user  : User   = null;
@@ -38,7 +38,7 @@ export class APIService
         observable.subscribe(
             response =>
             {
-                this.setup(response, username);
+                this.setup(response);
                 success(response);
             },
             error => failure(error)
@@ -133,22 +133,20 @@ export class APIService
         });
     }
 
-    private setup(response: Response, username : string): void
+    private setup(response: Response): void
     {
-        this.token = response.json().token;
+        let json : any = response.json();
+        this.token = json.token;
+        this.user = new User(json.user.id, json.user.username);
 
         localStorage.setItem(this.STORAGE_KEY_API_TOKEN, this.token);
-
-        /*
-         * Load the currently signed in user.
-         */
-        this.loadCurrentUser(username);
+        localStorage.setItem(this.STORAGE_KEY_USER_OBJECT, JSON.stringify(this.user));
     }
 
     private resume() : void
     {
-        let token    = localStorage.getItem(this.STORAGE_KEY_API_TOKEN);
-        let username = localStorage.getItem(this.STORAGE_KEY_USER_USERNAME);
+        let token = localStorage.getItem(this.STORAGE_KEY_API_TOKEN);
+        let user  = localStorage.getItem(this.STORAGE_KEY_USER_OBJECT);
 
         if(token == null)
         {
@@ -156,42 +154,18 @@ export class APIService
             return;
         }
 
-        if(username == null)
+        if(user == null)
         {
             console.error('[ERROR] Cannot resume session. Current user could not be fetched.');
             return;
         }
 
+        let json = JSON.parse(user);
+
         this.token = token;
-        this.loadCurrentUser(username);
+        this.user = new User(json.id, json.username);
 
         console.debug('[DEBUG] Resumed API token');
-    }
-
-    private loadCurrentUser(username : string) : void
-    {
-        let failure = () => {
-            console.error('Cannot load currently signed in user!');
-        };
-
-        this.execute(this.get('/users/search/' + username), (response : Response) =>
-        {
-            let payload : any[] = response.json().results;
-
-            if(payload.length < 1)
-            {
-                failure();
-                return;
-            }
-
-            this.user = new User(
-                payload[0].id,
-                payload[0].username
-            );
-
-            localStorage.setItem(this.STORAGE_KEY_USER_USERNAME, username);
-
-        }, failure);
     }
 
     private destroy(): void
@@ -202,7 +176,7 @@ export class APIService
         this.token = null;
 
         localStorage.removeItem(this.STORAGE_KEY_API_TOKEN);
-        localStorage.removeItem(this.STORAGE_KEY_USER_USERNAME);
+        localStorage.removeItem(this.STORAGE_KEY_USER_OBJECT);
 
         this.redirect();
     }

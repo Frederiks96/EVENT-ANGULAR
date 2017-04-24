@@ -22,7 +22,6 @@ import {InvitationService} from "./services/invitation.service";
 import {InvitesComponent} from "./invites/invites.component";
 
 
-
 @NgModule({
     declarations: [
         AppComponent,

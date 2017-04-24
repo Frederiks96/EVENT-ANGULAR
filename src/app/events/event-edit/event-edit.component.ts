@@ -21,7 +21,7 @@ export class EventEditComponent implements OnInit {
     event : Event;
     startDate : Date;
     endDate : Date;
-    imageURL = "http://www.aal-europe.eu/wp-content/uploads/2013/12/events_medium.jpg";
+    imageURL : string;
 
     constructor(private eventService: EventService, private route: ActivatedRoute, private router: Router) {
     }
