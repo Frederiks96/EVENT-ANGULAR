@@ -1,6 +1,6 @@
 <div id="container">
     <div id="img">
-        <img [src]="imageURL.value" height="400" width="400">
+        <img [src]="image.value" height="400" width="400">
     </div>
     <div id="form">
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
@@ -12,7 +12,7 @@
                        class="form-control"
                        [ngModel]="event?.title"
                        required
-                >
+                       >
             </div>
             <div>
                 <label for="imageURL">Image URL</label>
@@ -20,8 +20,8 @@
                        id="imageURL"
                        name="imageURL"
                        class="form-control"
-                       [ngModel]="event?.imageURL"
-                       #imageURL>
+                       [ngModel]="imageURL"
+                       #image>
             </div>
             <div>
                 <label for="description">Description</label>
@@ -32,8 +32,8 @@
                     class="form-control"
                     [ngModel]="event?.description"
                     required
-                >
-                 </textarea>
+                    >
+                </textarea>
             </div>
             <div>
                 <label for="address">Address</label>
@@ -43,39 +43,42 @@
                        class="form-control"
                        [ngModel]="event?.address"
                        required
-                >
+                       >
             </div>
-
+            <br>
             <div>
-                <label for="start">Start</label>
-                <input type="text" placeholder="27/1/1991, 17:30 PM"
-                       id="start"
-                       name="start"
-                       class="form-control"
-                       [ngModel]="event?.start | date:'short'"
-                       required
+                <label for="startDate">Start</label>
+                <input
+                    type="datetime-local"
+                    id="startDate"
+                    name="startDate"
+                    class="form-group"
+                    [ngModel]="startDate | date:'yyyy-MM-ddTHH:mm'"
+                    required
                 >
+                    <!--(ngModelChange)="startDate = $event"-->
             </div>
             <div>
-                <label for="end">End</label>
-                <input type="text" placeholder="27/1/1991, 17:30 PM"
-                       id="end"
-                       name="end"
-                       class="form-control"
-                       [ngModel]="event?.end | date:'short'"
-                       required
+                <label for="endDate">End</label>
+                <input
+                    type="datetime-local"
+                    id="endDate"
+                    name="endDate"
+                    class="form-group"
+                    [ngModel]="endDate  | date:'yyyy-MM-ddTHH:mm'"
+                    required
                 >
             </div>
             <div class="checkbox">
                 <label for="isPublic">
-                    <input type="checkbox"
-                           id="isPublic"
-                           name="isPublic"
-                           ngModel
-                           [checked]="!event?.isPublic"
-                           (change)="togglePublic()"
-                    >
-                    Private event </label>
+                <input type="checkbox"
+                       id="isPublic"
+                       name="isPublic"
+                       ngModel
+                       [checked]="!event?.isPublic"
+                       (change)="togglePublic()"
+                       >
+                Private event </label>
             </div>
             <br>
             <div>
@@ -85,3 +88,4 @@
         </form>
     </div>
 </div>
+
