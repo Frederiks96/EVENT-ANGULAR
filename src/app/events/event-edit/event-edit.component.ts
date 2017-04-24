@@ -8,8 +8,8 @@ import {Event} from "../event/event";
 
 @Component({
     selector: 'eseventadd',
-    templateUrl: 'eventedit.component.html',
-    styleUrls: ['eventedit.component.css']
+    templateUrl: 'event-edit.component.html',
+    styleUrls: ['event-edit.component.css']
 })
 export class EventEditComponent implements OnInit {
 
@@ -26,9 +26,9 @@ export class EventEditComponent implements OnInit {
         this.route.parent.params.subscribe(
             (params: Params) => {
                 this.editMode = params['id'] != null; // if no id in params = false
-                this.id = (params['id']);
+                this.id = +(params['id']);
 
-                if (this.editMode) {
+                if(this.editMode) {
                     this.eventService.getEvent(this.id, (event: Event) => {
                         this.event = event;
                         console.log(event);
@@ -79,6 +79,21 @@ export class EventEditComponent implements OnInit {
             // display error message
 
         });
+    }
+
+    updateEvent(event: Event) {
+
+        this.eventService.updateEvent(event, () => {
+            // success
+            this.router.navigate(["/events", this.id])
+
+        }, () => {
+
+            // fail
+            // display error message
+
+        });
+
     }
 
     private togglePublic() {
