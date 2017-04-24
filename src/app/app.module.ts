@@ -12,42 +12,40 @@ import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, ShowEventComponent } from './events';
 
+import { APIService } from './services/api.service';
+import { UserService } from './services/user.service';
+import {EventService} from './services/event.service';
 import { EventInvitationsComponent } from './events/event-invitations/event-invitations.component';
 import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
-import { InvitesComponent } from './invites/invites.component';
-import {UserService} from "./services/user.service";
-import {APIService} from "./services/api.service";
-import {EventService} from "./services/event.service";
 import {InvitationService} from "./services/invitation.service";
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SignInComponent,
-    HeaderComponent,
-    HomeComponent,
-    EventsOverviewComponent,
-    EventThumbnailComponent,
-    EventEditComponent,
-    UserComponent,
-    ContainerComponent,
-    ShowEventComponent,
-    InvitesComponent,
-    EventInvitationsComponent,
-    EventInvitationSearchResultComponent,
-    EventInvitationItemComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule,
-    routes
-  ],
-  providers: [UserService, APIService, EventService, InvitationService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SignInComponent,
+        HeaderComponent,
+        HomeComponent,
+        EventsOverviewComponent,
+        EventThumbnailComponent,
+        EventEditComponent,
+        UserComponent,
+        ContainerComponent,
+        ShowEventComponent,
+        EventInvitationsComponent,
+        EventInvitationSearchResultComponent,
+        EventInvitationItemComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        routes
+    ],
+    providers: [UserService, APIService, EventService, InvitationService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

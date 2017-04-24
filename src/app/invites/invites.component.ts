@@ -6,14 +6,15 @@ import {EventService} from "../services/event.service";
 @Component({
     selector: 'es-invites',
     templateUrl: './invites.component.html',
-    styleUrls: ['./invites.component.css']
+    styleUrls: ['./invites.component.css'],
+    providers: [InvitationService]
 })
 export class InvitesComponent implements OnInit {
 
     private invites: Invite[] = [];
     private titles: string[] = [];
 
-    constructor(private invitationService: InvitationService, private eventService: EventService) {
+    constructor(private invitationService: InvitationService) {
     }
 
     ngOnInit() {

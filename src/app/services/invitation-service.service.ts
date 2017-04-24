@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Response }   from '@angular/http';
 
 import {APIService} from "./api.service";
-import {Invitation} from "../models/Invitation";
-import {User}       from "../models/User";
+import {Invitation} from "../events/event-invitations/Invitation";
+import {User}       from "../user/user";
 import {Invite} from "../invites/invite";
 
 @Injectable()
@@ -20,21 +20,44 @@ export class InvitationService {
         this.api.execute(this.api.post('/events/' + eventID + '/invitations', body), (response : Response) => {
 
             let payload : number = response.json().id;
-            let model   : Invitation = new Invitation(payload, user, eventID);
+            let model   : Invitation = new Invitation(payload, user, eventID, false);
 
             callback(model);
 
         }, error);
     }
 
-    public remove(id : number, callback : () => void, error : () => void) : void
+    public remove(eventID : number, invitationID : number, callback : () => void, error : () => void) : void
     {
+        this.api.execute(this.api.delete('/events/' + eventID + '/invitations/' + invitationID), callback, error);
+    }
 
+    public accept(eventID : number, invitationID : number, callback : () => void, error : () => void) : void
+    {
+        let body = JSON.stringify({
+            accepted: true
+        });
+
+        this.doUpdate(body, eventID, invitationID, callback, error);
+    }
+
+    public decline(eventID : number, invitationID : number, callback : () => void, error : () => void) : void
+    {
+        let body = JSON.stringify({
+            accepted: false
+        });
+
+        this.doUpdate(body, eventID, invitationID, callback, error);
+    }
+
+    private doUpdate(body : string, eventID : number, invitationID : number, callback : () => void, error : () => void) : void {
+        this.api.execute(this.api.put('/events/' + eventID + '/invitations/' + invitationID, body), callback, error);
     }
 
     public fetchInvitations(callback: (invitations: Invite[], eventTitles: string[]) => void) {
         this.api.execute(this.api.get('/events'), (response: Response) => {
 
+            console.debug(response.json());
             let payload = response.json().results;
             let invites: Invite[] = [];
             let titles: string[] =[];
