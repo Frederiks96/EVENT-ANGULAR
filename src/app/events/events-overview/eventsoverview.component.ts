@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { Event } from '../event/event';
 import { EventService } from '../../services/event.service';
+import {APIService} from "../../services/api.service";
+import {User} from "../../user/user";
 
 @Component({
   selector: 'es-events',
@@ -9,14 +11,70 @@ import { EventService } from '../../services/event.service';
 })
 export class EventsOverviewComponent implements OnInit {
 
-  public events: Event[];
+    public user: User;
+    public events: Event[] = [];
+    public hostedEvents: Event[] = [];
+    public invitedEvents: Event[] = [];
+    public publicEvents: Event[] = [];
 
-  constructor(private eventService: EventService) { }
+    constructor(private eventService: EventService, private apiService: APIService) {
+    }
 
-  ngOnInit() {
-      this.eventService.getEvents((events: Event[]) => {
-          this.events = events;
-      }, null);
-  }
+    ngOnInit() {
 
+        this.user = this.apiService.getCurrentUser();
+        console.debug(this.user);
+
+        this.eventService.getEvents((events: Event[]) => {
+
+            this.events = events;
+            this.loadContent();
+
+            console.debug(this.hostedEvents);
+            console.debug(this.invitedEvents);
+            console.debug(this.publicEvents);
+        }, null);
+
+
+
+    }
+
+    public loadContent() {
+
+
+        for (let event of this.events) {
+
+            let toPublicList = true;
+            if(this.user == null) {
+                console.error("bob");
+            }
+
+            for(let organizer of event.organizers) {
+                if(organizer.getID() == this.user.getID()) {
+                    this.hostedEvents.push(event);
+                    toPublicList = false;
+                    break;
+                }
+            }
+
+            for (let invitation of event.invitations) {
+                    if (invitation.getUser().getID() == this.user.getID()) {
+                        this.invitedEvents.push(event);
+                        toPublicList = false;
+                        break;
+                    }
+            }
+
+            if (toPublicList) {
+                if (event.isPublic) {
+                    this.publicEvents.push(event);
+                }
+                else {
+                    console.log(event);
+                    console.log(event.isPublic);
+                }
+            }
+        }
+
+    }
 }
