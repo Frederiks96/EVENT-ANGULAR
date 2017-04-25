@@ -8,8 +8,7 @@ section {
 }
 
 #event-cover-image {
-    width: 100%;
-    height: 150px;
+    height: 350px;
     margin-bottom: 15px;
 }
 
@@ -27,6 +26,7 @@ h2 {
 #event-admin-panel li {
     display: inline-block;
     margin-right: 5px;
+    margin-top: 16px;
     height: 20px;
 }
 
