@@ -1,4 +1,8 @@
-<span class="pull-left" id="logo">Awesome events</span>
+<span class="pull-left" id="logo" >
+    <a [routerLink]="['/events']" id="home-link">
+        Awesome events
+    </a>
+</span>
 <ul class="nav nav-pills pull-right" *ngIf="isAuthenticated()">
     <li role="presentation" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">

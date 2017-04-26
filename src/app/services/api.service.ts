@@ -8,9 +8,9 @@ import { User } from "../user/user";
 export class APIService
 {
     private STORAGE_KEY_API_TOKEN     = 'api-token';
-    private STORAGE_KEY_USER_OBJECT = "current-user";
+    private STORAGE_KEY_USER_OBJECT = 'current-user';
 
-    //private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
+    // private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
     private url = 'http://localhost:8080/api';
 
     private token : string = null;
@@ -21,7 +21,7 @@ export class APIService
         this.resume();
     }
 
-    public authorize(username : string, password : string, success: (response: Response) => void, failure: (error: Response) => void): void
+    public authorize(username: string, password : string, success: (response: Response) => void, failure: (error: Response) => void): void
     {
         let body = JSON.stringify({
             username: username,
