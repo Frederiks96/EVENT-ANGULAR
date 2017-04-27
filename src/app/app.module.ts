@@ -20,6 +20,7 @@ import { EventInvitationSearchResultComponent } from './events/event-invitations
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
 import {InvitationService} from "./services/invitation.service";
 import {InvitesComponent} from "./invites/invites.component";
+import {DatePipe} from "./pipes/date.pipe";
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {InvitesComponent} from "./invites/invites.component";
         EventInvitationsComponent,
         EventInvitationSearchResultComponent,
         EventInvitationItemComponent,
-        InvitesComponent
+        InvitesComponent,
+        DatePipe
     ],
     imports: [
         BrowserModule,

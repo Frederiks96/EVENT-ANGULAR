@@ -10,7 +10,7 @@ export class APIService
     private STORAGE_KEY_API_TOKEN     = 'api-token';
     private STORAGE_KEY_USER_OBJECT = 'current-user';
 
-    // private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
+    //private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
     private url = 'http://localhost:8080/api';
 
     private token : string = null;
@@ -125,6 +125,12 @@ export class APIService
         return this.user;
     }
 
+    public setCurrentUser(newUser: User)
+    {
+        this.user = newUser;
+        localStorage.setItem(this.STORAGE_KEY_USER_OBJECT, JSON.stringify(this.user));
+    }
+
     private makeHeaders() : Headers
     {
         return new Headers({
@@ -137,7 +143,8 @@ export class APIService
     {
         let json : any = response.json();
         this.token = json.token;
-        this.user = new User(json.user.id, json.user.username);
+
+        this.user = new User(json.user.id, json.user.username, json.user.firstname, json.user.lastname, json.user.email);
 
         localStorage.setItem(this.STORAGE_KEY_API_TOKEN, this.token);
         localStorage.setItem(this.STORAGE_KEY_USER_OBJECT, JSON.stringify(this.user));
@@ -163,7 +170,7 @@ export class APIService
         let json = JSON.parse(user);
 
         this.token = token;
-        this.user = new User(json.id, json.username);
+        this.user = new User(json.id, json.username, json.firstname, json.lastname, json.email);
 
         console.debug('[DEBUG] Resumed API token');
     }

@@ -54,4 +54,31 @@ export class InvitationService {
         this.api.execute(this.api.put('/events/' + eventID + '/invitations/' + invitationID, body), callback, error);
     }
 
+    public fetchInvitations(callback: (invitations: Invitation[], eventTitles: string[]) => void)
+    {
+        this.api.execute(this.api.get('/events'), (response: Response) =>
+        {
+            let payload = response.json().results;
+            let invites: Invitation[] = [];
+            let titles: string[] =[];
+
+            for (let i: number = 0; i < payload.length; i++)
+            {
+                let invitations = payload[i].invitations;
+
+                for (let j: number = 0; j < invitations.length; j++)
+                {
+                    let invitation = invitations[j];
+
+                    if(invitation.user.username == this.api.getCurrentUser().getUsername())
+                    {
+                        invites.push(new Invitation(invitation.id, new User(invitation.user.id, invitation.user.username), invitation.event, invitation.accepted));
+                        titles.push(payload[i].details.title);
+                    }
+                }
+            }
+            callback(invites, titles);
+        });
+    }
+
 }
