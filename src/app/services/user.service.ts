@@ -6,20 +6,7 @@ import { User } from "../user/user";
 @Injectable()
 export class UserService {
 
-  private state = false;
-
-  constructor(private api : APIService) { }
-
-  /*
-  isAuthenticated() {
-    return this.state;
-  }
-
-  signOut() {
-      this.state = false;
-  }
-
-    */
+    constructor(private api : APIService) { }
 
 
     public search(criteria : string, callback : (results : User[]) => void, error : () => void) : void
@@ -40,6 +27,20 @@ export class UserService {
             callback(results);
 
         }, error);
+    }
+
+    update(user: User, callback : (success: boolean) => void) {
+        this.api.execute(this.api.put('/users/'+user.getID(), JSON.stringify(user)), (response : Response) =>
+        {
+            if(response.status == 204) {
+                this.api.setCurrentUser(user);
+                callback(true);
+                return;
+            }
+
+            callback(false);
+
+        });
     }
 
 
