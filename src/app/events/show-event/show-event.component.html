@@ -6,7 +6,7 @@
 
     <div *ngIf="hasCurrentUserInvitePending" id="event-invitation-pending">
         <div>
-            <span>You have an invitation pending!</span>
+            <span>Respond to the invitation</span>
         </div>
         <div>
             <a (click)="onAcceptInvitation()" class="btn btn-success">Accept</a>
@@ -18,7 +18,7 @@
 
         <div class="detail-section">
             <div class="detail-header">Date</div>
-            <div class="detail-content"><b>From</b> {{event.start  | date:'yyyy-MM-dd, HH:mm'}} <br/><b> To</b> {{event.end | date:'yyyy-MM-dd, HH:mm'}}</div>
+            <div class="detail-content"><b>From:  </b> {{event.start  | date:'yyyy-MM-dd, HH:mm'}} <br/><b> To:  </b> {{event.end | date:'yyyy-MM-dd, HH:mm'}}</div>
         </div>
 
         <div class="detail-section">
