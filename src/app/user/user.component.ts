@@ -10,7 +10,7 @@ import {UserService} from "../services/user.service";
 })
 export class UserComponent implements OnInit {
 
-    fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDYNUMBER'];
+    fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDENT ID'];
     user = ['','','',''];
 
     showGreenAlert = false;
