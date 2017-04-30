@@ -3,11 +3,11 @@ import { Event } from '../event/event';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
 import {EventService} from '../../services/event.service';
-import {Subscription} from "rxjs";
-import {User} from "../../user/user";
-import {APIService} from "../../services/api.service";
-import {Invitation} from "../event-invitations/Invitation";
-import {InvitationService} from "../../services/invitation.service";
+import {Subscription} from 'rxjs';
+import {User} from '../../user/user';
+import {APIService} from '../../services/api.service';
+import {Invitation} from '../event-invitations/Invitation';
+import {InvitationService} from '../../services/invitation.service';
 
 
 @Component({

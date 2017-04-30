@@ -61,16 +61,26 @@ export class InvitationService {
             let payload = response.json().results;
             let invites: Invitation[] = [];
             let titles: string[] =[];
+            const user = this.api.getCurrentUser();
+
 
             for (let i: number = 0; i < payload.length; i++)
             {
+                let isOrganizer = false;
                 let invitations = payload[i].invitations;
+                for (let j = 0; j < payload[i].organizers.length; j++)
+                {
+                    if (payload[i].organizers[j].user.id === user.getID())
+                    {
+                        isOrganizer = true;
+                    }
+                }
 
                 for (let j: number = 0; j < invitations.length; j++)
                 {
                     let invitation = invitations[j];
 
-                    if(invitation.user.username == this.api.getCurrentUser().getUsername())
+                    if(invitation.user.username === user.getUsername() && !isOrganizer)
                     {
                         invites.push(new Invitation(invitation.id, new User(invitation.user.id, invitation.user.username), invitation.event, invitation.accepted));
                         titles.push(payload[i].details.title);
@@ -78,6 +88,23 @@ export class InvitationService {
                 }
             }
             callback(invites, titles);
+        });
+    }
+
+    public fetchInvitation(eventID: number, callback: (invitation: Invitation) => void)
+    {
+        this.api.execute(this.api.get('/events/' + eventID), (response) => {
+           const payload = response.json().invitations;
+           const user = this.api.getCurrentUser();
+           for (let i = 0; i < payload.length; i++)
+           {
+               if (payload[i].user.id === user.getID())
+               {
+                   callback(new Invitation(payload[i].id, user, payload[i].event, payload[i].accepted));
+                   return;
+               }
+           }
+           callback(null);
         });
     }
 

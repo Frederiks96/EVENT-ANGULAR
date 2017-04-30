@@ -1,14 +1,16 @@
-<div id="hosted" class="row">
+<p *ngIf="invitedEvents.length == 0 && hostedEvents.length == 0 && publicEvents.length == 0">No upcoming events</p>
+
+<div id="hosted" class="row" *ngIf="hostedEvents.length != 0">
     <h2>Hosting</h2>
   <es-event-thumbnail *ngFor="let event of hostedEvents" [event]="event" ></es-event-thumbnail>
 </div>
 <br>
-<div id="attending" class="row">
+<div id="attending" class="row" *ngIf="invitedEvents.length != 0">
     <h2>Invited</h2>
     <es-event-thumbnail *ngFor="let event of invitedEvents" [event]="event" ></es-event-thumbnail>
 </div>
 <br>
-<div id="public" class="row">
+<div id="public" class="row" *ngIf="publicEvents.length != 0">
     <h2>Public</h2>
     <es-event-thumbnail *ngFor="let event of publicEvents" [event]="event" ></es-event-thumbnail>
 </div>

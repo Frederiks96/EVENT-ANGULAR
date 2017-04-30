@@ -42,25 +42,24 @@ export class EventsOverviewComponent implements OnInit {
     public loadContent() {
 
 
-        for (let event of this.events) {
+        for (const event of this.events) {
 
             let toPublicList = true;
-            if(this.user == null) {
-                console.error("bob");
-            }
 
-            for(let organizer of event.organizers) {
-                if(organizer.getID() == this.user.getID()) {
+            for (const organizer of event.organizers) {
+                if(organizer.getID() === this.user.getID()) {
                     this.hostedEvents.push(event);
                     toPublicList = false;
                     break;
                 }
             }
 
-            for (let invitation of event.invitations) {
-                    if (invitation.getUser().getID() == this.user.getID()) {
-                        this.invitedEvents.push(event);
-                        toPublicList = false;
+            for (const invitation of event.invitations) {
+                    if (invitation.getUser().getID() === this.user.getID()) {
+                        if (this.hostedEvents.indexOf(event) === -1) {
+                            this.invitedEvents.push(event);
+                            toPublicList = false;
+                        }
                         break;
                     }
             }

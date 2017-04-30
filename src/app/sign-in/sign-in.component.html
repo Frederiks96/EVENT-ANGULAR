@@ -11,13 +11,9 @@
         <div *ngIf="username.errors.required && username.touched" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
           <strong>Required</strong> - username is required
         </div>
-        <!--<div *ngIf="!username.errors.required && !username.valid && username.touched" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
-          <strong>Invalid username</strong> - username should be of the type 'sXXXXXX'
-        </div>-->
       </div>
 
-
-      <p></p>
+        <p></p>
 
       <div class="input-group input-group-lg form-group" id="password">
       <span class="input-group-addon" id="sizing-addon2">
@@ -32,14 +28,9 @@
       </div>
     </div>
 
-
     <p></p>
 
     <button type="submit" class="btn btn-success btn-lg btn-block" [ngClass]="{disabled: isBusy}" [disabled]="!form.valid">Sign in</button>
-
-    <p class="subtitle fancy"><span>or</span></p>
-
-    <button type="button" (click)="signup()" id="signup" [ngClass]="{disabled: isBusy}" class="btn btn-warning">Sign up</button>
 
   </div>
 </form>

@@ -45,8 +45,4 @@ export class SignInComponent {
         this.showRedAlert = true;
     }
 
-    signup() {
-
-    }
-
 }
