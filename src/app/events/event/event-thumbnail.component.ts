@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Event } from './event';
-import { InvitationService } from "../../services/invitation.service";
-import { APIService } from "../../services/api.service";
-import { Invitation } from "../event-invitations/Invitation";
+import { InvitationService } from '../../services/invitation.service';
+import { APIService } from '../../services/api.service';
+import { Invitation } from '../event-invitations/Invitation';
 
 @Component({
     selector: 'es-event-thumbnail',
-    templateUrl: 'event-thumbnail.component.html'
+    templateUrl: 'event-thumbnail.component.html',
+    styleUrls: ['event-thumbnail.component.css']
 })
 export class EventThumbnailComponent implements OnInit {
 

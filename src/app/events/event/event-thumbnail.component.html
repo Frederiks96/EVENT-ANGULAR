@@ -1,6 +1,6 @@
 <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-        <a [routerLink]="event.getId()">
+        <a [routerLink]="event.getId()" id="event-info">
             <img *ngIf="event.imageURL.length > 0" src="{{event.imageURL}}" alt="Event picture" >
             <div class="caption">
                 <h3>{{event.title}}</h3>
