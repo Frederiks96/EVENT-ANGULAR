@@ -17,14 +17,14 @@ import {InvitationService} from '../../services/invitation.service';
 })
 export class ShowEventComponent implements OnInit, OnDestroy {
 
-    private event: Event = null;
-    private id: number;
-    private subscription: Subscription;
+    event: Event = null;
+    id: number;
+    subscription: Subscription;
 
-    public isCurrentUserOrganizer : boolean = false;
-    public hasCurrentUserInvitePending : boolean = false;
+    isCurrentUserOrganizer : boolean = false;
+    hasCurrentUserInvitePending : boolean = false;
 
-    private pendingInvitationID : number = 0;
+    pendingInvitationID : number = 0;
 
     constructor(private route: ActivatedRoute, private eventService: EventService, private api : APIService, private invitations : InvitationService, private router : Router) {
     }

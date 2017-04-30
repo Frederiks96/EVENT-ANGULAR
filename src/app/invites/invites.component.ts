@@ -9,8 +9,8 @@ import {InvitationService} from "../services/invitation.service";
 })
 export class InvitesComponent implements OnInit {
 
-    private invites: Invitation[] = [];
-    private titles: string[] = [];
+    invites: Invitation[] = [];
+    titles: string[] = [];
 
     constructor(private invitationService: InvitationService) {
     }

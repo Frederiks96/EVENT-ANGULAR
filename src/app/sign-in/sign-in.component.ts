@@ -10,11 +10,11 @@ import { APIService } from '../services/api.service';
 })
 export class SignInComponent {
 
-    private showRedAlert = false;
-    private alertTitle = '';
-    private alertMessage = '';
+    showRedAlert = false;
+    alertTitle = '';
+    alertMessage = '';
 
-    private isBusy = false;
+    isBusy = false;
 
     user = {
         username: '',

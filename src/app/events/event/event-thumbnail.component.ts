@@ -1,24 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Event } from './event';
-import {Router} from '@angular/router';
-import {InvitationService} from "../../services/invitation.service";
-import {APIService} from "../../services/api.service";
-import {Invitation} from "../event-invitations/Invitation";
+import { InvitationService } from "../../services/invitation.service";
+import { APIService } from "../../services/api.service";
+import { Invitation } from "../event-invitations/Invitation";
 
 @Component({
     selector: 'es-event-thumbnail',
-    templateUrl: 'event-thumbnail.component.html',
-    styleUrls: ['event-thumbnail.component.css']
+    templateUrl: 'event-thumbnail.component.html'
 })
 export class EventThumbnailComponent implements OnInit {
 
     @Input() event: Event;
-    private isGoing: boolean = false;
-    private invitation: Invitation;
-    private user = this.apiService.getCurrentUser();
+    isGoing: boolean = false;
+    invitation: Invitation;
+    user = this.apiService.getCurrentUser();
 
-
-    constructor(private router: Router, private invitationService: InvitationService, private apiService: APIService) { }
+    constructor(private invitationService: InvitationService, private apiService: APIService) { }
 
     ngOnInit() {
         if (this.isOrganizer()) {

@@ -10,12 +10,12 @@ import {UserService} from "../services/user.service";
 })
 export class UserComponent implements OnInit {
 
-    private fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDYNUMBER'];
-    private user = ['','','',''];
+    fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDYNUMBER'];
+    user = ['','','',''];
 
-    private showGreenAlert = false;
-    private alertTitle = '';
-    private alertMessage = '';
+    showGreenAlert = false;
+    alertTitle = '';
+    alertMessage = '';
 
     constructor(private apiService: APIService, private userService: UserService) {}
 

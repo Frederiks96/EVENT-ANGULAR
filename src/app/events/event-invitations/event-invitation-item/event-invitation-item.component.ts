@@ -10,12 +10,12 @@ import {Event} from "../../event/event";
 })
 export class EventInvitationItemComponent {
 
-    @Input() public event : Event;
-    @Input() public invitation : Invitation;
+    @Input() event : Event;
+    @Input() invitation : Invitation;
 
-    @Output() public deleted : EventEmitter<any> = new EventEmitter<any>();
+    @Output() deleted : EventEmitter<any> = new EventEmitter<any>();
 
-    public removed : boolean = false;
+    removed : boolean = false;
 
     constructor(private invitations : InvitationService) { }
 
