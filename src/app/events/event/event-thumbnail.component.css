@@ -8,4 +8,6 @@
 
 img{
     padding: 8px;
+    object-fit: cover;
+    height: 300px !important;
 }
