@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 export class EventThumbnailComponent {
 
   @Input() event: Event;
+  @Input() accepted: boolean;
 
   constructor(private router: Router) { }
 

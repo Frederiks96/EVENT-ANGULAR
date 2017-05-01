@@ -1,10 +1,15 @@
 <a [routerLink]="event.getId()">
     <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
+      <div class="thumbnail" [ngClass]="{'accepted': accepted}">
         <img *ngIf="event.imageURL.length > 0" src="{{event.imageURL}}" alt="...">
         <div class="caption">
           <h3>{{event.title}}</h3>
+            <p>{{event.start | date:'yyyy-MM-dd, HH:mm'}}</p>
+            <p>{{event.end | date:'yyyy-MM-dd, HH:mm'}}</p>
           <p>{{event.description}}</p>
+            <p *ngIf="accepted">
+                <strong>Attending</strong>
+            </p>
         </div>
       </div>
     </div>

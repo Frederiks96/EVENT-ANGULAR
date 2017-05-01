@@ -1,15 +1,12 @@
 <div id="hosted" class="row">
-    <h2>Hosting</h2>
-  <es-event-thumbnail *ngFor="let event of hostedEvents" [event]="event" ></es-event-thumbnail>
+    <h2 class="page-header">Hosted</h2>
+  <es-event-thumbnail *ngFor="let event of hosted" [event]="event" ></es-event-thumbnail>
 </div>
-<br>
-<div id="attending" class="row">
-    <h2>Invited</h2>
-    <es-event-thumbnail *ngFor="let event of invitedEvents" [event]="event" ></es-event-thumbnail>
+<div id="invited" class="row">
+    <h2 class="page-header">Invited</h2>
+    <es-event-thumbnail *ngFor="let event of invited; let i=index" [event]="event" [accepted]="accepted[i]"></es-event-thumbnail>
 </div>
-<br>
 <div id="public" class="row">
-    <h2>Public</h2>
-    <es-event-thumbnail *ngFor="let event of publicEvents" [event]="event" ></es-event-thumbnail>
+    <h2 class="page-header">Public</h2>
+    <es-event-thumbnail *ngFor="let event of _public" [event]="event" ></es-event-thumbnail>
 </div>
-

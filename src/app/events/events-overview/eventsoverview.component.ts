@@ -13,9 +13,10 @@ export class EventsOverviewComponent implements OnInit {
 
     public user: User;
     public events: Event[] = [];
-    public hostedEvents: Event[] = [];
-    public invitedEvents: Event[] = [];
-    public publicEvents: Event[] = [];
+    public hosted: Event[] = [];
+    public invited: Event[] = [];
+    public _public: Event[] = [];
+    public accepted: boolean[] = [];
 
     constructor(private eventService: EventService, private apiService: APIService) {
     }
@@ -30,44 +31,42 @@ export class EventsOverviewComponent implements OnInit {
             this.events = events;
             this.loadContent();
 
-            console.debug(this.hostedEvents);
-            console.debug(this.invitedEvents);
-            console.debug(this.publicEvents);
+            console.debug(this.hosted);
+            console.debug(this.invited);
+            console.debug(this._public);
         }, null);
-
-
-
     }
 
     public loadContent() {
 
-
         for (let event of this.events) {
 
             let toPublicList = true;
-            if(this.user == null) {
+            if (this.user == null) {
                 console.error("bob");
             }
 
-            for(let organizer of event.organizers) {
-                if(organizer.getID() == this.user.getID()) {
-                    this.hostedEvents.push(event);
+            for (let organizer of event.organizers) {
+                if (organizer.getID() == this.user.getID()) {
+                    this.hosted.push(event);
                     toPublicList = false;
                     break;
                 }
             }
 
             for (let invitation of event.invitations) {
-                    if (invitation.getUser().getID() == this.user.getID()) {
-                        this.invitedEvents.push(event);
-                        toPublicList = false;
-                        break;
-                    }
+                if (invitation.getUser().getID() == this.user.getID()) {
+                    this.invited.push(event);
+                    this.accepted.push(invitation.isAccepted());
+                    console.log(this.accepted);
+                    toPublicList = false;
+                    break;
+                }
             }
 
             if (toPublicList) {
                 if (event.isPublic) {
-                    this.publicEvents.push(event);
+                    this._public.push(event);
                 }
                 else {
                     console.log(event);
@@ -75,6 +74,5 @@ export class EventsOverviewComponent implements OnInit {
                 }
             }
         }
-
     }
 }
