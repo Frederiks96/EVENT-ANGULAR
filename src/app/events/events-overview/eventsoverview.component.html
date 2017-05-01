@@ -1,17 +1,31 @@
-<p *ngIf="invited.length == 0 && hosted.length == 0 && _public.length == 0">No upcoming events</p>
+<p *ngIf="hosted.length == 0 && _public.length == 0 && attending.length == 0 && pending.length == 0">
+    No upcoming events</p>
 
 <div id="hosted" class="row" *ngIf="hosted.length != 0">
-    <h2 class="title">My Events</h2>
+    <h2 class="title">Hosted</h2>
     <es-event-thumbnail *ngFor="let event of hosted" [event]="event" ></es-event-thumbnail>
 </div>
-<br>
-<div id="attending" class="row" *ngIf="invited.length != 0">
-    <h2 class="title">Invitations</h2>
-    <es-event-thumbnail *ngFor="let event of invited; let i=index" [event]="event" [accepted]="accepted[i]" [event]="event" ></es-event-thumbnail>
+
+<div id="attending" class="row" *ngIf="attending.length != 0">
+    <h2 class="title">Attending</h2>
+    <es-event-thumbnail
+        *ngFor="let event of attending" [event]="event" [isGoing]="true">
+    </es-event-thumbnail>
 </div>
-<br>
+
+<div id="pending" class="row" *ngIf="pending.length != 0">
+    <h2 class="title">Pending</h2>
+    <es-event-thumbnail
+        *ngFor="let event of pending" [event]="event"
+        (statusUpdated)="onStatusChange($event, 'pending')">
+    </es-event-thumbnail>
+</div>
+
 <div id="public" class="row" *ngIf="_public.length != 0">
     <h2 class="title">Public Events</h2>
-    <es-event-thumbnail *ngFor="let event of _public" [event]="event" ></es-event-thumbnail>
+    <es-event-thumbnail
+        *ngFor="let event of _public" [event]="event"
+        (statusUpdated)="onStatusChange($event, 'public')">
+    </es-event-thumbnail>
 </div>
 

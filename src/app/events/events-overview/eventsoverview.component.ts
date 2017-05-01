@@ -14,9 +14,9 @@ export class EventsOverviewComponent implements OnInit {
     public user: User;
     public events: Event[] = [];
     public hosted: Event[] = [];
-    public invited: Event[] = [];
+    public attending: Event[] = [];
+    public pending: Event[] = [];
     public _public: Event[] = [];
-    public accepted: boolean[] = [];
 
     constructor(private eventService: EventService, private apiService: APIService) {
     }
@@ -24,16 +24,12 @@ export class EventsOverviewComponent implements OnInit {
     ngOnInit() {
 
         this.user = this.apiService.getCurrentUser();
-        console.debug(this.user);
 
         this.eventService.getEvents((events: Event[]) => {
 
             this.events = events;
             this.loadContent();
 
-            console.debug(this.hosted);
-            console.debug(this.invited);
-            console.debug(this._public);
         }, null);
     }
 
@@ -54,11 +50,17 @@ export class EventsOverviewComponent implements OnInit {
             for (const invitation of event.invitations) {
                 if (invitation.getUser().getID() == this.user.getID()) {
                     if (this.hosted.indexOf(event) === -1) {
-                        this.invited.push(event);
-                    this.accepted.push(invitation.isAccepted());
-                    console.log(this.accepted);
-                    toPublicList = false;
-                    break;
+                       // this.invited.push(event);
+                        if(invitation.isAccepted()) {
+                            this.attending.push(event);
+                        }
+                        if(!invitation.isAccepted) {
+                            this.pending.push(event)
+                        }
+
+                        toPublicList = false;
+                        break;
+                    }
                 }
             }
 
@@ -73,4 +75,18 @@ export class EventsOverviewComponent implements OnInit {
             }
         }
     }
+
+    onStatusChange(event: Event, key: string) {
+
+        if(key === "pending") {
+            this.pending.splice(this.pending.indexOf(event),1);
+            this.attending.push(event);
+        }
+
+        if(key === "public") {
+            this._public.splice(this._public.indexOf(event),1);
+            this.attending.push(event);
+        }
+    }
 }
+
