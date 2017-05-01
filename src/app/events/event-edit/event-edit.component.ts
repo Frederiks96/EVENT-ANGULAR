@@ -7,8 +7,8 @@ import {Event} from "../event/event";
 
 
 @Component({
-  selector: 'es-event-add',
-  templateUrl: 'event-edit.component.html',
+    selector: 'es-event-add',
+    templateUrl: 'event-edit.component.html',
     styleUrls: ['event-edit.component.css']
 
 })

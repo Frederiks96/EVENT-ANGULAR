@@ -4,9 +4,15 @@
 
     <h2>{{event.title}}</h2>
 
+    <div>
+        <p *ngFor="let user of event.organizers">
+            <em>Hosted by: <br/>{{user.getUsername()}}</em>
+        </p>
+    </div>
+
     <div *ngIf="hasCurrentUserInvitePending" id="event-invitation-pending">
         <div>
-            <span>You have an invitation pending!</span>
+            <span>Respond to the invitation</span>
         </div>
         <div>
             <a (click)="onAcceptInvitation()" class="btn btn-success">Accept</a>
@@ -17,8 +23,8 @@
     <div class="event-details">
 
         <div class="detail-section">
-            <div class="detail-header">Date</div>
-            <div class="detail-content"><b>From</b> {{event.start  | date:'yyyy-MM-dd, HH:mm'}} <br/><b> To</b> {{event.end | date:'yyyy-MM-dd, HH:mm'}}</div>
+            <div class="detail-header">Date & Time</div>
+            <div class="detail-content"><b>From:  </b> {{event.start  | date:'HH:mm, dd-MM-yyyy'}} <br/><b> To:  </b> {{event.end | date:'HH:mm, dd-MM-yyyy'}}</div>
         </div>
 
         <div class="detail-section">
@@ -27,12 +33,16 @@
         </div>
 
         <div class="detail-section">
-            <div class="detail-header">Description:</div>
+            <div class="detail-header">Description</div>
             <div *ngIf="event.description.length > 1; else noDesc" class="detail-content">{{event.description}}</div>
         </div>
 
         <ng-template #noDesc><i>The event has no description</i></ng-template>
 
+    </div>
+
+    <div *ngIf="isCurrentUserAttending">
+        <button (click)="(onDeclineInvitation())" class="btn btn-danger">Cancel attendance</button>
     </div>
 
     <div *ngIf="isCurrentUserOrganizer">
