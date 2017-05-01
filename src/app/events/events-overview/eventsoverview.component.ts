@@ -57,7 +57,6 @@ export class EventsOverviewComponent implements OnInit {
                         else {
                             this.pending.push(event)
                         }
-
                         toPublicList = false;
                         break;
                     }
