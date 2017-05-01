@@ -4,7 +4,7 @@
 
     <h2>{{event.title}}</h2>
 
-    <div>
+    <div *ngIf="event.organizers.length != 0">
         <p *ngFor="let user of event.organizers">
             <em>Hosted by: <br/>{{user.getUsername()}}</em>
         </p>
@@ -38,6 +38,14 @@
         </div>
 
         <ng-template #noDesc><i>The event has no description</i></ng-template>
+
+        <div class="detail-section" *ngIf="participants.length != 0">
+            <div class="detail-header">Participants</div>
+            <div *ngFor="let participant of participants">
+                <p> {{participant.getUsername()}}</p>
+            </div>
+        </div>
+
 
     </div>
 

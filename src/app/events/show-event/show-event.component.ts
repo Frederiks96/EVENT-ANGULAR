@@ -18,7 +18,9 @@ import {InvitationService} from '../../services/invitation.service';
 export class ShowEventComponent implements OnInit, OnDestroy {
 
     event: Event = null;
+    user : User;
     id: number;
+    participants : User[] = [];
     subscription: Subscription;
 
     isCurrentUserOrganizer : boolean = false;
@@ -74,7 +76,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
         }, () => {
             console.error('Couldn\'t decline invitation: ' + this.invitationID);
         });
-
+        this.participants.slice(this.participants.indexOf(this.user),1)
         this.hasCurrentUserInvitePending = false;
         this.isCurrentUserAttending = false;
     }
@@ -88,9 +90,18 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     private updateState() : void
     {
-        let user : User = this.api.getCurrentUser();
+        this.user = this.api.getCurrentUser();
 
-        console.debug(user);
+        /*
+         * Get participants of event
+         */
+        for(let invitation of this.event.invitations) {
+            if(invitation.isAccepted()) {
+                this.participants.push(invitation.getUser());
+            }
+        }
+
+        console.debug(this.user);
         console.debug(this.event.organizers);
 
         /*
@@ -98,7 +109,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
          */
         for(let index : number = 0; index < this.event.organizers.length; index++)
         {
-            if(this.event.organizers[index].getID() == user.getID())
+            if(this.event.organizers[index].getID() == this.user.getID())
             {
                 this.isCurrentUserOrganizer = true;
             }
@@ -113,7 +124,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
             {
                 let invitation : Invitation = this.event.invitations[index];
 
-                if(invitation.getUser().getID() == user.getID())
+                if(invitation.getUser().getID() == this.user.getID())
                 {
                     this.invitationID = invitation.getInvitationID()
 
