@@ -23,8 +23,9 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     isCurrentUserOrganizer : boolean = false;
     hasCurrentUserInvitePending : boolean = false;
+    isCurrentUserAttending : boolean = false;
 
-    pendingInvitationID : number = 0;
+    invitationID : number = 0;
 
     constructor(private route: ActivatedRoute, private eventService: EventService, private api : APIService, private invitations : InvitationService, private router : Router) {
     }
@@ -48,6 +49,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
                 }, null);
             }
         );
+
     }
 
     ngOnDestroy() {
@@ -56,10 +58,10 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     public onAcceptInvitation()
     {
-        this.invitations.accept(this.event.id, this.pendingInvitationID, () => {
-           console.info('Accepted invitation: ' + this.pendingInvitationID);
+        this.invitations.accept(this.event.id, this.invitationID, () => {
+           console.info('Accepted invitation: ' + this.invitationID);
         }, () => {
-            console.error('Couldn\'t accept invitation: ' + this.pendingInvitationID);
+            console.error('Couldn\'t accept invitation: ' + this.invitationID);
         });
 
         this.hasCurrentUserInvitePending = false;
@@ -67,13 +69,14 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     public onDeclineInvitation()
     {
-        this.invitations.decline(this.event.id, this.pendingInvitationID, () => {
-            console.info('Declined invitation: ' + this.pendingInvitationID);
+        this.invitations.decline(this.event.id, this.invitationID, () => {
+            console.info('Declined invitation: ' + this.invitationID);
         }, () => {
-            console.error('Couldn\'t decline invitation: ' + this.pendingInvitationID);
+            console.error('Couldn\'t decline invitation: ' + this.invitationID);
         });
 
         this.hasCurrentUserInvitePending = false;
+        this.isCurrentUserAttending = false;
     }
 
     public deleteEvent()
@@ -110,10 +113,18 @@ export class ShowEventComponent implements OnInit, OnDestroy {
             {
                 let invitation : Invitation = this.event.invitations[index];
 
-                if(invitation.getUser().getID() == user.getID() && !invitation.isAccepted())
+                if(invitation.getUser().getID() == user.getID())
                 {
-                    this.hasCurrentUserInvitePending = true;
-                    this.pendingInvitationID = invitation.getInvitationID();
+                    this.invitationID = invitation.getInvitationID()
+
+                    if(!invitation.isAccepted())
+                    {
+                        this.hasCurrentUserInvitePending = true;
+                    }
+                    else
+                    {
+                        this.isCurrentUserAttending = true;
+                    }
                 }
             }
         }

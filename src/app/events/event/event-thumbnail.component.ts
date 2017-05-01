@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import { Event } from './event';
 import { InvitationService } from '../../services/invitation.service';
 import { APIService } from '../../services/api.service';
@@ -12,7 +12,8 @@ import { Invitation } from '../event-invitations/Invitation';
 export class EventThumbnailComponent implements OnInit {
 
     @Input() event: Event;
-    isGoing: boolean = false;
+    @Input() isGoing: boolean = false;
+    @Output() statusUpdated = new EventEmitter<Event>();
     invitation: Invitation;
     user = this.apiService.getCurrentUser();
 
@@ -24,7 +25,6 @@ export class EventThumbnailComponent implements OnInit {
             return;
         }
         this.fetchInvitation();
-
     }
 
     onGoing() {
@@ -43,6 +43,7 @@ export class EventThumbnailComponent implements OnInit {
                 this.isGoing = true;
                 this.fetchInvitation();
             }, () => {});
+            this.statusUpdated.emit(this.event);
             return;
         }
 
@@ -51,6 +52,7 @@ export class EventThumbnailComponent implements OnInit {
                 this.isGoing = true;
                 this.fetchInvitation();
             }, () => {} );
+            this.statusUpdated.emit(this.event);
         }
     }
 
