@@ -23,12 +23,12 @@ export class SignInComponent {
 
     constructor(private router: Router, private apiService: APIService) {
         if (this.apiService.isAuthenticated()) {
-            console.log("User is already authenticated, navigating to home");
+            console.log('User is already authenticated, navigating to events');
             this.router.navigate(['/events']);
         }
     }
 
-    logIn(form: NgForm) {
+    logIn() {
         this.isBusy = true;
         this.apiService.authorize(this.user.username, this.user.password, () => {
             this.isBusy = false;

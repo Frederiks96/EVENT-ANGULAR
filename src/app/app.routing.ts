@@ -13,7 +13,6 @@ const APP_ROUTES: Routes = [
     { path: 'signin', component: SignInComponent },
     { path: 'invites', component: InvitesComponent },
 
-
     { path: 'events',  component: ContainerComponent, children: [
         { path: '',    component: EventsOverviewComponent },
         { path: 'add', component: EventEditComponent },
@@ -32,3 +31,9 @@ const APP_ROUTES: Routes = [
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);
+
+
+
+
+
+

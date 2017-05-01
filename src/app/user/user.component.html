@@ -30,7 +30,7 @@
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input class="form-control" id="email" #name="ngModel" [(ngModel)]="user[2]" required maxlength="38" type="email" name="email">
+                <input class="form-control" id="email" #name="ngModel" [(ngModel)]="user[2]" required maxlength="38" type="email" name="email" email>
             </div>
 
             <input type="submit" value="Opdater" class="btn btn-primary" [disabled]="!f.valid">

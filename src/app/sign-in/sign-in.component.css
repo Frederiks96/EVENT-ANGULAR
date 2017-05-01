@@ -28,30 +28,6 @@
   margin: 0 auto;
 }
 
-.fancy {
-  line-height: 0.5;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.fancy span {
-  display: inline-block;
-  position: relative;
-}
-.fancy span:before,
-.fancy span:after {
-  content: "";
-  position: absolute;
-  height: 1px;
-  border: 1px solid black;
-  top: 0;
-  width: 200px;
-}
-.fancy span:before {
-  right: 100%;
-  margin-right: 10px;
-}
-.fancy span:after {
-  left: 100%;
-  margin-left: 10px;
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
 }

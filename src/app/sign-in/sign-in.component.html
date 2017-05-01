@@ -1,41 +1,45 @@
-<form (ngSubmit)="logIn(form)" #form="ngForm">
-  <div id="container">
-    <div ngModelGrouhp="userdata">
-      <div class="input-group input-group-lg" id="username">
-        <span class="input-group-addon" id="sizing-addon1">
-          <i class="glyphicon glyphicon-user"></i>
-        </span>
-        <input #username="ngModel" type="text" class="form-control" placeholder="Username" [(ngModel)]="user.username" name="username" aria-describedby="sizing-addon1" required ><!--pattern="^[sS]{1}[0-9]{6}$"-->
-      </div>
-      <div *ngIf="username.errors">
-        <div *ngIf="username.errors.required && username.touched" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
-          <strong>Required</strong> - username is required
+<form (ngSubmit)="logIn()" #form="ngForm">
+    <div id="container">
+        <div ngModelGroup="userdata">
+            <div class="input-group input-group-lg" id="username">
+                <span class="input-group-addon" id="sizing-addon1">
+                  <i class="glyphicon glyphicon-user"></i>
+                </span>
+                <input #username="ngModel"
+                       type="text"
+                       class="form-control"
+                       placeholder="Username"
+                       [(ngModel)]="user.username"
+                       name="username"
+                       required >
+            </div>
+            <span class="help-block" *ngIf="!username.valid && username.touched">Username is required</span>
+
+            <p></p>
+
+            <div class="input-group input-group-lg form-group" id="password">
+                <span class="input-group-addon" id="sizing-addon2">
+                    <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                <input #password="ngModel"
+                       type="password"
+                       class="form-control"
+                       placeholder="Password"
+                       [(ngModel)]="user.password"
+                       name="password"
+                       required>
+            </div>
+            <span class="help-block" *ngIf="!password.valid && password.touched && username.valid">Password is required</span>
         </div>
-      </div>
 
         <p></p>
 
-      <div class="input-group input-group-lg form-group" id="password">
-      <span class="input-group-addon" id="sizing-addon2">
-        <i class="glyphicon glyphicon-lock"></i>
-      </span>
-        <input #password="ngModel" type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" name="password" aria-describedby="sizing-addon2" required>
-      </div>
-      <div *ngIf="password.errors">
-        <div *ngIf="password.errors.required && password.touched && !username.errors" class="alert alert-danger" style="margin: 2px 0px 0px 0px;">
-          <strong>Required</strong> - password is required
-        </div>
-      </div>
+        <button type="submit" class="btn btn-success btn-lg btn-block" [ngClass]="{'disabled': isBusy}" [disabled]="!form.valid">Sign in</button>
+
     </div>
-
-    <p></p>
-
-    <button type="submit" class="btn btn-success btn-lg btn-block" [ngClass]="{disabled: isBusy}" [disabled]="!form.valid">Sign in</button>
-
-  </div>
 </form>
 
-<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alert" [ngClass]="{'hidden':!showRedAlert}">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <strong> {{ alertTitle }} </strong> {{ alertMessage }}
+<div class="alert alert-danger alert-dismissible fade in" role="alert" id="alert" *ngIf="showRedAlert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong> {{ alertTitle }} </strong> {{ alertMessage }}
 </div>
