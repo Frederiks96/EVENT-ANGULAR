@@ -54,7 +54,7 @@ export class EventsOverviewComponent implements OnInit {
                         if(invitation.isAccepted()) {
                             this.attending.push(event);
                         }
-                        if(!invitation.isAccepted) {
+                        else {
                             this.pending.push(event)
                         }
 
@@ -67,10 +67,6 @@ export class EventsOverviewComponent implements OnInit {
             if (toPublicList) {
                 if (event.isPublic) {
                     this._public.push(event);
-                }
-                else {
-                    console.log(event);
-                    console.log(event.isPublic);
                 }
             }
         }
