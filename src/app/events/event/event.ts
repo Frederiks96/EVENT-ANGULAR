@@ -1,5 +1,5 @@
-import {Invitation} from "../event-invitations/Invitation";
-import {User} from "../../user/user";
+import {Invitation} from '../event-invitations/Invitation';
+import {User} from '../../user/user';
 export class Event {
 
     public organizers  : User[] = [];

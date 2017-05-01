@@ -5,24 +5,24 @@ import {User} from "../../user/user";
  */
 export class Invitation {
 
-    constructor(private id : number, private user : User, private eventID : number, private accepted : boolean) {}
+    constructor(private id: number, private user: User, private eventID: number, private accepted: boolean) {}
 
-    public getInvitationID() : number
+    public getInvitationID(): number
     {
         return this.id;
     }
 
-    public getEventID() : number
+    public getEventID(): number
     {
         return this.eventID;
     }
 
-    public isAccepted() : boolean
+    public isAccepted(): boolean
     {
         return this.accepted;
     }
 
-    public getUser() : User
+    public getUser(): User
     {
         return this.user;
     }

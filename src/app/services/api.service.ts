@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from "../user/user";
+import { User } from '../user/user';
 
 @Injectable()
 export class APIService
@@ -10,25 +10,25 @@ export class APIService
     private STORAGE_KEY_API_TOKEN     = 'api-token';
     private STORAGE_KEY_USER_OBJECT = 'current-user';
 
-    //private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
+    // private url = 'http://ubuntu4.javabog.dk:3028/rest/api';
     private url = 'http://localhost:8080/api';
 
-    private token : string = null;
-    private user  : User   = null;
+    private token: string = null;
+    private user: User   = null;
 
     constructor(private http: Http, private router: Router)
     {
         this.resume();
     }
 
-    public authorize(username: string, password : string, success: (response: Response) => void, failure: (error: Response) => void): void
+    public authorize(username: string, password: string, success: (response: Response) => void, failure: (error: Response) => void): void
     {
-        let body = JSON.stringify({
+        const body = JSON.stringify({
             username: username,
             password: password
         });
 
-        let observable = this.http.post(this.url + '/authentication', body, {
+        const observable = this.http.post(this.url + '/authentication', body, {
 
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -45,73 +45,73 @@ export class APIService
         );
     }
 
-    public logout() : void
+    public logout(): void
     {
         this.destroy();
     }
 
-    public get(url : string) : Observable<Response>
+    public get(url: string): Observable<Response>
     {
-        return this.http.get(this.url+url, {
+        return this.http.get(this.url + url, {
             headers: this.makeHeaders()
 
         });
     }
 
-    public post(url : string, body : string) : Observable<Response>
+    public post(url: string, body: string): Observable<Response>
     {
-        return this.http.post(this.url+url, body, {
+        return this.http.post(this.url + url, body, {
             headers: this.makeHeaders()
         });
     }
 
-    public put(url : string, body : string) : Observable<Response>
+    public put(url: string, body: string): Observable<Response>
     {
-        return this.http.put(this.url+url, body, {
+        return this.http.put(this.url + url, body, {
             headers: this.makeHeaders()
         });
     }
 
-    public delete(url : string) : Observable<Response>
+    public delete(url: string): Observable<Response>
     {
-        return this.http.delete(this.url+url, {
+        return this.http.delete(this.url + url, {
             headers: this.makeHeaders()
         });
     }
 
-    public execute(observable : Observable<Response>, success : (response : Response) => void, failure? : (error : Response | any) => void, done? : () => void) : void
+    public execute(observable: Observable<Response>, success: (response: Response) => void, failure?: (error: Response | any) => void, done?: () => void): void
     {
-        let validator = (status : number) =>
+        const validator = (status: number) =>
         {
-            if(status == 401)
+            if (status == 401)
             {
                 this.destroy();
             }
         };
 
-        let wrappedSuccess = (response : Response) =>
+        const wrappedSuccess = (response: Response) =>
         {
             success(response);
 
-            if(done != null)
+            if (done != null)
             {
                 done();
             }
         };
 
-        let wrappedFailure = (response : Response | any) =>
+        const wrappedFailure = (response: Response | any) =>
         {
-            if(response instanceof Response)
+            if (response instanceof Response)
             {
                 validator(response.status);
             }
 
-            if(failure != null)
+            if (failure != null)
             {
                 failure(response);
             }
 
-            if(done != null)
+            if (done != null)
             {
                 done();
             }
@@ -120,7 +120,7 @@ export class APIService
         observable.subscribe(success => wrappedSuccess(success), error => wrappedFailure(error));
     }
 
-    public getCurrentUser() : User
+    public getCurrentUser(): User
     {
         return this.user;
     }
@@ -131,7 +131,7 @@ export class APIService
         localStorage.setItem(this.STORAGE_KEY_USER_OBJECT, JSON.stringify(this.user));
     }
 
-    private makeHeaders() : Headers
+    private makeHeaders(): Headers
     {
         return new Headers({
             'Content-Type': 'application/json',
@@ -141,7 +141,7 @@ export class APIService
 
     private setup(response: Response): void
     {
-        let json : any = response.json();
+        const json: any = response.json();
         this.token = json.token;
 
         this.user = new User(json.user.id, json.user.username, json.user.firstname, json.user.lastname, json.user.email);
@@ -150,24 +150,24 @@ export class APIService
         localStorage.setItem(this.STORAGE_KEY_USER_OBJECT, JSON.stringify(this.user));
     }
 
-    private resume() : void
+    private resume(): void
     {
-        let token = localStorage.getItem(this.STORAGE_KEY_API_TOKEN);
-        let user  = localStorage.getItem(this.STORAGE_KEY_USER_OBJECT);
+        const token = localStorage.getItem(this.STORAGE_KEY_API_TOKEN);
+        const user  = localStorage.getItem(this.STORAGE_KEY_USER_OBJECT);
 
-        if(token == null)
+        if (token == null)
         {
             console.debug('[DEBUG] No API token available');
             return;
         }
 
-        if(user == null)
+        if (user == null)
         {
             console.error('[ERROR] Cannot resume session. Current user could not be fetched.');
             return;
         }
 
-        let json = JSON.parse(user);
+        const json = JSON.parse(user);
 
         this.token = token;
         this.user = new User(json.id, json.username, json.firstname, json.lastname, json.email);
@@ -188,7 +188,7 @@ export class APIService
         this.redirect();
     }
 
-    private redirect() : void
+    private redirect(): void
     {
         this.user = null;
         this.router.navigate(['/signin']);

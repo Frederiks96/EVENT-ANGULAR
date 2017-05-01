@@ -36,7 +36,7 @@ export class EventThumbnailComponent implements OnInit {
 
         if (this.invitation != null) {
             // User is invited
-            if (this.invitation.isAccepted()){
+            if (this.invitation.isAccepted()) {
                 return;
             }
             this.invitationService.accept(this.event.getId(), this.invitation.getInvitationID(), () => {
