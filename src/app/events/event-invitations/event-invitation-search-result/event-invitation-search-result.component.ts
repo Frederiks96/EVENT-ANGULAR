@@ -12,12 +12,12 @@ import {User} from "../../../user/user";
 })
 export class EventInvitationSearchResultComponent {
 
-    @Input() public event : Event;
-    @Input() public user  : User;
+    @Input() event : Event;
+    @Input() user  : User;
 
-    @Output() public created : EventEmitter<any> = new EventEmitter<any>();
+    @Output() created : EventEmitter<any> = new EventEmitter<any>();
 
-    public added : boolean = false;
+    added : boolean = false;
 
     constructor(private invitations : InvitationService) { }
 

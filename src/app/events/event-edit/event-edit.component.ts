@@ -7,8 +7,8 @@ import {Event} from "../event/event";
 
 
 @Component({
-  selector: 'es-event-add',
-  templateUrl: 'event-edit.component.html',
+    selector: 'es-event-add',
+    templateUrl: 'event-edit.component.html',
     styleUrls: ['event-edit.component.css']
 
 })
@@ -47,12 +47,12 @@ export class EventEditComponent implements OnInit {
 
     onSubmit(form: NgForm){
 
-        console.log("date:" + new Date(form.value.startDate));
-        console.log("value:" + Date.parse(form.value.startDate));
+        console.log('date:' + new Date(form.value.startDate));
+        console.log('value:' + Date.parse(form.value.startDate));
 
 
         if(this.imageURL == null || this.imageURL == "") {
-            this.imageURL = "http://www.aal-europe.eu/wp-content/uploads/2013/12/events_medium.jpg";
+            this.imageURL = 'http://www.aal-europe.eu/wp-content/uploads/2013/12/events_medium.jpg';
         }
 
         this.event = new Event(
@@ -68,11 +68,11 @@ export class EventEditComponent implements OnInit {
 
         if(this.editMode) {
             this.event.setID(this.id);
-            console.log("update event:" + this.event);
+            console.log('update event: ' + JSON.stringify(this.event));
             this.updateEvent(this.event);
         }
         else {
-            console.log("add event: " + this.event);
+            console.log('add event: ' + JSON.stringify(this.event));
             this.addEvent(this.event);
         }
     }
@@ -85,7 +85,7 @@ export class EventEditComponent implements OnInit {
 
         this.eventService.createEvent(event, (callback: Event) => {
             // success
-            this.router.navigate(["/events", callback.getId()])
+            this.router.navigate(['/events', callback.getId()])
 
         }, () => {
 
@@ -99,7 +99,7 @@ export class EventEditComponent implements OnInit {
 
         this.eventService.updateEvent(event, () => {
             // success
-            this.router.navigate(["/events", this.id])
+            this.router.navigate(['/events', this.id]);
 
         }, () => {
 

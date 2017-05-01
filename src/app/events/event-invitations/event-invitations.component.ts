@@ -16,13 +16,13 @@ import {isNumber} from "util";
 })
 export class EventInvitationsComponent implements OnInit {
 
-    @Input() public event : Event;
+    @Input() event : Event;
 
-    public results : User[] = [];
-    public invitations : Invitation[] = [];
+    results : User[] = [];
+    invitations : Invitation[] = [];
 
-    public pending  : Invitation[] = [];
-    public accepted : Invitation[] = [];
+    pending  : Invitation[] = [];
+    accepted : Invitation[] = [];
 
     constructor(private route: ActivatedRoute, private events : EventService, private users : UserService, private api : APIService) { }
 

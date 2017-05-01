@@ -5,12 +5,13 @@
 
 .user > div {
     flex-grow: 1;
+    margin-top: 32px;
 }
 
 #left-box {
-    max-width: 400px;
-    background: #293d3d;
-    margin-right: 20px;
+    max-width: 350px;
+    background: #2e3a3d;
+    margin-right: 48px;
     box-sizing: border-box;
     padding: 15px;
 }
@@ -31,8 +32,10 @@ h1 {
 }
 
 #centerform input[type="submit"] {
-    padding: 10px 300px;
-    font-size: 31px;
+    padding: 10px;
+    margin-right: 8px;
+    width: 100%;
+    font-size: 16px;
     display: block;
 }
 
@@ -42,7 +45,7 @@ h1 {
 
 #profile-image {
     width: 70%;
-    margin: 0 auto 15px auto;
+    margin: 30px auto;
     display: block;
     border-radius: 50%;
 }
@@ -70,4 +73,9 @@ td {
     color: white;
     width: 100%;
     word-wrap: break-word;
+}
+
+#success {
+    margin-top: 10px;
+    max-width: 1120px;
 }

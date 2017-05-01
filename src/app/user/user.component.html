@@ -16,7 +16,7 @@
 
         <h1>Edit your information</h1>
 
-        <form #f="ngForm">
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
 
             <div class="form-group">
                 <label for="firstname">First name</label>
@@ -33,7 +33,7 @@
                 <input class="form-control" id="email" #name="ngModel" [(ngModel)]="user[2]" required maxlength="38" type="email" name="email">
             </div>
 
-            <input type="submit" value="Opdater" class="btn btn-primary" [disabled]="!f.valid">
+            <input type="submit" value="Update" class="btn btn-primary" [disabled]="!f.valid">
 
 
         </form>
@@ -41,3 +41,10 @@
     </div>
 
 </div>
+
+<div class="alert alert-success alert-dismissible fade in" role="alert" id="success" [ngClass]="{'hidden':!showGreenAlert}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="dismissAlert()"><span aria-hidden="true">&times;</span></button>
+    <strong> {{ alertTitle }} </strong> {{ alertMessage }}
+</div>
+
+

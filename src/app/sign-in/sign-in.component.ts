@@ -8,13 +8,13 @@ import { APIService } from '../services/api.service';
     templateUrl: './sign-in.component.html',
     styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
-    private showRedAlert = false;
-    private showGreenAlert = false;
-    private alertTitle = '';
-    private alertMessage = '';
+export class SignInComponent {
 
-    private isBusy = false;
+    showRedAlert = false;
+    alertTitle = '';
+    alertMessage = '';
+
+    isBusy = false;
 
     user = {
         username: '',
@@ -40,25 +40,9 @@ export class SignInComponent implements OnInit {
     }
 
     displayRedAlert() {
-        this.showGreenAlert = false;
         this.alertTitle = 'Oops!';
         this.alertMessage = 'Incorrect username or password';
         this.showRedAlert = true;
-    }
-
-    displayGreenAlert(username: string) {
-        this.showRedAlert = false;
-        this.alertTitle = 'Success!';
-        this.alertMessage = 'Successfully signed in: ' + username;
-        this.showGreenAlert = true;
-    }
-
-    ngOnInit() {
-
-    }
-
-    signup() {
-
     }
 
 }

@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { routes } from './app.routing';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { ContainerComponent } from './container/container.component';
 import { EventsOverviewComponent, EventThumbnailComponent, EventEditComponent, ShowEventComponent } from './events';
@@ -18,8 +17,8 @@ import {EventService} from './services/event.service';
 import { EventInvitationsComponent } from './events/event-invitations/event-invitations.component';
 import { EventInvitationSearchResultComponent } from './events/event-invitations/event-invitation-search-result/event-invitation-search-result.component';
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
-import {InvitationService} from "./services/invitation.service";
-import {InvitesComponent} from "./invites/invites.component";
+import {InvitationService} from './services/invitation.service';
+import {InvitesComponent} from './invites/invites.component';
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import {InvitesComponent} from "./invites/invites.component";
         AppComponent,
         SignInComponent,
         HeaderComponent,
-        HomeComponent,
         EventsOverviewComponent,
         EventThumbnailComponent,
         EventEditComponent,

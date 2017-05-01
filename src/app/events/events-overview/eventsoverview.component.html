@@ -1,12 +1,17 @@
-<div id="hosted" class="row">
-    <h2 class="page-header">Hosted</h2>
-  <es-event-thumbnail *ngFor="let event of hosted" [event]="event" ></es-event-thumbnail>
+<p *ngIf="invited.length == 0 && hosted.length == 0 && _public.length == 0">No upcoming events</p>
+
+<div id="hosted" class="row" *ngIf="hosted.length != 0">
+    <h2 class="title">My Events</h2>
+    <es-event-thumbnail *ngFor="let event of hosted" [event]="event" ></es-event-thumbnail>
 </div>
-<div id="invited" class="row">
-    <h2 class="page-header">Invited</h2>
-    <es-event-thumbnail *ngFor="let event of invited; let i=index" [event]="event" [accepted]="accepted[i]"></es-event-thumbnail>
+<br>
+<div id="attending" class="row" *ngIf="invited.length != 0">
+    <h2 class="title">Invitations</h2>
+    <es-event-thumbnail *ngFor="let event of invited; let i=index" [event]="event" [accepted]="accepted[i]" [event]="event" ></es-event-thumbnail>
 </div>
-<div id="public" class="row">
-    <h2 class="page-header">Public</h2>
+<br>
+<div id="public" class="row" *ngIf="_public.length != 0">
+    <h2 class="title">Public Events</h2>
     <es-event-thumbnail *ngFor="let event of _public" [event]="event" ></es-event-thumbnail>
 </div>
+

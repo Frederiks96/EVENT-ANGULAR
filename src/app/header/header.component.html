@@ -3,7 +3,9 @@
         Awesome events
     </a>
 </span>
-<ul class="nav nav-pills pull-right" *ngIf="isAuthenticated()">
+
+<!-- <div [ngSwitch]="isAuthenticated()"> -->
+<ul class="nav nav-pills pull-right" *ngIf="isAuthenticated(); else notAuthenticated"> <!-- *ngSwitchCase="true"-->
     <li role="presentation" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <a [routerLink]="['/events']" style="padding: 10px 30px 10px 30px;">
@@ -21,7 +23,7 @@
             Invites
         </a>
     </li>
-    <li class="dropdown">
+    <li class="dropdown" routerLinkActive="active">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a [routerLink]="['/user']">Profile</a></li>
@@ -30,3 +32,5 @@
         </ul>
     </li>
 </ul>
+
+<!-- </div> -->

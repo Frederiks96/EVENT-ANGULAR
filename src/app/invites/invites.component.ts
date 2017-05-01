@@ -1,33 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import {InvitationService} from "../services/invitation-service.service";
-import {Invite} from "./invite";
-import {EventService} from "../services/event.service";
+import {Invitation} from "../events/event-invitations/Invitation";
+import {InvitationService} from "../services/invitation.service";
 
 @Component({
     selector: 'es-invites',
     templateUrl: './invites.component.html',
-    styleUrls: ['./invites.component.css'],
-    providers: [InvitationService]
+    styleUrls: ['./invites.component.css']
 })
 export class InvitesComponent implements OnInit {
 
-    private invites: Invite[] = [];
-    private titles: string[] = [];
+    invites: Invitation[] = [];
+    titles: string[] = [];
 
     constructor(private invitationService: InvitationService) {
     }
 
     ngOnInit() {
-        this.invitationService.fetchInvitations((invitations: Invite[], titles: string[]) => {
+        this.fetchInvitations();
+    }
+
+    setGoing(index: number, going: boolean)
+    {
+        const invitation: Invitation = this.invites[index];
+
+        if(going)
+        {
+            this.invitationService.accept(invitation.getEventID(), invitation.getInvitationID(), () => {
+                this.fetchInvitations();
+            }, this.logError);
+        }
+        else
+        {
+            this.invitationService.decline(invitation.getEventID(), invitation.getInvitationID(), () => {
+                this.fetchInvitations();
+            }, this.logError);
+        }
+    }
+
+    fetchInvitations() {
+        this.invitationService.fetchInvitations((invitations: Invitation[], titles: string[]) => {
             this.invites = invitations;
             this.titles = titles;
         });
     }
 
-    setGoing(index: number, going: boolean) {
-        // Set going
-        //this.invites[index].setGoing(going);
-        going ? console.debug('Going') : console.debug('Not going');
+    private logError() {
+        console.error('An error occurred while fetching invitations');
     }
 
 }

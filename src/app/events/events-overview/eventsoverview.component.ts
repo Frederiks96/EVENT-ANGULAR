@@ -39,14 +39,11 @@ export class EventsOverviewComponent implements OnInit {
 
     public loadContent() {
 
-        for (let event of this.events) {
+        for (const event of this.events) {
 
             let toPublicList = true;
-            if (this.user == null) {
-                console.error("bob");
-            }
 
-            for (let organizer of event.organizers) {
+            for (const organizer of event.organizers) {
                 if (organizer.getID() == this.user.getID()) {
                     this.hosted.push(event);
                     toPublicList = false;
@@ -54,9 +51,10 @@ export class EventsOverviewComponent implements OnInit {
                 }
             }
 
-            for (let invitation of event.invitations) {
+            for (const invitation of event.invitations) {
                 if (invitation.getUser().getID() == this.user.getID()) {
-                    this.invited.push(event);
+                    if (this.hosted.indexOf(event) === -1) {
+                        this.invited.push(event);
                     this.accepted.push(invitation.isAccepted());
                     console.log(this.accepted);
                     toPublicList = false;

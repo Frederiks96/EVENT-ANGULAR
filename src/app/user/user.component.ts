@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { APIService } from "../services/api.service";
+import {APIService} from "../services/api.service";
+import {User} from "./user";
+import {UserService} from "../services/user.service";
 
 @Component({
     selector: 'es-user',
@@ -8,21 +10,41 @@ import { APIService } from "../services/api.service";
 })
 export class UserComponent implements OnInit {
 
-    private fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDYNUMBER','ROLE'];
-    private user = ['John', 'Doe','johndoe@dtu.dk','-','N/A'];
+    fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDENT ID'];
+    user = ['','','',''];
 
-    constructor(private apiService: APIService) {
+    showGreenAlert = false;
+    alertTitle = '';
+    alertMessage = '';
 
+    constructor(private apiService: APIService, private userService: UserService) {}
+
+    ngOnInit()
+    {
+        let user = this.apiService.getCurrentUser();
+
+        this.user[0] = user.getFirstname();
+        this.user[1] = user.getLastname();
+        this.user[2] = user.getEmail();
+        this.user[3] = user.getUsername();
     }
 
-    ngOnInit() {
-        /*
-        this.apiService.getUser(response => {
-           console.log(response.text());
-        }, error => {
-            console.log(error.text());
+    onSubmit() {
+        const newUser = new User(this.apiService.getCurrentUser().getID(), this.user[3], this.user[0], this.user[1], this.user[2]);
+        this.userService.update(newUser, success => {
+            if(success)
+            {
+                this.alertTitle = 'Success!';
+                this.alertMessage = 'Your informations have been updated!';
+                this.showGreenAlert = true;
+            } else {
+                console.log('Error');
+            }
         });
-        */
+    }
+
+    dismissAlert() {
+        this.showGreenAlert = false;
     }
 
 }
