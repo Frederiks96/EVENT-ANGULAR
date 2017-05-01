@@ -4,7 +4,7 @@
 
 export class User {
 
-    constructor(private id : number, private username : string, private firstname?: string, private lastname?: string, private email?: string)
+    constructor(private id: number, private username: string, private firstname?: string, private lastname?: string, private email?: string)
     {
         if(this.firstname == null)
         {
@@ -22,12 +22,12 @@ export class User {
         }
     }
 
-    public getID() : number
+    public getID(): number
     {
         return this.id;
     }
 
-    public getUsername() : string
+    public getUsername(): string
     {
         return this.username;
     }

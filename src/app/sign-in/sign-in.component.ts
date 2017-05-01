@@ -23,7 +23,7 @@ export class SignInComponent {
 
     constructor(private router: Router, private apiService: APIService) {
         if (this.apiService.isAuthenticated()) {
-            console.log("User is already authenticated, navigating to home");
+            console.log('User is already authenticated, navigating to home');
             this.router.navigate(['/events']);
         }
     }

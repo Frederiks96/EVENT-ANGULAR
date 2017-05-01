@@ -19,7 +19,7 @@ import { EventInvitationSearchResultComponent } from './events/event-invitations
 import { EventInvitationItemComponent } from './events/event-invitations/event-invitation-item/event-invitation-item.component';
 import {InvitationService} from './services/invitation.service';
 import {InvitesComponent} from './invites/invites.component';
-import {ShortStringPipe} from "./custom-pipes/short-string.pipe";
+import {ShortStringPipe} from './custom-pipes/short-string.pipe';
 
 
 @NgModule({

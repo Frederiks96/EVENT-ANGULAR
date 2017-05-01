@@ -1,8 +1,8 @@
 import {Component, OnInit } from '@angular/core';
 import { Event } from '../event/event';
 import { EventService } from '../../services/event.service';
-import {APIService} from "../../services/api.service";
-import {User} from "../../user/user";
+import {APIService} from '../../services/api.service';
+import {User} from '../../user/user';
 
 @Component({
   selector: 'es-events',
@@ -51,11 +51,11 @@ export class EventsOverviewComponent implements OnInit {
                 if (invitation.getUser().getID() == this.user.getID()) {
                     if (this.hosted.indexOf(event) === -1) {
                        // this.invited.push(event);
-                        if(invitation.isAccepted()) {
+                        if (invitation.isAccepted()) {
                             this.attending.push(event);
                         }
                         else {
-                            this.pending.push(event)
+                            this.pending.push(event);
                         }
                         toPublicList = false;
                         break;
@@ -73,13 +73,13 @@ export class EventsOverviewComponent implements OnInit {
 
     onStatusChange(event: Event, key: string) {
 
-        if(key === "pending") {
-            this.pending.splice(this.pending.indexOf(event),1);
+        if (key === 'pending') {
+            this.pending.splice(this.pending.indexOf(event), 1);
             this.attending.push(event);
         }
 
-        if(key === "public") {
-            this._public.splice(this._public.indexOf(event),1);
+        if (key === 'public') {
+            this._public.splice(this._public.indexOf(event), 1);
             this.attending.push(event);
         }
     }
