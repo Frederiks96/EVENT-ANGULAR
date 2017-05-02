@@ -39,17 +39,13 @@ export class EventEditComponent implements OnInit {
                         this.startDate = new Date(this.event.start);
                         this.endDate = new Date(this.event.end);
                         this.imageURL = (this.event.imageURL);
-                        console.log(event);
+
                     }, null);
                 }
             });
     };
 
     onSubmit(form: NgForm){
-
-        console.log('date:' + new Date(form.value.startDate));
-        console.log('value:' + Date.parse(form.value.startDate));
-
 
         if (this.imageURL == null || this.imageURL == '') {
             this.imageURL = 'http://www.aal-europe.eu/wp-content/uploads/2013/12/events_medium.jpg';
@@ -68,11 +64,9 @@ export class EventEditComponent implements OnInit {
 
         if (this.editMode) {
             this.event.setID(this.id);
-            console.log('update event: ' + JSON.stringify(this.event));
             this.updateEvent(this.event);
         }
         else {
-            console.log('add event: ' + JSON.stringify(this.event));
             this.addEvent(this.event);
         }
     }
@@ -110,7 +104,7 @@ export class EventEditComponent implements OnInit {
 
     }
 
-    private togglePublic() {
+    togglePublic() {
         this.isPublic = !this.isPublic;
     }
 
