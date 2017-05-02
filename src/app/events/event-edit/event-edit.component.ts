@@ -79,8 +79,9 @@ export class EventEditComponent implements OnInit {
 
         this.eventService.createEvent(event, (callback: Event) => {
             // success
-            this.router.navigate(['/events', callback.getId()]);
+            //this.router.navigate(['/events', callback.getId()]);
 
+            this.router.navigate(['../']);
         }, () => {
 
             // fail
@@ -93,7 +94,9 @@ export class EventEditComponent implements OnInit {
 
         this.eventService.updateEvent(event, () => {
             // success
-            this.router.navigate(['/events', this.id]);
+            //this.router.navigate(['/events', event.id]);
+
+            this.router.navigate(['../']);
 
         }, () => {
 
