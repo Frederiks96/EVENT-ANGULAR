@@ -81,7 +81,7 @@ export class EventEditComponent implements OnInit {
             // success
             //this.router.navigate(['/events', callback.getId()]);
 
-            this.router.navigate(['../']);
+            this.router.navigate(['/events']);
         }, () => {
 
             // fail
@@ -96,7 +96,7 @@ export class EventEditComponent implements OnInit {
             // success
             //this.router.navigate(['/events', event.id]);
 
-            this.router.navigate(['../']);
+            this.router.navigate(['/events']);
 
         }, () => {
 
