@@ -12,18 +12,6 @@ const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
     { path: 'signin', component: SignInComponent },
     { path: 'invites', component: InvitesComponent },
-
-
-    { path: 'events',  component: ContainerComponent, children: [
-        { path: '',    component: EventsOverviewComponent },
-        { path: 'add', component: EventEditComponent },
-        { path: ':id', component: ContainerComponent, children: [
-            { path: '',            component: ShowEventComponent },
-            { path: 'edit',        component: EventEditComponent },
-            { path: 'invitations', component: EventInvitationsComponent }
-        ]}
-    ]},
-
     { path: 'user', component: ContainerComponent, children: [
         { path: '', component: UserComponent }
     ]},
