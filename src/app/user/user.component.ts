@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {APIService} from "../services/api.service";
-import {User} from "./user";
-import {UserService} from "../services/user.service";
+import {APIService} from '../services/api.service';
+import {User} from './user';
+import {UserService} from '../services/user.service';
 
 @Component({
     selector: 'es-user',
@@ -11,7 +11,7 @@ import {UserService} from "../services/user.service";
 export class UserComponent implements OnInit {
 
     fields = ['FIRST NAME', 'LAST NAME', 'EMAIL', 'STUDENT ID'];
-    user = ['','','',''];
+    user = ['', '', '', ''];
 
     showGreenAlert = false;
     alertTitle = '';
@@ -21,7 +21,7 @@ export class UserComponent implements OnInit {
 
     ngOnInit()
     {
-        let user = this.apiService.getCurrentUser();
+        const user = this.apiService.getCurrentUser();
 
         this.user[0] = user.getFirstname();
         this.user[1] = user.getLastname();
@@ -32,7 +32,7 @@ export class UserComponent implements OnInit {
     onSubmit() {
         const newUser = new User(this.apiService.getCurrentUser().getID(), this.user[3], this.user[0], this.user[1], this.user[2]);
         this.userService.update(newUser, success => {
-            if(success)
+            if (success)
             {
                 this.alertTitle = 'Success!';
                 this.alertMessage = 'Your informations have been updated!';

@@ -1,36 +1,36 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Params}    from "@angular/router";
+import {ActivatedRoute, Params}    from '@angular/router';
 
 import { Event } from '../event/event';
-import { User }  from "../../user/user";
-import { UserService } from "../../services/user.service";
-import {Invitation} from "./Invitation";
-import {EventService} from "../../services/event.service";
-import {APIService} from "../../services/api.service";
-import {isNumber} from "util";
+import { User }  from '../../user/user';
+import { UserService } from '../../services/user.service';
+import {Invitation} from './Invitation';
+import {EventService} from '../../services/event.service';
+import {APIService} from '../../services/api.service';
+import {isNumber} from 'util';
 
 @Component({
-  selector: 'es-event-invitations',
-  templateUrl: './event-invitations.component.html',
-  styleUrls: ['./event-invitations.component.css']
+    selector: 'es-event-invitations',
+    templateUrl: './event-invitations.component.html',
+    styleUrls: ['./event-invitations.component.css']
 })
 export class EventInvitationsComponent implements OnInit {
 
-    @Input() event : Event;
+    @Input() event: Event;
 
-    results : User[] = [];
-    invitations : Invitation[] = [];
+    results: User[] = [];
+    invitations: Invitation[] = [];
 
-    pending  : Invitation[] = [];
-    accepted : Invitation[] = [];
+    pending : Invitation[] = [];
+    accepted: Invitation[] = [];
 
-    constructor(private route: ActivatedRoute, private events : EventService, private users : UserService, private api : APIService) { }
+    constructor(private route: ActivatedRoute, private events: EventService, private users: UserService, private api: APIService) { }
 
     ngOnInit()
     {
-        let id : number = this.route.parent.snapshot.params['id'];
+        const id: number = this.route.parent.snapshot.params['id'];
 
-        this.events.getEvent(id, (model : Event) => {
+        this.events.getEvent(id, (model: Event) => {
 
             this.event = model;
 
@@ -45,17 +45,17 @@ export class EventInvitationsComponent implements OnInit {
 
     }
 
-    private setPendingInvitations() : void
+    private setPendingInvitations(): void
     {
         this.pending = [];
 
-        let results : Invitation[] = [];
+        const results: Invitation[] = [];
 
-        for(let index : number = 0; index < this.event.invitations.length; index++)
+        for (let index = 0; index < this.event.invitations.length; index++)
         {
-            let current : Invitation = this.event.invitations[index];
+            const current: Invitation = this.event.invitations[index];
 
-            if(!current.isAccepted())
+            if (!current.isAccepted())
             {
                 results.push(current);
             }
@@ -64,17 +64,17 @@ export class EventInvitationsComponent implements OnInit {
         this.pending = results;
     }
 
-    private setAcceptedInvitations() : void
+    private setAcceptedInvitations(): void
     {
         this.accepted = [];
 
-        let results : Invitation[] = [];
+        const results: Invitation[] = [];
 
-        for(let index : number = 0; index < this.event.invitations.length; index++)
+        for (let index = 0; index < this.event.invitations.length; index++)
         {
-            let current : Invitation = this.event.invitations[index];
+            const current: Invitation = this.event.invitations[index];
 
-            if(current.isAccepted())
+            if (current.isAccepted())
             {
                 results.push(current);
             }
@@ -83,13 +83,13 @@ export class EventInvitationsComponent implements OnInit {
         this.accepted = results;
     }
 
-    public search(event : any) : void
+    public search(event: any): void
     {
-        let criteria : string = event.target.value.trim();
+        const criteria: string = event.target.value.trim();
 
-        if(criteria.length < 1)
+        if (criteria.length < 1)
         {
-            if(criteria.length < 1)
+            if (criteria.length < 1)
             {
                 this.results = [];
             }
@@ -99,19 +99,19 @@ export class EventInvitationsComponent implements OnInit {
 
         this.results = [];
 
-        this.users.search(criteria, (results : User[]) => {
+        this.users.search(criteria, (results: User[]) => {
 
-            let user : User = this.api.getCurrentUser();
-            let invitedUserIDs : number[] = [];
+            const user: User = this.api.getCurrentUser();
+            const invitedUserIDs: number[] = [];
 
-            for(let index : number = 0; index < this.event.invitations.length; index++)
+            for (let index = 0; index < this.event.invitations.length; index++)
             {
                 invitedUserIDs.push(this.event.invitations[index].getUser().getID());
             }
 
-            for(let index : number = 0; index < results.length; index++)
+            for (let index = 0; index < results.length; index++)
             {
-                if(results[index].getID() != user.getID() && invitedUserIDs.indexOf(results[index].getID()) < 0)
+                if (results[index].getID() != user.getID() && invitedUserIDs.indexOf(results[index].getID()) < 0)
                 {
                     this.results.push(results[index]);
                 }
@@ -122,7 +122,7 @@ export class EventInvitationsComponent implements OnInit {
         });
     }
 
-    public update() : void
+    public update(): void
     {
         this.setPendingInvitations();
         this.setAcceptedInvitations();

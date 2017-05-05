@@ -11,23 +11,25 @@ import {InvitationService} from '../../services/invitation.service';
 
 
 @Component({
-  selector: 'es-show-event',
-  templateUrl: 'show-event.component.html',
-  styleUrls: ['show-event.component.css']
+    selector: 'es-show-event',
+    templateUrl: 'show-event.component.html',
+    styleUrls: ['show-event.component.css']
 })
 export class ShowEventComponent implements OnInit, OnDestroy {
 
     event: Event = null;
+    user: User;
     id: number;
+    participants: User[] = [];
     subscription: Subscription;
 
-    isCurrentUserOrganizer : boolean = false;
-    hasCurrentUserInvitePending : boolean = false;
-    isCurrentUserAttending : boolean = false;
+    isCurrentUserOrganizer: boolean = false;
+    hasCurrentUserInvitePending: boolean = false;
+    isCurrentUserAttending: boolean = false;
 
-    invitationID : number = 0;
+    invitationID: number = 0;
 
-    constructor(private route: ActivatedRoute, private eventService: EventService, private api : APIService, private invitations : InvitationService, private router : Router) {
+    constructor(private route: ActivatedRoute, private eventService: EventService, private api: APIService, private invitations: InvitationService, private router: Router) {
     }
 
     ngOnInit() {
@@ -59,7 +61,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
     public onAcceptInvitation()
     {
         this.invitations.accept(this.event.id, this.invitationID, () => {
-           console.info('Accepted invitation: ' + this.invitationID);
+            console.info('Accepted invitation: ' + this.invitationID);
         }, () => {
             console.error('Couldn\'t accept invitation: ' + this.invitationID);
         });
@@ -74,7 +76,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
         }, () => {
             console.error('Couldn\'t decline invitation: ' + this.invitationID);
         });
-
+        this.participants.slice(this.participants.indexOf(this.user),1);
         this.hasCurrentUserInvitePending = false;
         this.isCurrentUserAttending = false;
     }
@@ -86,19 +88,28 @@ export class ShowEventComponent implements OnInit, OnDestroy {
         }, null);
     }
 
-    private updateState() : void
+    private updateState(): void
     {
-        let user : User = this.api.getCurrentUser();
+        this.user = this.api.getCurrentUser();
 
-        console.debug(user);
+        /*
+         * Get participants of event
+         */
+        for(let invitation of this.event.invitations) {
+            if(invitation.isAccepted()) {
+                this.participants.push(invitation.getUser());
+            }
+        }
+
+        console.debug(this.user);
         console.debug(this.event.organizers);
 
         /*
          * Check if the currently signed in user is an organizer of the event.
          */
-        for(let index : number = 0; index < this.event.organizers.length; index++)
+        for(let index: number = 0; index < this.event.organizers.length; index++)
         {
-            if(this.event.organizers[index].getID() == user.getID())
+            if(this.event.organizers[index].getID() == this.user.getID())
             {
                 this.isCurrentUserOrganizer = true;
             }
@@ -109,13 +120,13 @@ export class ShowEventComponent implements OnInit, OnDestroy {
          */
         if(!this.isCurrentUserOrganizer)
         {
-            for(let index : number = 0; index < this.event.invitations.length; index++)
+            for(let index: number = 0; index < this.event.invitations.length; index++)
             {
-                let invitation : Invitation = this.event.invitations[index];
+                let invitation: Invitation = this.event.invitations[index];
 
-                if(invitation.getUser().getID() == user.getID())
+                if(invitation.getUser().getID() == this.user.getID())
                 {
-                    this.invitationID = invitation.getInvitationID()
+                    this.invitationID = invitation.getInvitationID();
 
                     if(!invitation.isAccepted())
                     {
