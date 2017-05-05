@@ -76,14 +76,30 @@ export class EventService {
 
     public getEvent(id: number,  callback: (event: Event) => void, failure: () => void): void
     {
-        const model: Event = this.fetch(id);
-
-        if (model == null){
-            failure();
-            return;
+        if (this.events.length < 1)
+        {
+            // Events array is empty
+            this.getEvents(() => {
+                const model: Event = this.fetch(id);
+                if (model == null)
+                {
+                    failure();
+                    return;
+                }
+                callback(model);
+            } , null);
         }
-
-        callback(model);
+        else
+        {
+            // Events array is NOT empty
+            const model: Event = this.fetch(id);
+            if (model == null)
+            {
+                failure();
+                return;
+            }
+            callback(model);
+        }
     }
 
     public createEvent(model: Event, success: (model: Event) => void, failure: () => void)
