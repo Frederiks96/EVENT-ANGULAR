@@ -12,6 +12,7 @@ const APP_ROUTES: Routes = [
     { path: '', redirectTo: 'signin', pathMatch: 'full' },
     { path: 'signin', component: SignInComponent },
     { path: 'invites', component: InvitesComponent },
+    { path: 'user', component: UserComponent},
 
     { path: 'events',  component: ContainerComponent, children: [
         { path: '',    component: EventsOverviewComponent },
@@ -22,11 +23,7 @@ const APP_ROUTES: Routes = [
             { path: 'invitations', component: EventInvitationsComponent }
         ]}
     ]},
-
-    { path: 'user', component: ContainerComponent, children: [
-        { path: '', component: UserComponent }
-    ]},
-
+    
     { path: '**', redirectTo: 'events' }
 ];
 
