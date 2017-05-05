@@ -53,7 +53,7 @@
                     id="startDate"
                     name="startDate"
                     class="form-group"
-                    [ngModel]="startDate | date:'yyyy-MM-dd HH:mm'"
+                    [ngModel]="startDate | date:'yyyy-MM-ddTHH:mm'"
                     required
                 >
                     <!--(ngModelChange)="startDate = $event"-->
@@ -65,7 +65,7 @@
                     id="endDate"
                     name="endDate"
                     class="form-group"
-                    [ngModel]="endDate  | date:'yyyy-MM-dd HH:mm'"
+                    [ngModel]="endDate | date:'yyyy-MM-ddTHH:mm'"
                     required
                 >
             </div>
@@ -82,7 +82,7 @@
             </div>
             <br>
             <div>
-                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Submit</button>
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Post Event</button>
                 <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
             </div>
         </form>

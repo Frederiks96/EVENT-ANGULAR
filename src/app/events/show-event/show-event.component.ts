@@ -83,9 +83,11 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     public deleteEvent()
     {
-        this.eventService.deleteEvent(this.event.id, () => {
-            this.router.navigate(['/events']);
-        }, null);
+        if(confirm("are you sure you want to delete event?")) {
+            this.eventService.deleteEvent(this.event.id, () => {
+                this.router.navigate(['/events']);
+            }, null);
+        }
     }
 
     private updateState(): void

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -42,7 +42,6 @@ import {ShortStringPipe} from './custom-pipes/short-string.pipe';
     imports: [
         BrowserModule,
         FormsModule,
-        ReactiveFormsModule,
         HttpModule,
         routes
     ],
