@@ -23,7 +23,7 @@ const APP_ROUTES: Routes = [
             { path: 'invitations', component: EventInvitationsComponent }
         ]}
     ]},
-    
+
     { path: '**', redirectTo: 'events' }
 ];
 
