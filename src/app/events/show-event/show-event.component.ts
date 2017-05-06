@@ -17,7 +17,7 @@ import {InvitationService} from '../../services/invitation.service';
 })
 export class ShowEventComponent implements OnInit, OnDestroy {
 
-    event: Event = null;
+    event: Event = new Event(-1, '', '', '', '', 0, 1, true);
     user: User;
     id: number;
     participants: User[] = [];
