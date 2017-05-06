@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import {EventService} from '../../services/event.service';
-import {Event} from '../event/event';
+import { EventService } from '../../services/event.service';
+import { Event } from '../event/event';
 
 
 @Component({

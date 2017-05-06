@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Response }   from '@angular/http';
 
-import {APIService} from './api.service';
-import {Invitation} from '../events/event-invitations/Invitation';
-import {User}       from '../user/user';
+import { APIService } from './api.service';
+import { Invitation } from '../events/event-invitations/Invitation';
+import { User }       from '../user/user';
 
 @Injectable()
 export class InvitationService {

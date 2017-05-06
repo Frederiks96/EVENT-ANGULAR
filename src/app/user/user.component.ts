@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {APIService} from '../services/api.service';
-import {User} from './user';
-import {UserService} from '../services/user.service';
+import { User } from './user';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'es-user',
@@ -17,11 +16,11 @@ export class UserComponent implements OnInit {
     alertTitle = '';
     alertMessage = '';
 
-    constructor(private apiService: APIService, private userService: UserService) {}
+    constructor(private userService: UserService) {}
 
     ngOnInit()
     {
-        const user = this.apiService.getCurrentUser();
+        const user = this.userService.getCurrentUser();
 
         this.user[0] = user.getFirstname();
         this.user[1] = user.getLastname();
@@ -30,7 +29,7 @@ export class UserComponent implements OnInit {
     }
 
     onSubmit() {
-        const newUser = new User(this.apiService.getCurrentUser().getID(), this.user[3], this.user[0], this.user[1], this.user[2]);
+        const newUser = new User(this.userService.getCurrentUser().getID(), this.user[3], this.user[0], this.user[1], this.user[2]);
         this.userService.update(newUser, success => {
             if (success)
             {

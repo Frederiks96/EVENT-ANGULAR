@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { APIService } from '../services/api.service';
+import { UserService } from "../services/user.service";
 
 @Component({
   selector: 'es-header',
@@ -8,15 +8,15 @@ import { APIService } from '../services/api.service';
 })
 export class HeaderComponent {
 
-  constructor(private apiService: APIService) { }
+  constructor(private userService: UserService) { }
 
   isAuthenticated() {
-    return this.apiService.isAuthenticated();
+    return this.userService.isAuthenticated();
   }
 
   public logout()
   {
-      this.apiService.logout();
+      this.userService.logOut();
   }
 
 }

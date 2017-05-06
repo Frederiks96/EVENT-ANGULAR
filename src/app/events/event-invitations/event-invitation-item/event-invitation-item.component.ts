@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Invitation} from '../Invitation';
-import {InvitationService} from '../../../services/invitation.service';
-import {Event} from '../../event/event';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Invitation } from '../Invitation';
+import { InvitationService } from '../../../services/invitation.service';
+import { Event } from '../../event/event';
 
 @Component({
     selector: 'es-event-invitation-item',

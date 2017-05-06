@@ -1,13 +1,13 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Event } from '../event/event';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-import {EventService} from '../../services/event.service';
-import {Subscription} from 'rxjs';
-import {User} from '../../user/user';
-import {APIService} from '../../services/api.service';
-import {Invitation} from '../event-invitations/Invitation';
-import {InvitationService} from '../../services/invitation.service';
+import { EventService } from '../../services/event.service';
+import { Subscription } from 'rxjs';
+import { User } from '../../user/user';
+import { Invitation } from '../event-invitations/Invitation';
+import { InvitationService } from '../../services/invitation.service';
+import { UserService } from "../../services/user.service";
 
 
 @Component({
@@ -29,7 +29,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     invitationID: number = 0;
 
-    constructor(private route: ActivatedRoute, private eventService: EventService, private api: APIService, private invitations: InvitationService, private router: Router) {
+    constructor(private route: ActivatedRoute, private eventService: EventService, private userService: UserService, private invitations: InvitationService, private router: Router) {
     }
 
     ngOnInit() {
@@ -92,7 +92,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     private updateState(): void
     {
-        this.user = this.api.getCurrentUser();
+        this.user = this.userService.getCurrentUser();
 
         /*
          * Get participants of event

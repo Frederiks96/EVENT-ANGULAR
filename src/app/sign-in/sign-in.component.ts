@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { APIService } from '../services/api.service';
+import { UserService } from "../services/user.service";
 
 @Component({
     selector: 'sign-in',
@@ -21,8 +20,8 @@ export class SignInComponent {
         password: ''
     };
 
-    constructor(private router: Router, private apiService: APIService) {
-        if (this.apiService.isAuthenticated()) {
+    constructor(private router: Router, private userService: UserService) {
+        if (this.userService.isAuthenticated()) {
             console.log('User is already authenticated, navigating to events');
             this.router.navigate(['/events']);
         }
@@ -30,7 +29,7 @@ export class SignInComponent {
 
     logIn() {
         this.isBusy = true;
-        this.apiService.authorize(this.user.username, this.user.password, () => {
+        this.userService.authorize(this.user.username, this.user.password, () => {
             this.isBusy = false;
             this.router.navigate(['/events']);
         }, () => {

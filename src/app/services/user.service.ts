@@ -43,5 +43,21 @@ export class UserService {
         });
     }
 
+    getCurrentUser() : User {
+        return this.api.getCurrentUser();
+    }
+
+    isAuthenticated() : boolean {
+        return this.api.isAuthenticated();
+    }
+
+    logOut() {
+        this.api.logout();
+    }
+
+    public authorize(username: string, password: string, success: (response: Response) => void, failure: (error: Response) => void): void{
+        this.api.authorize(username, password, success, failure);
+    }
+
 
 }

@@ -1,8 +1,8 @@
-import {Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Event } from '../event/event';
 import { EventService } from '../../services/event.service';
-import {APIService} from '../../services/api.service';
-import {User} from '../../user/user';
+import { User } from '../../user/user';
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'es-events',
@@ -18,12 +18,12 @@ export class EventsOverviewComponent implements OnInit {
     public pending: Event[] = [];
     public _public: Event[] = [];
 
-    constructor(private eventService: EventService, private apiService: APIService) {
+    constructor(private eventService: EventService, private userService: UserService) {
     }
 
     ngOnInit() {
 
-        this.user = this.apiService.getCurrentUser();
+        this.user = this.userService.getCurrentUser();
 
         this.eventService.getEvents((events: Event[]) => {
 

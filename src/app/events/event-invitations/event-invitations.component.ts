@@ -1,13 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Params}    from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Event } from '../event/event';
 import { User }  from '../../user/user';
 import { UserService } from '../../services/user.service';
-import {Invitation} from './Invitation';
-import {EventService} from '../../services/event.service';
-import {APIService} from '../../services/api.service';
-import {isNumber} from 'util';
+import { Invitation } from './Invitation';
+import { EventService } from '../../services/event.service';
 
 @Component({
     selector: 'es-event-invitations',
@@ -24,7 +22,7 @@ export class EventInvitationsComponent implements OnInit {
     pending : Invitation[] = [];
     accepted: Invitation[] = [];
 
-    constructor(private route: ActivatedRoute, private events: EventService, private users: UserService, private api: APIService) { }
+    constructor(private route: ActivatedRoute, private events: EventService, private users: UserService) { }
 
     ngOnInit()
     {
@@ -101,7 +99,7 @@ export class EventInvitationsComponent implements OnInit {
 
         this.users.search(criteria, (results: User[]) => {
 
-            const user: User = this.api.getCurrentUser();
+            const user: User = this.users.getCurrentUser();
             const invitedUserIDs: number[] = [];
 
             for (let index = 0; index < this.event.invitations.length; index++)

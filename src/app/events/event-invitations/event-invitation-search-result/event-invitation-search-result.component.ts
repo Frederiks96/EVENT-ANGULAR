@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import {InvitationService} from '../../../services/invitation.service';
-import {Invitation} from '../Invitation';
-import {Event} from '../../event/event';
-import {User} from '../../../user/user';
+import { InvitationService } from '../../../services/invitation.service';
+import { Invitation } from '../Invitation';
+import { Event } from '../../event/event';
+import { User } from '../../../user/user';
 
 @Component({
   selector: 'es-event-invitation-search-result',

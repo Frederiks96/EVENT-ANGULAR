@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Response } from '@angular/http';
 
 import { APIService } from './api.service';
 import { Event }      from '../events/event/event';
-import {Invitation} from '../events/event-invitations/Invitation';
-import {User} from '../user/user';
+import { Invitation } from '../events/event-invitations/Invitation';
+import { User } from '../user/user';
 
 @Injectable()
 export class EventService {

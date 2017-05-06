@@ -1,8 +1,8 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Event } from './event';
 import { InvitationService } from '../../services/invitation.service';
-import { APIService } from '../../services/api.service';
 import { Invitation } from '../event-invitations/Invitation';
+import { UserService } from "../../services/user.service";
 
 @Component({
     selector: 'es-event-thumbnail',
@@ -15,9 +15,9 @@ export class EventThumbnailComponent implements OnInit {
     @Input() isGoing: boolean = false;
     @Output() statusUpdated = new EventEmitter<Event>();
     invitation: Invitation;
-    user = this.apiService.getCurrentUser();
+    user = this.userService.getCurrentUser();
 
-    constructor(private invitationService: InvitationService, private apiService: APIService) { }
+    constructor(private invitationService: InvitationService, private userService: UserService) { }
 
     ngOnInit() {
         if (this.isOrganizer()) {
