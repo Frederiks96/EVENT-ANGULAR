@@ -23,7 +23,7 @@ export class EventInvitationSearchResultComponent {
 
     public invite()
     {
-        this.invitations.create(this.event.id, this.user, (invitation: Invitation) => {
+        let success = (invitation: Invitation) => {
 
             this.event.invitations.push(invitation);
 
@@ -32,11 +32,13 @@ export class EventInvitationSearchResultComponent {
 
             console.info('Created invitation');
 
-        }, () => {
+        };
 
+        let error = () => {
             console.error('Could\'t create invitation for user: ' + this.user.getID());
+        };
 
-        });
+        this.invitations.create(this.event.id, this.user, success, error);
     }
 
 }
