@@ -25,15 +25,11 @@ export class InvitesComponent implements OnInit {
 
         if (going)
         {
-            this.invitationService.accept(invitation.getEventID(), invitation.getInvitationID(), () => {
-                this.fetchInvitations();
-            }, this.logError);
+            this.invitationService.accept(invitation.getEventID(), invitation.getInvitationID(), this.fetchInvitations, this.logError);
         }
         else
         {
-            this.invitationService.decline(invitation.getEventID(), invitation.getInvitationID(), () => {
-                this.fetchInvitations();
-            }, this.logError);
+            this.invitationService.decline(invitation.getEventID(), invitation.getInvitationID(), this.fetchInvitations, this.logError);
         }
     }
 
