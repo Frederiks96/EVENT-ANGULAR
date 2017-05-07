@@ -7,3 +7,15 @@
     color: black;
 }
 
+.header-link {
+    padding: 10px 30px 10px 30px;
+}
+.log-out {
+    cursor: pointer;
+}
+
+#logo {
+    height: 100%;
+    font-size: 30px;
+}
+

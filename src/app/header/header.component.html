@@ -1,24 +1,22 @@
 <span class="pull-left" id="logo" >
-    <a [routerLink]="['/events']" id="home-link">
-        Awesome events
-    </a>
+    <a [routerLink]="['/events']" id="home-link">Awesome Events</a>
 </span>
 
 <ul class="nav nav-pills pull-right" *ngIf="isAuthenticated()">
     <li role="presentation" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <a [routerLink]="['/events']" style="padding: 10px 30px 10px 30px;">
+        <a [routerLink]="['/events']"class="header-link">
             Events
         </a>
     </li>
     <li role="presentation" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <a [routerLink]="['/events','add']" style="padding: 10px 30px 10px 30px;">
+        <a [routerLink]="['/events','add']" class="header-link">
             Add Event
         </a>
     </li>
     <li role="presentation" routerLinkActive="active">
-        <a [routerLink]="['/invites']" style="padding: 10px 30px 10px 30px;">
+        <a [routerLink]="['/invites']" class="header-link">
             Invites
         </a>
     </li>
@@ -27,8 +25,9 @@
         <ul class="dropdown-menu">
             <li><a [routerLink]="['/user']">Profile</a></li>
             <li role="separator" class="divider"></li>
-            <li><a style="cursor: pointer" (click)="logout()">Logout</a></li>
+            <li><a class="log-out" (click)="logout()">Log out</a></li>
         </ul>
     </li>
 </ul>
+
 

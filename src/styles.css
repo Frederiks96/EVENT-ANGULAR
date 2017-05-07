@@ -3,8 +3,8 @@
 
 header {
     width: 100%;
-    background: #EFEFEF;
-    border-bottom: 1px solid #CCC;
+    background: #d5dae6;
+    border-bottom: 1px solid #a4a9b5;
     margin-bottom: 20px;
     padding: 10px;
 }
@@ -13,11 +13,4 @@ header:after {
     clear: both;
     content: '';
     display: table;
-}
-
-
-#logo {
-    height: 100%;
-    font-size: 28px;
-    font-weight: bold;
 }
