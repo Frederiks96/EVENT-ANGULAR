@@ -40,6 +40,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
             this.updateState();
         }, () => {
+            this.router.navigate(['/events']);
             console.error('Couldn\'t fetch event with ID: ' + this.id);
         });
 
@@ -83,7 +84,7 @@ export class ShowEventComponent implements OnInit, OnDestroy {
 
     public deleteEvent()
     {
-        if(confirm("are you sure you want to delete event?")) {
+        if(confirm('are you sure you want to delete event?')) {
             this.eventService.deleteEvent(this.event.id, () => {
                 this.router.navigate(['/events']);
             }, null);
