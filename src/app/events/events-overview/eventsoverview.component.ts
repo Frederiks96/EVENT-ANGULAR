@@ -30,7 +30,7 @@ export class EventsOverviewComponent implements OnInit {
             this.events = events;
             this.loadContent();
 
-        }, null);
+        }, () => {console.error('Failed to fetch events')});
     }
 
     public loadContent() {
