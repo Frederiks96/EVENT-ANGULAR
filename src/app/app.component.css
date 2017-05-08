@@ -1,3 +1,18 @@
 .air {
     padding-bottom: 64px
 }
+
+.header {
+    width: 100%;
+    background: #d5dae6;
+    border-bottom: 1px solid #a4a9b5;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.header:after {
+    clear: both;
+    content: '';
+    display: table;
+}
+
